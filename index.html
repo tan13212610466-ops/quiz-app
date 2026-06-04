@@ -214,6 +214,66 @@ let selectedOptions = [];
 function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function shuffle(a) { const r=[...a]; for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];} return r; }
 
+// ===== 中文数字转换 =====
+var CNUM = ['〇','一','二','三','四','五','六','七','八','九','十'];
+function toChineseNum(n) {
+  if (n < 0 || n > 999) return String(n);
+  if (n <= 10) return CNUM[n];
+  if (n < 20) return '十' + (n > 10 ? CNUM[n % 10] : '');
+  var s = '';
+  if (n >= 100) { s += CNUM[Math.floor(n / 100)] + '百'; n %= 100; if (n < 10 && n > 0) s += '零'; }
+  if (n >= 10) { s += CNUM[Math.floor(n / 10)] + '十'; n %= 10; }
+  if (n > 0) { s += CNUM[n]; } else if (s.length > 0 && s.slice(-1) === '十' && n === 0) { /* keep */ }
+  return s;
+}
+
+// ===== 进度存取 =====
+function savePracticeProgress(username, subjectId, index, total) {
+  if (!username) return;
+  var completed = index >= total;
+  localStorage.setItem('quiz_progress_' + username + '_' + subjectId, JSON.stringify({
+    index: completed ? 0 : index,
+    completed: completed,
+    total: total
+  }));
+}
+function loadPracticeProgress(username, subjectId) {
+  if (!username) return null;
+  try { return JSON.parse(localStorage.getItem('quiz_progress_' + username + '_' + subjectId)); } catch(e) {}
+  return null;
+}
+function clearPracticeProgress(username, subjectId) {
+  if (!username) return;
+  localStorage.removeItem('quiz_progress_' + username + '_' + subjectId);
+}
+
+// ===== 错题存取 =====
+function getWrongQuestions(username, subjectId) {
+  if (!username) return [];
+  try { return JSON.parse(localStorage.getItem('quiz_wrong_' + username + '_' + subjectId) || '[]'); } catch(e) {}
+  return [];
+}
+function saveWrongQuestions(username, subjectId, questions) {
+  if (!username) return;
+  localStorage.setItem('quiz_wrong_' + username + '_' + subjectId, JSON.stringify(questions));
+}
+function addWrongQuestion(username, subjectId, q) {
+  var wrongs = getWrongQuestions(username, subjectId);
+  if (!wrongs.some(function(w) { return w.id === q.id && w.subject === q.subject; })) {
+    wrongs.push(JSON.parse(JSON.stringify(q)));
+    saveWrongQuestions(username, subjectId, wrongs);
+  }
+}
+function getWrongProgress(username, subjectId) {
+  if (!username) return null;
+  try { return JSON.parse(localStorage.getItem('quiz_wrong_progress_' + username + '_' + subjectId)); } catch(e) {}
+  return null;
+}
+function saveWrongProgress(username, subjectId, index, total) {
+  if (!username) return;
+  localStorage.setItem('quiz_wrong_progress_' + username + '_' + subjectId, JSON.stringify({ index: index, total: total }));
+}
+
 // ===== 预设账号 =====
 const PRESET_USERS = {
   admin: { password: 'admin123', role: 'admin' },
@@ -316,9 +376,13 @@ function showHome() {
     '<main class="home-main">' +
     '<div class="welcome-section"><h2>欢迎回来，<span class="welcome-name">' + esc(currentUser) + '</span></h2><p>选择科目开始刷题练习</p></div>' +
     '<div class="subject-grid">' +
-    subjects.map(function(s) { return '<div class="subject-card" style="--card-color:' + s.color + '" onclick="startPractice(\'' + s.id + '\')">' +
+    subjects.map(function(s) { return '<div class="subject-card" style="--card-color:' + s.color + '">' +
       '<div class="card-icon">' + s.icon + '</div>' +
-      '<div class="card-info"><div class="card-name">' + s.name + '</div><div class="card-count">' + s.count + ' 题</div></div>' +
+      '<div class="card-info"><div class="card-name">' + s.name + '</div><div class="card-count">' + s.count + ' 题</div>' +
+      '<div style="display:flex;gap:8px;margin-top:8px">' +
+      '<button onclick="event.stopPropagation();startPractice(\'' + s.id + '\')" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:var(--primary-light);color:var(--primary);cursor:pointer">开始刷题</button>' +
+      '<button onclick="event.stopPropagation();showWrongBook(\'' + s.id + '\',\'' + s.name + '\')" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:#fef2f2;color:#dc2626;cursor:pointer">❌ 错题本</button>' +
+      '</div></div>' +
       '<div class="card-arrow">→</div></div>'; }).join('') +
     '<div class="subject-card card-coming" style="--card-color:#94a3b8"><div class="card-icon">📝</div><div class="card-info"><div class="card-name">历年真题</div><div class="card-count">即将上线</div></div></div>' +
     '<div class="subject-card card-coming" style="--card-color:#94a3b8"><div class="card-icon">🎯</div><div class="card-info"><div class="card-name">模拟考试</div><div class="card-count">即将上线</div></div></div>' +
@@ -335,8 +399,20 @@ function startPractice(subjectId) {
   else if (subjectId === 'wh') questions = questions_wh;
   else if (subjectId === 'll') questions = questions_ll;
   if (!questions) return;
-  practiceQuestions = shuffle(questions);
-  currentIndex = 0; correctCount = 0; wrongCount = 0; answered = false;
+  // Check if user completed this subject before - reshuffle
+  var prog = loadPracticeProgress(currentUser, subjectId);
+  if (prog && prog.completed) {
+    practiceQuestions = shuffle(questions);
+    currentIndex = 0;
+    clearPracticeProgress(currentUser, subjectId);
+  } else if (prog && prog.index > 0) {
+    practiceQuestions = shuffle(questions);
+    currentIndex = Math.min(prog.index, questions.length - 1);
+  } else {
+    practiceQuestions = shuffle(questions);
+    currentIndex = 0;
+  }
+  correctCount = 0; wrongCount = 0; answered = false;
   showPracticePage(name);
   showQuestion();
 }
@@ -387,7 +463,7 @@ function showQuestion() {
   document.getElementById('nextBtn').style.display = 'block';
   document.getElementById('nextBtn').textContent = '下一题 →';
 
-  document.getElementById('qMeta').textContent = '第 ' + (currentIndex+1) + ' 题 | ' + (q.chapter || '');
+  document.getElementById('qMeta').textContent = '第' + toChineseNum(currentIndex+1) + '题 | ' + (q.chapter || '');
   var typeMap = {'单选':'单选题','多选':'多选题','填空':'填空题','名词解释':'名词解释','改错':'改错题'};
   document.getElementById('qTypeBadge').textContent = typeMap[q.type] || q.type;
   document.getElementById('qText').textContent = q.question || q.content || '';
@@ -422,6 +498,7 @@ function selectOption(el, key) {
   if (key === q.answer) { el.classList.add('correct'); correctCount++; }
   else {
     el.classList.add('wrong'); wrongCount++;
+    addWrongQuestion(currentUser, currentSubject, q);
     all.forEach(function(o) {
       if (o.textContent.trim().startsWith(q.answer)) o.classList.add('correct');
     });
@@ -450,7 +527,7 @@ function submitMulti() {
   answered = true;
   document.getElementById('showAnsBtn').style.display = 'none';
   if (userAns === correctAns) { correctCount++; showAnswerResult(true, q.answer); }
-  else { wrongCount++; showAnswerResult(false, q.answer); }
+  else { wrongCount++; showAnswerResult(false, q.answer); addWrongQuestion(currentUser, currentSubject, q); }
   document.getElementById('correctCount').textContent = correctCount;
   document.getElementById('wrongCount').textContent = wrongCount;
   showExplanation();
@@ -471,7 +548,7 @@ function submitFreeAnswer() {
 
 function selfEval(isCorrect) {
   if (isCorrect) correctCount++;
-  else wrongCount++;
+  else { wrongCount++; addWrongQuestion(currentUser, currentSubject, practiceQuestions[currentIndex]); }
   document.getElementById('correctCount').textContent = correctCount;
   document.getElementById('wrongCount').textContent = wrongCount;
   showExplanation();
@@ -495,21 +572,30 @@ function showAnswer() {
   if (answered) return;
   document.getElementById('showAnsBtn').style.display = 'none';
   var q = practiceQuestions[currentIndex];
+  wrongCount++;
+  addWrongQuestion(currentUser, currentSubject, q);
+  document.getElementById('wrongCount').textContent = wrongCount;
   showAnswerResult(null, q.answer);
   showExplanation();
 }
 
 function nextQuestion() {
   if (!answered) { wrongCount++; }
-  currentIndex++; showQuestion();
+  currentIndex++; 
+  savePracticeProgress(currentUser, currentSubject, currentIndex, practiceQuestions.length);
+  showQuestion();
 }
 
 function prevQuestion() {
-  if (currentIndex > 0) { currentIndex--; answered = false; showQuestion(); }
+  if (currentIndex > 0) { currentIndex--; answered = false; 
+    savePracticeProgress(currentUser, currentSubject, currentIndex, practiceQuestions.length);
+    showQuestion(); 
+  }
 }
 
 function finishPractice() {
   var total = practiceQuestions.length;
+  savePracticeProgress(currentUser, currentSubject, total, total);
   document.getElementById('progressText').textContent = total + '/' + total;
   document.getElementById('progressBar').style.width = '100%';
   document.getElementById('nextBtn').style.display = 'none';
@@ -524,6 +610,142 @@ function finishPractice() {
 }
 
 function restartPractice() { if (currentSubject) startPractice(currentSubject); }
+
+// ===== 错题本 =====
+var wrongQuestions = [];
+var wrongCurrentIndex = 0;
+var wrongSubjectId = '';
+var wrongSubjectName = '';
+
+function showWrongBook(subjectId, subjectName) {
+  wrongSubjectId = subjectId;
+  wrongSubjectName = subjectName;
+  var wrongs = getWrongQuestions(currentUser, subjectId);
+  
+  var app = document.getElementById('appPage');
+  app.innerHTML = '<div class="app-layout">' +
+    '<header class="app-header"><div class="header-left"><button onclick="showHome()" class="btn-back">← 返回</button><span class="header-title">错题本 - ' + esc(subjectName) + '</span></div>' +
+    '<div class="header-right"><span class="header-user">👤 ' + esc(currentUser) + '</span></div></header>' +
+    '<main class="practice-main">' +
+    '<div class="finish-card" style="text-align:center;padding:40px 20px"><div class="finish-icon">📕</div>' +
+    '<div class="finish-title" style="font-size:20px;margin-bottom:8px">' + esc(subjectName) + ' 错题本</div>' +
+    '<p style="font-size:14px;color:var(--text-light);margin-bottom:20px">共收录 <strong style="color:var(--danger)">' + wrongs.length + '</strong> 道错题</p>' +
+    (wrongs.length > 0 ? '<button onclick="startWrongPractice()" class="btn-primary2" style="margin-bottom:12px">📖 开始复习错题</button>' : '<p style="font-size:13px;color:var(--text-light)">暂无错题记录，继续刷题吧！</p>') +
+    '<div style="margin-top:12px"><button onclick="showHome()" class="btn-primary2" style="background:var(--text-light)">← 返回首页</button></div></div>' +
+    '</main></div>';
+}
+
+function startWrongPractice() {
+  var wrongs = getWrongQuestions(currentUser, wrongSubjectId);
+  if (!wrongs || wrongs.length === 0) { showWrongBook(wrongSubjectId, wrongSubjectName); return; }
+  
+  // Check if user previously completed reviewing all wrong questions
+  var wp = getWrongProgress(currentUser, wrongSubjectId);
+  var wc = JSON.parse(localStorage.getItem('quiz_wrong_completed_' + currentUser + '_' + wrongSubjectId) || '{}');
+  if (wc && wc.completed) {
+    wrongQuestions = shuffle(wrongs);
+    wrongCurrentIndex = 0;
+    saveWrongProgress(currentUser, wrongSubjectId, 0, wrongQuestions.length);
+  } else if (wp && wp.index > 0) {
+    wrongQuestions = shuffle(wrongs);
+    wrongCurrentIndex = Math.min(wp.index, wrongQuestions.length - 1);
+  } else {
+    wrongQuestions = shuffle(wrongs);
+    wrongCurrentIndex = 0;
+  }
+  
+  showWrongPage();
+  showWrongQuestion();
+}
+
+function showWrongPage() {
+  var app = document.getElementById('appPage');
+  app.innerHTML = '<div class="app-layout">' +
+    '<header class="app-header"><div class="header-left"><button onclick="showWrongBook(wrongSubjectId,wrongSubjectName)" class="btn-back">← 错题本</button><span class="header-title">错题复习 - ' + esc(wrongSubjectName) + '</span></div>' +
+    '<div class="header-right"><span class="progress-text" id="wrongProgressText">0/0</span></div></header>' +
+    '<main class="practice-main">' +
+    '<div class="progress-bar-container"><div class="progress-bar" id="wrongProgressBar"></div></div>' +
+    '<div class="question-card" id="wrongQuestionCard">' +
+    '<div class="q-meta" id="wrongQMeta"></div>' +
+    '<div class="q-type-badge" id="wrongQTypeBadge"></div>' +
+    '<div class="q-text" id="wrongQText"></div>' +
+    '<div class="q-options" id="wrongQOptions"></div>' +
+    '<div class="q-result" id="wrongQResult"></div>' +
+    '<div class="q-explanation" id="wrongQExplanation"></div></div>' +
+    '<div class="nav-buttons">' +
+    '<button onclick="prevWrongQuestion()" class="btn-nav" id="wrongPrevBtn">← 上一题</button>' +
+    '<button onclick="nextWrongQuestion()" class="btn-nav btn-next" id="wrongNextBtn">下一题 →</button></div>' +
+    '<div class="end-actions" id="wrongEndActions" style="display:none">' +
+    '<button onclick="showWrongBook(wrongSubjectId,wrongSubjectName)" class="btn-primary2">← 返回错题本</button>' +
+    '<button onclick="restartWrongPractice()" class="btn-primary2 btn-restart">🔄 重新复习</button></div>' +
+    '</main></div>';
+}
+
+function showWrongQuestion() {
+  if (wrongCurrentIndex >= wrongQuestions.length) { finishWrongPractice(); return; }
+  var q = wrongQuestions[wrongCurrentIndex];
+  var total = wrongQuestions.length;
+  document.getElementById('wrongProgressText').textContent = (wrongCurrentIndex+1) + '/' + total;
+  document.getElementById('wrongProgressBar').style.width = ((wrongCurrentIndex / total) * 100) + '%';
+  document.getElementById('wrongPrevBtn').style.display = wrongCurrentIndex > 0 ? 'block' : 'none';
+  document.getElementById('wrongNextBtn').style.display = 'block';
+  document.getElementById('wrongNextBtn').textContent = '下一题 →';
+  document.getElementById('wrongEndActions').style.display = 'none';
+  
+  document.getElementById('wrongQMeta').textContent = '第' + toChineseNum(wrongCurrentIndex+1) + '题 | ' + (q.chapter || '');
+  var typeMap = {'单选':'单选题','多选':'多选题','填空':'填空题','名词解释':'名词解释','改错':'改错题'};
+  document.getElementById('wrongQTypeBadge').textContent = typeMap[q.type] || q.type;
+  document.getElementById('wrongQText').textContent = q.question || q.content || '';
+  
+  var optsDiv = document.getElementById('wrongQOptions');
+  optsDiv.innerHTML = '';
+  if (q.options && typeof q.options === 'object') {
+    var keys = Object.keys(q.options);
+    optsDiv.innerHTML = keys.map(function(k) {
+      return '<div class="option-item" style="cursor:default;background:var(--bg)"><span class="option-key">' + k + '</span><span class="option-text">' + esc(q.options[k]) + '</span></div>';
+    }).join('');
+  }
+  
+  document.getElementById('wrongQResult').innerHTML = '<div class="result-header" style="color:var(--primary)">✅ 正确答案：' + esc(q.answer) + '</div>';
+  
+  document.getElementById('wrongQExplanation').innerHTML = 
+    '<div class="explanation-title">💡 解析</div><div class="explanation-text">' + esc(q.explanation || '暂无解析') + '</div><div class="explanation-source">📌 出处：' + esc(q.source || '') + '</div>';
+}
+
+function nextWrongQuestion() {
+  wrongCurrentIndex++;
+  saveWrongProgress(currentUser, wrongSubjectId, wrongCurrentIndex, wrongQuestions.length);
+  showWrongQuestion();
+}
+
+function prevWrongQuestion() {
+  if (wrongCurrentIndex > 0) { 
+    wrongCurrentIndex--; 
+    saveWrongProgress(currentUser, wrongSubjectId, wrongCurrentIndex, wrongQuestions.length);
+    showWrongQuestion(); 
+  }
+}
+
+function finishWrongPractice() {
+  var total = wrongQuestions.length;
+  // Mark as completed so next time reshuffles
+  saveWrongProgress(currentUser, wrongSubjectId, 0, total);
+  // Store a separate flag for completed review
+  localStorage.setItem('quiz_wrong_completed_' + currentUser + '_' + wrongSubjectId, JSON.stringify({ completed: true }));
+  
+  document.getElementById('wrongProgressText').textContent = total + '/' + total;
+  document.getElementById('wrongProgressBar').style.width = '100%';
+  document.getElementById('wrongNextBtn').style.display = 'none';
+  document.getElementById('wrongEndActions').style.display = 'flex';
+  document.getElementById('wrongQuestionCard').innerHTML = '<div class="finish-card"><div class="finish-icon">🎉</div><div class="finish-title">错题复习完成！</div><p style="font-size:14px;color:var(--text-light);margin-top:8px">共复习 <strong>' + total + '</strong> 道错题</p></div>';
+}
+
+function restartWrongPractice() {
+  // Clear completed flag so it reshuffles
+  localStorage.removeItem('quiz_wrong_completed_' + currentUser + '_' + wrongSubjectId);
+  saveWrongProgress(currentUser, wrongSubjectId, 0, 0);
+  startWrongPractice();
+}
 
 function logout() {
   sessionStorage.removeItem('quiz_session');
