@@ -7,10 +7,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--primary:#2563eb;--primary-light:#eff6ff;--primary-dark:#1d4ed8;--bg:#f0f4f8;--card:#fff;--text:#1e293b;--text-light:#64748b;--border:#e2e8f0;--success:#16a34a;--danger:#dc2626;--radius:12px;--shadow:0 4px 24px rgba(0,0,0,.08)}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center}
 
 /* Login Page */
-.login-page{width:100%;max-width:400px;padding:20px;display:flex;align-items:center;justify-content:center;min-height:100vh}
+.login-page{width:100%;max-width:400px;padding:20px}
 .login-card{background:var(--card);border-radius:var(--radius);padding:40px 32px;box-shadow:var(--shadow)}
 .login-card h1{font-size:22px;text-align:center;margin-bottom:6px;color:var(--primary)}
 .login-card .subtitle{text-align:center;font-size:13px;color:var(--text-light);margin-bottom:28px}
@@ -34,7 +34,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 .register-form{display:none}
 
 /* ===== App Layout ===== */
-.app-layout{display:flex;flex-direction:column;background:var(--bg)}
+.app-layout{display:flex;flex-direction:column;min-height:100vh;background:var(--bg)}
 .app-header{background:var(--card);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
 .header-left{display:flex;align-items:center;gap:12px}
 .header-icon{font-size:22px}
@@ -45,30 +45,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 .btn-back{padding:6px 12px;font-size:13px;border:none;border-radius:6px;background:var(--primary-light);color:var(--primary);cursor:pointer}
 
 /* ===== Home Page ===== */
-.home-main{padding:12px 20px;max-width:800px;margin:0 auto;width:100%}
-.welcome-section{margin-bottom:8px}
-.welcome-section h2{font-size:20px;font-weight:700;margin-bottom:2px}
+.home-main{flex:1;padding:24px 20px;max-width:800px;margin:0 auto;width:100%}
+.welcome-section{margin-bottom:28px}
+.welcome-section h2{font-size:22px;font-weight:700;margin-bottom:4px}
 .welcome-name{color:var(--primary)}
 .welcome-section p{font-size:14px;color:var(--text-light)}
-.subject-grid{display:grid;grid-template-columns:1fr;gap:6px}
-.subject-card{background:var(--card);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,box-shadow .15s;border-left:4px solid var(--card-color)}
+.subject-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.subject-card{background:var(--card);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,box-shadow .15s;border-left:4px solid var(--card-color)}
 .subject-card:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,0,0,.12)}
-.card-icon{font-size:28px;width:40px;text-align:center}
+.card-icon{font-size:32px;width:48px;text-align:center}
 .card-info{flex:1}
-.card-name{font-size:15px;font-weight:600;margin-bottom:1px}
+.card-name{font-size:16px;font-weight:600;margin-bottom:2px}
 .card-count{font-size:13px;color:var(--text-light)}
+.card-arrow{font-size:20px;color:var(--text-light)}
 .card-coming{opacity:.7;cursor:default}
 
 /* ===== Practice Page ===== */
-.practice-main{padding:8px 20px;max-width:720px;margin:0 auto;width:100%}
-.progress-bar-container{height:4px;background:var(--border);border-radius:2px;margin-bottom:6px;overflow:hidden}
+.practice-main{flex:1;padding:16px 20px;max-width:720px;margin:0 auto;width:100%}
+.progress-bar-container{height:4px;background:var(--border);border-radius:2px;margin-bottom:12px;overflow:hidden}
 .progress-bar{height:100%;background:var(--primary);border-radius:2px;transition:width .3s}
-.stats-row{display:flex;gap:12px;margin-bottom:6px;font-size:13px}
+.stats-row{display:flex;gap:16px;margin-bottom:12px;font-size:13px}
 .stat{font-size:13px}
-.question-card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:10px}
+.question-card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
 .q-meta{font-size:12px;color:var(--text-light);margin-bottom:6px}
 .q-type-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:var(--primary-light);color:var(--primary);margin-bottom:14px}
-.q-text{font-size:16px;line-height:1.6;margin-bottom:14px;font-weight:500}
+.q-text{font-size:16px;line-height:1.7;margin-bottom:20px;font-weight:500}
 .q-options{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
 .option-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s}
 .option-item:hover{border-color:var(--primary);background:var(--primary-light)}
@@ -116,52 +117,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 
 /* ===== Mobile ===== */
 @media(max-width:600px){
-  .login-card{padding:24px 16px}
-  .login-card h1{font-size:18px}
-  .app-header{padding:8px 14px}
-  .header-title{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
-  .header-user{font-size:12px}
-  .home-main{padding:8px 14px}
-  .welcome-section{margin-bottom:6px}
-  .welcome-section h2{font-size:17px}
-  .welcome-section p{font-size:12px}
-  .practice-main{padding:6px 14px}
-  .question-card{padding:14px}
-  .q-text{font-size:15px;word-break:break-word}
-  .subject-card{padding:10px 12px;gap:8px}
-  .subject-card .card-icon{font-size:24px;width:36px}
-  .subject-card .card-name{font-size:14px}
-  .subject-card .card-count{font-size:12px}
-  .subject-card .card-info button{font-size:11px!important;padding:4px 10px!important;white-space:nowrap}
-  .finish-stats{gap:12px}
-  .finish-num{font-size:22px}
-  .finish-icon{font-size:36px}
-  .finish-title{font-size:17px}
-  .option-item{padding:8px 10px}
-  .option-text{font-size:13px}
-  .option-key{font-size:13px;min-width:20px}
-  .nav-buttons{gap:4px}
-  .btn-nav{padding:8px;font-size:12px}
-  .stats-row{font-size:12px;gap:8px}
-  .q-meta{font-size:11px}
-  .q-type-badge{font-size:10px;padding:2px 8px}
-  .q-explanation{padding:10px}
-  .explanation-text{font-size:13px}
-  .btn-primary2{padding:8px 16px;font-size:12px}
-  .end-actions{gap:6px;flex-wrap:wrap}
-  .end-actions .btn-primary2{flex:1;min-width:100px}
-}
-@media(max-width:380px){
-  .login-card{padding:16px 12px}
-  .login-card h1{font-size:16px}
-  .subject-card{padding:8px 10px;gap:6px}
-  .subject-card .card-icon{font-size:20px;width:28px}
-  .subject-card .card-info button{font-size:10px!important;padding:3px 8px!important}
-  .header-title{max-width:120px;font-size:13px}
-  .home-main{padding:6px 10px}
-  .practice-main{padding:4px 10px}
-  .q-text{font-size:14px}
-  .btn-nav{padding:6px;font-size:11px}
+  .app-header{padding:10px 14px}
+  .home-main{padding:16px 14px}
+  .practice-main{padding:12px 14px}
+  .question-card{padding:16px}
+  .q-text{font-size:15px}
+  .subject-card{padding:16px}
+  .finish-stats{gap:16px}
+  .finish-num{font-size:24px}
 }
 </style>
 </head>
@@ -222,40 +185,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 <div class="app-page" id="appPage" style="display:none"></div>
 
 <script>
-// ===== 全局错误捕获（调试用）=====
-window.onerror = function(msg, url, line, col, error) {
-  var errDiv = document.getElementById('debugErrorDisplay') || (function(){
-    var d = document.createElement('div');
-    d.id = 'debugErrorDisplay';
-    d.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:red;color:white;padding:10px;font-size:12px;z-index:99999;font-family:monospace;white-space:pre-wrap;max-height:200px;overflow:auto';
-    document.body.appendChild(d);
-    return d;
-  })();
-  var errMsg = '🚨 ' + (msg || 'unknown') + ' | line:' + line + ' | col:' + col;
-  errDiv.innerHTML += '\n' + errMsg;
-  console.error('CAPTURED:', msg, line, col);
-  return false;
-};
+// ===== 题库数据 =====
+const questions_xh = [{"id": 1, "subject": "现代汉语", "chapter": "绪论", "type": "填空", "question": "现代汉民族共同语又叫____，它是以____为标准音，以____为基础方言，以典范的现代白话文著作为语法规范。", "options": null, "answer": "普通话、北京语音、北方话", "source": "现代汉语考试指南-绪论", "explanation": "1955年确定把现代汉语共同语称为普通话，其三项标准为：以北京语音为标准音，以北方话为基础方言，以典范的现代白话文著作为语法规范。"}, {"id": 2, "subject": "现代汉语", "chapter": "绪论", "type": "填空", "question": "现代汉语方言大致可以分为七大方言区，即北方方言、吴方言、湘方言、____、客家方言、____和粤方言。", "options": null, "answer": "赣方言、闽方言", "source": "现代汉语考试指南-绪论", "explanation": "现代汉语七大方言区包括：北方方言、吴方言、湘方言、赣方言、客家方言、闽方言和粤方言。"}, {"id": 3, "subject": "现代汉语", "chapter": "绪论", "type": "单选", "question": "在七大方言中，分布地域最广、使用人口最多的方言是____。", "options": {"A": "吴方言", "B": "北方方言", "C": "粤方言", "D": "闽方言"}, "answer": "B", "source": "现代汉语考试指南-绪论", "explanation": "北方方言（官话方言）分布地域最广，使用人口约占汉民族总人口的73%。"}, {"id": 4, "subject": "现代汉语", "chapter": "语音", "type": "单选", "question": "普通话在语音方面主要有以下哪个特点？", "options": {"A": "有复辅音", "B": "辅音占优势", "C": "没有复辅音", "D": "没有声调"}, "answer": "C", "source": "现代汉语考试指南-语音", "explanation": "普通话语音有三个特点：没有复辅音、元音占优势、有声调。复辅音是印欧语系语言常见的现象，普通话中没有。"}, {"id": 5, "subject": "现代汉语", "chapter": "语音", "type": "单选", "question": "语音四要素中，区别意义的最重要手段是____。", "options": {"A": "音高", "B": "音强", "C": "音长", "D": "音质"}, "answer": "D", "source": "现代汉语考试指南-语音", "explanation": "音质（音色）是一个音区别于其他音最根本的特征，在区别意义中起着最为重要的作用。汉语声调主要运用音高变化来区别意义，但就语音四要素而言，音质最重要。"}, {"id": 6, "subject": "现代汉语", "chapter": "语音", "type": "单选", "question": "发音体振动的快慢决定声音的____。", "options": {"A": "音强", "B": "音高", "C": "音长", "D": "音质"}, "answer": "B", "source": "现代汉语考试指南-语音", "explanation": "音高指声音的高低，取决于发音体振动的快慢。振动快则音高高，振动慢则音高低。"}, {"id": 7, "subject": "现代汉语", "chapter": "语音", "type": "填空", "question": "音素可以分为____和____两大类。", "options": null, "answer": "元音、辅音", "source": "现代汉语考试指南-语音", "explanation": "音素可以分为元音（母音）和辅音（子音）两大类。元音气流振动声带，在口腔、咽头不受阻碍；辅音气流在口腔或咽头受阻碍。"}, {"id": 8, "subject": "现代汉语", "chapter": "语音", "type": "单选", "question": "元音和辅音最主要的区别在于____。", "options": {"A": "声带是否振动", "B": "气流是否受到阻碍", "C": "气流强弱", "D": "发音部位紧张状态是否均衡"}, "answer": "B", "source": "现代汉语考试指南-语音", "explanation": "气流是否受到阻碍是两者最主要的区别：发元音时，气流经过咽腔、口腔不受阻碍；发辅音时，发音器官的某一部位形成阻碍，气流必须克服这种阻碍才能通过。"}, {"id": 9, "subject": "现代汉语", "chapter": "语音", "type": "单选", "question": "普通话共有____个辅音。", "options": {"A": "20个", "B": "21个", "C": "22个", "D": "23个"}, "answer": "C", "source": "现代汉语考试指南-语音", "explanation": "普通话中共有22个辅音，其中21个可以充当声母（除ng外），ng只能出现在音节末尾充当韵尾。"}, {"id": 10, "subject": "现代汉语", "chapter": "语音", "type": "单选", "question": "下列哪一组属于舌面音（舌面前音）？", "options": {"A": "z、c、s", "B": "j、q、x", "C": "zh、ch、sh", "D": "b、d、g"}, "answer": "B", "source": "现代汉语考试指南-语音", "explanation": "舌面前音（j、q、x）又叫舌面音，由舌面前部与硬腭前部构成阻碍而形成。"}, {"id": 11, "subject": "现代汉语", "chapter": "语音", "type": "单选", "question": "在普通话的音节结构中，一个音节最多能有____个音素。", "options": {"A": "3", "B": "4", "C": "5", "D": "6"}, "answer": "B", "source": "现代汉语-单科题库", "explanation": "最复杂的音节包括四个音素和一个声调，如\"chuang\"包含ch、u、a、ng四个音素。"}, {"id": 12, "subject": "现代汉语", "chapter": "语音", "type": "填空", "question": "在普通话中，只能充当韵尾的辅音是____。", "options": null, "answer": "ng", "source": "现代汉语-单科题库", "explanation": "n既可以出现在音节开头也可以出现在音节末尾，而ng只能出现在音节末尾充当韵尾。"}, {"id": 13, "subject": "现代汉语", "chapter": "语音", "type": "填空", "question": "按照韵母开头元音的不同，普通话韵母可以分为四类，即开口呼、____、合口呼和____。", "options": null, "answer": "齐齿呼、撮口呼", "source": "现代汉语-单科题库", "explanation": "四呼是按照韵母开头元音的分类：不以i、u、ü为韵腹或不以i、u、ü为介音的韵母属于开口呼，以i为韵腹或介音的属于齐齿呼，以u为韵腹或介音的属于合口呼，以ü为韵腹或介音的属于撮口呼。"}, {"id": 14, "subject": "现代汉语", "chapter": "语音", "type": "单选", "question": "声调符号一般要求标在____。", "options": {"A": "韵母上", "B": "主要元音上", "C": "任何地方都可", "D": "韵头上"}, "answer": "B", "source": "现代汉语考试指南-语音", "explanation": "声调符号一般标在主要元音（韵腹）上。省写的韵母\"iou、uei\"标在后面的元音上，\"uen\"标在前面的\"u\"上。"}, {"id": 15, "subject": "现代汉语", "chapter": "语音", "type": "填空", "question": "普通话的四个调类分别是____、____、____和____，对应的调值分别为55、35、214和51。", "options": null, "answer": "阴平、阳平、上声、去声", "source": "现代汉语考试指南-语音", "explanation": "普通话有四种基本调值：55（阴平）、35（阳平）、214（上声）、51（去声），传统名称为阴平、阳平、上声、去声。"}, {"id": 16, "subject": "现代汉语", "chapter": "语音", "type": "名词解释", "question": "请解释什么是\"音位\"。", "options": null, "answer": "音位是一个语音系统中能够区别意义的最小语音单位，是按语音的社会属性划分出来的。", "source": "现代汉语考试指南-语音", "explanation": "音位是按语音的社会属性划分出来的，能够区别意义的最小语音单位。例如现代汉语的\"爸(/pA51/)\"和\"怕(/p'A51/)\"，区别只在于声母/p/和/p'/，二者分立为两个音位。"}, {"id": 17, "subject": "现代汉语", "chapter": "语音", "type": "名词解释", "question": "请解释什么是\"儿化\"。", "options": null, "answer": "儿化指在一个音节中，韵母带上卷舌色彩的特殊音变。", "source": "现代汉语-单科题库", "explanation": "儿化是普通话的一种音变现象，指在一个音节中韵母带上卷舌色彩。儿化一般带有亲昵的感情色彩（如\"小淘气儿\"），有时可以区别意义（如\"眼\"指眼睛，\"眼儿\"指小窟窿）。"}, {"id": 18, "subject": "现代汉语", "chapter": "语音", "type": "单选", "question": "普通话中，轻声____。", "options": {"A": "是独立的第五调类", "B": "是四声的一种特殊音变", "C": "与声调无关", "D": "可以出现在任何音节中"}, "answer": "B", "source": "现代汉语考试指南-语音", "explanation": "轻声读得又短又轻，是四声的一种特殊音变，而不是独立的第五调。轻声离不开特定的语言环境，只出现于语言组合之中。"}, {"id": 19, "subject": "现代汉语", "chapter": "语音", "type": "填空", "question": "韵母\"iou\"在与声母相拼时省写为____。", "options": null, "answer": "iu", "source": "现代汉语考试指南-语音", "explanation": "根据《汉语拼音方案》的省写规则，韵母iou、uei、uen在与声母相拼时分别省写为iu、ui、un。"}, {"id": 20, "subject": "现代汉语", "chapter": "语音", "type": "改错", "question": "改正下列音节的拼写错误：\"同 tukng\"", "options": null, "answer": "改为\"tong\"。韵母\"ueng\"只拼零声母，不能与声母t相拼。", "source": "现代汉语-单科题库", "explanation": "普通话中韵母ueng只能独立成音节（零声母），与辅音声母相拼时，应使用韵母ong，所以\"同\"的正确拼音是\"tong\"。"}, {"id": 21, "subject": "现代汉语", "chapter": "汉字", "type": "填空", "question": "在汉字形体演变史中，____是古今文字的分水岭。", "options": null, "answer": "隶书", "source": "现代汉语-单科题库", "explanation": "秦隶在形体上实现了根本转变，基本摆脱了汉字象形的意味，是古文字与今文字的分水岭。"}, {"id": 22, "subject": "现代汉语", "chapter": "汉字", "type": "单选", "question": "汉字字体演变的总趋势是____。", "options": {"A": "由简体到繁体", "B": "由象形到不象形，由繁到简", "C": "由楷书到隶书", "D": "由不固定到更随意"}, "answer": "B", "source": "现代汉语考试指南-汉字", "explanation": "汉字形体演变的总趋势是：由象形到不象形，表意功能萎缩，字形符号化，由不定型到定型，由繁体到简体，笔画线条化和简单化。"}, {"id": 23, "subject": "现代汉语", "chapter": "汉字", "type": "填空", "question": "根据\"六书\"理论，\"山\"字的造字法是____。", "options": null, "answer": "象形", "source": "现代汉语-单科题库", "explanation": "\"山\"是描绘事物形状的造字法，属于象形字。象形是描绘事物形状的造字法，许慎定义为\"画成其事，随体诘诎\"。"}, {"id": 24, "subject": "现代汉语", "chapter": "汉字", "type": "单选", "question": "下列汉字中属于会意字的是____。", "options": {"A": "河", "B": "本", "C": "休", "D": "月"}, "answer": "C", "source": "现代汉语考试指南-汉字", "explanation": "\"休\"由\"人\"和\"木\"两个象形字合成，勾勒出\"人在树下\"的场景，会意出\"休息\"的意思，属于会意字。\"河\"是形声字，\"本\"是指事字，\"月\"是象形字。"}, {"id": 25, "subject": "现代汉语", "chapter": "汉字", "type": "单选", "question": "下列各组形声字中，形旁和声旁的部位都是上形下声的一组是____。", "options": {"A": "贷、训", "B": "疲、芒", "C": "零、苍", "D": "溜、晨"}, "answer": "C", "source": "现代汉语考试指南-汉字", "explanation": "\"零\"是上形（雨）下声（令），\"苍\"是上形（艹）下声（仓），均为上形下声结构。"}, {"id": 26, "subject": "现代汉语", "chapter": "汉字", "type": "填空", "question": "根据《简化字总表》(1986)，\"竈\"简化为____。", "options": null, "answer": "灶", "source": "现代汉语-单科题库", "explanation": "根据1986年重新发布的《简化字总表》，\"竈\"简化为\"灶\"，属于用会意字改换形声字的简化方法。"}, {"id": 27, "subject": "现代汉语", "chapter": "汉字", "type": "名词解释", "question": "请解释什么是\"部首\"。", "options": null, "answer": "部首是具有字形归类作用的偏旁，是字书中的各部的首字。", "source": "现代汉语-单科题库", "explanation": "部首是具有字形归类作用的偏旁，位于字典中各部的首字，大多具有表意作用。用部首给字归类始于东汉许慎的《说文解字》，许氏首创540部。"}, {"id": 28, "subject": "现代汉语", "chapter": "汉字", "type": "改错", "question": "改正下列词语中的错别字：\"巧夺天功\"", "options": null, "answer": "\"功\"改为\"工\"", "source": "现代汉语-单科题库", "explanation": "\"巧夺天工\"是成语，意为精巧的人工胜过天然，形容技艺极其精巧。\"天工\"指自然造就的，不能写成\"天功\"。"}, {"id": 29, "subject": "现代汉语", "chapter": "汉字", "type": "改错", "question": "改正下列词语中的错别字：\"世外桃园\"", "options": null, "answer": "\"园\"改为\"源\"", "source": "现代汉语考试指南-汉字", "explanation": "\"世外桃源\"出自陶渊明《桃花源记》，指与世隔绝、没有战乱的安乐美好之处，不是指\"桃园\"（桃树园）。"}, {"id": 30, "subject": "现代汉语", "chapter": "词汇", "type": "单选", "question": "\"蝙蝠侠是个漫画英雄\"这个结构中包含____个语素。", "options": {"A": "6", "B": "7", "C": "8", "D": "9"}, "answer": "C", "source": "现代汉语-单科题库", "explanation": "这句话包含8个语素：蝙蝠、侠、是、个、漫、画、英、雄。其中\"蝙蝠\"是一个语素（联绵词）。"}, {"id": 31, "subject": "现代汉语", "chapter": "词汇", "type": "填空", "question": "从翻译方式来看，\"啤酒\"属于____外来词。", "options": null, "answer": "音译加意译", "source": "现代汉语-单科题库", "explanation": "\"啤酒\"是音译加意译外来词：整个词音译之后，外加一个表示义类的汉语语素\"酒\"。类似的有\"卡车、芭蕾舞、沙丁鱼\"等。"}, {"id": 32, "subject": "现代汉语", "chapter": "词汇", "type": "单选", "content": "从词的内部构造来看，\"车辆\"属于____式合成词。", "options": {"A": "并列", "B": "偏正", "C": "补充", "D": "支配"}, "answer": "C", "source": "现代汉语-单科题库", "explanation": "\"车辆\"属于补充式合成词，后一语素\"辆\"补充说明前一语素\"车\"的单位或结果。类似的还有\"书本、人口、米粒\"等。", "question": "从词的内部构造来看，\"车辆\"属于____式合成词。"}, {"id": 33, "subject": "现代汉语", "chapter": "词汇", "type": "单选", "question": "下列各项中，属于附加式合成词的是____。", "options": {"A": "床头", "B": "演化", "C": "乱糟糟", "D": "瓜子"}, "answer": "C", "source": "现代汉语考试指南-词汇", "explanation": "\"乱糟糟\"是附加式合成词，由词根\"乱\"加后缀\"糟糟\"构成，属于状态形容词标志的后缀。\"床头\"是偏正式，\"演化\"是并列式，\"瓜子\"是偏正式。"}, {"id": 34, "subject": "现代汉语", "chapter": "词汇", "type": "单选", "question": "复合词\"海洋、飞跑、理事、书本\"的结构关系分别是____。", "options": {"A": "偏正、支配、补充、并列", "B": "并列、偏正、支配、补充", "C": "并列、补充、偏正、陈述", "D": "偏正、支配、并列、补充"}, "answer": "B", "source": "现代汉语考试指南-词汇", "explanation": "\"海洋\"是同义并列式；\"飞跑\"中\"飞\"修饰\"跑\"，为偏正式；\"理事\"是支配式（动宾结构）；\"书本\"中\"本\"补充\"书\"，为补充式。"}, {"id": 35, "subject": "现代汉语", "chapter": "词汇", "type": "名词解释", "question": "请举例说明什么是\"熟语\"。", "options": null, "answer": "熟语又叫习语，是人们常用的定型化了的固定短语，包括成语、惯用语和歇后语，结构比较固定。例如\"破釜沉舟\"是成语，\"吹牛皮\"是惯用语，\"外甥打灯笼——照旧（舅）\"是歇后语。", "source": "现代汉语-单科题库", "explanation": "熟语是词汇学研究的固定短语，具有结构的稳定性和意义的整体性特征，是人们在长期使用中形成的固定表达。"}, {"id": 36, "subject": "现代汉语", "chapter": "词汇", "type": "单选", "question": "下列各词中，属于音译外来词的是____。", "options": {"A": "计算机", "B": "啤酒", "C": "沙文主义", "D": "休克"}, "answer": "D", "source": "现代汉语考试指南-词汇", "explanation": "\"休克\"是音译外来词，照着外语词的声音对译过来。\"计算机\"是意译词（不是外来词），\"啤酒\"是音译加意译词，\"沙文主义\"是音译兼意译词。"}, {"id": 37, "subject": "现代汉语", "chapter": "词汇", "type": "单选", "question": "反义词\"大\"和\"小\"中，\"大\"的使用频率更高、出现的语言场合更多，这体现了反义词的____。", "options": {"A": "矛盾性", "B": "不平衡性", "C": "互补性", "D": "极性对立"}, "answer": "B", "source": "现代汉语考试指南-词汇", "explanation": "反义词的不平衡性指在语言运用中，反义词中总是有一个词用得多些，能够出现的语言场合也多一些。如\"大——小\"中，\"大\"用得多（\"你多大？\"\"房间多大？\"），一般不问\"你多小？\""}, {"id": 38, "subject": "现代汉语", "chapter": "词汇", "type": "填空", "question": "\"河\"本来的意思是专指黄河，后来变为泛指所有大的河流，这种词义变化属于____。", "options": null, "answer": "词义扩大", "source": "现代汉语考试指南-词汇", "explanation": "词义扩大是词义演变的一种类型，指扩大词所指对象的范围。\"河\"从专指黄河扩大到泛指一切河流，属于词义扩大。"}, {"id": 39, "subject": "现代汉语", "chapter": "词汇", "type": "填空", "question": "\"爪牙\"的本义是\"得力助手\"，后来专指\"帮凶\"，这种词义演变称为____。", "options": null, "answer": "词义转移", "source": "现代汉语考试指南-词汇", "explanation": "词义转移指所指对象发生变更。\"爪牙\"原义指得力助手（中性词），现在变为贬义词专指帮凶，既是词义转移也是感情色彩的变化。"}, {"id": 40, "subject": "现代汉语", "chapter": "词汇", "type": "改错", "question": "改正下列句子中用词不当的地方并说明理由：\"足球是我们很优势的项目。\"", "options": null, "answer": "\"优势\"是名词，这里误用为形容词。应改为\"优秀\"。", "source": "现代汉语-单科题库", "explanation": "\"优势\"是名词，不能受程度副词\"很\"修饰。\"优秀\"是形容词，可以受\"很\"修饰作谓语。"}, {"id": 41, "subject": "现代汉语", "chapter": "语法", "type": "填空", "question": "在普通话中，表达语法意义的主要手段是____和____。", "options": null, "answer": "语序、虚词", "source": "现代汉语考试指南-语法", "explanation": "汉语形态不发达，所以语序和虚词成了主要的语法手段。例如\"我爱他\"和\"他爱我\"语序不同，语法意义也不同；\"看了\"和\"看着\"虚词不同，时体意义也不同。"}, {"id": 42, "subject": "现代汉语", "chapter": "语法", "type": "填空", "question": "汉语词类划分的主要依据是词的____。", "options": null, "answer": "语法功能（或句法分布）", "source": "现代汉语-单科题库", "explanation": "汉语词类划分当以语法功能（或语法特征）为主要依据，有时也要参考词的形态和词的类别意义。语法功能主要表现为词的造句能力和词的组合能力。"}, {"id": 43, "subject": "现代汉语", "chapter": "语法", "type": "单选", "question": "在\"我没有和他打过羽毛球\"这句话中，\"过\"的词性是____。", "options": {"A": "动词", "B": "介词", "C": "助词", "D": "副词"}, "answer": "C", "source": "现代汉语-单科题库", "explanation": "这里的\"过\"是动态助词，表示有过某种经历。动词\"过\"表示空间上的跨越，不能读轻声；助词\"过\"表示时间上的经历，要读成轻声。"}, {"id": 44, "subject": "现代汉语", "chapter": "语法", "type": "单选", "question": "以语气为标准划分句子，\"请你帮我把这本书带给小王\"这句话属于____。", "options": {"A": "陈述句", "B": "疑问句", "C": "祈使句", "D": "感叹句"}, "answer": "C", "source": "现代汉语-单科题库", "explanation": "祈使句是要求对方做或不做某事的句子，语调为降调，结构简短，常常省略主语。这句话提出请求，属于祈使句。"}, {"id": 45, "subject": "现代汉语", "chapter": "语法", "type": "单选", "question": "\"你今天吃过中国的月饼吗？\"属于____。", "options": {"A": "选择问句", "B": "正反问句", "C": "特指问句", "D": "是非问句"}, "answer": "D", "source": "现代汉语-单科题库", "explanation": "是非问句一般是对整个命题的疑问，回答只能对整个命题进行肯定或否定，句末可用语气词\"吗\"。这句话用\"吗\"提问，属于是非问句。"}, {"id": 46, "subject": "现代汉语", "chapter": "语法", "type": "单选", "question": "\"她把房间布置得整整齐齐的\"属于____。", "options": {"A": "被动句", "B": "\"把\"字句", "C": "动词重叠", "D": "程度补语"}, "answer": "B", "source": "现代汉语-单科题库", "explanation": "该句使用了介词\"把\"引出受事\"房间\"，谓语动词\"布置\"对受事施加影响，促使受事产生某种结果，属于\"把\"字句。"}, {"id": 47, "subject": "现代汉语", "chapter": "语法", "type": "单选", "question": "\"最近我们公司有人离职\"属于____。", "options": {"A": "存现句", "B": "强调句", "C": "连动句", "D": "兼语句"}, "answer": "D", "source": "现代汉语-单科题库", "explanation": "兼语句由兼语短语充当谓语，\"有人离职\"中\"人\"既是\"有\"的宾语，又是\"离职\"的主语，属于兼语句。"}, {"id": 48, "subject": "现代汉语", "chapter": "语法", "type": "单选", "question": "\"我打算先去看雪，然后去泡温泉\"属于____。", "options": {"A": "目的复句", "B": "并列复句", "C": "承接复句", "D": "选择复句"}, "answer": "C", "source": "现代汉语-单科题库", "explanation": "承接复句（顺承复句）的前后分句按照时间顺序说出连续的事件。\"先去看雪\"和\"然后去泡温泉\"按时间顺序排列，属于承接复句。"}, {"id": 49, "subject": "现代汉语", "chapter": "语法", "type": "改错", "question": "改正下面句子中的语法错误并说明理由：\"我们要帮忙他走出这个困难的局面。\"", "options": null, "answer": "\"帮忙\"改成\"帮助\"。动宾搭配不当，\"帮忙\"是不及物动词，不能带宾语。", "source": "现代汉语考试指南-语法", "explanation": "\"帮忙\"是动宾式离合词（不及物动词），不能直接带宾语。应改为及物动词\"帮助\"。"}, {"id": 50, "subject": "现代汉语", "chapter": "语法", "type": "改错", "question": "改正下面句子中的语法错误并说明理由：\"虽然他再聪明一百倍，我也不会把这工作交给他。\"", "options": null, "answer": "将\"虽然\"改为\"即使\"。关联词错用，\"虽然\"用于转折复句，不能用于假设复句。", "source": "现代汉语-单科题库", "explanation": "\"虽然\"用于表示转折关系的复句（事实已存在），\"即使\"用于表示假设关系的复句（假设的情况）。此句为假设复句，应用\"即使\"搭配\"也\"。"}];
+const questions_wh = [{"id": 1, "subject": "中国文化", "chapter": "中国地理历史", "type": "单选", "question": "中国七大文化古都中，位于黄河流域的有五个，下列哪个城市不属于黄河流域的五大古都？", "options": {"A": "安阳", "B": "西安", "C": "杭州", "D": "洛阳"}, "answer": "C", "source": "中国文化考试指南-中国地理历史", "explanation": "黄河流域分布着中国五大古都——安阳、西安、洛阳、开封和北京。杭州属于长江流域的两大古都之一。"}, {"id": 2, "subject": "中国文化", "chapter": "中国地理历史", "type": "单选", "question": "中国历史上第一个统一的中央集权国家建立于哪个朝代？", "options": {"A": "夏朝", "B": "商朝", "C": "秦朝", "D": "汉朝"}, "answer": "C", "source": "中国文化考试指南-中国地理历史", "explanation": "公元前221年，秦始皇建立起中国历史上第一个统一的国家，初步奠定了中国版图的基础。"}, {"id": 3, "subject": "中国文化", "chapter": "中国地理历史", "type": "填空", "question": "中国第二大河是______，它发源于巴颜喀拉山，被视为中华民族的“母亲河”。", "options": null, "answer": "黄河", "source": "中国文化考试指南-中国地理历史", "explanation": "黄河是中国第二大河，发源于巴颜喀拉山，是中国文化最伟大的发祥地之一，被视为中华民族的“母亲河”。"}, {"id": 4, "subject": "中国文化", "chapter": "中国地理历史", "type": "单选", "question": "西藏正式划入中国版图是在哪个朝代？", "options": {"A": "唐代", "B": "宋代", "C": "元代", "D": "清代"}, "answer": "C", "source": "中国文化考试指南-中国地理历史", "explanation": "元代实现了国家大统一，西藏成为元朝的正式行政区，正式划入中国版图。"}, {"id": 5, "subject": "中国文化", "chapter": "中国地理历史", "type": "填空", "question": "张骞的西行被称为“______”之行，他被誉为“丝绸之路的开辟者”。", "options": null, "answer": "凿空", "source": "中国文化考试指南-中国地理历史", "explanation": "汉武帝派张骞出使西域，他的西行被称为“凿空”之行，张骞也被称为“丝绸之路的开辟者”。"}, {"id": 6, "subject": "中国文化", "chapter": "中国地理历史", "type": "单选", "question": "我国第一部纪传体史书是哪一部？", "options": {"A": "《资治通鉴》", "B": "《汉书》", "C": "《史记》", "D": "《春秋》"}, "answer": "C", "source": "中国文化考试指南-中国地理历史", "explanation": "《史记》是汉代司马迁所著，是中国历史上第一部纪传体通史，被鲁迅誉为“史家之绝唱，无韵之《离骚》”。"}, {"id": 7, "subject": "中国文化", "chapter": "中国地理历史", "type": "单选", "question": "我国古代规模最大的编年体史书是哪一部？", "options": {"A": "《春秋》", "B": "《左传》", "C": "《资治通鉴》", "D": "《通典》"}, "answer": "C", "source": "中国文化考试指南-中国地理历史", "explanation": "《资治通鉴》由北宋司马光主编，历时19年编纂，共294卷，约300多万字，是中国最详尽的编年体史书。"}, {"id": 8, "subject": "中国文化", "chapter": "中国地理历史", "type": "单选", "question": "仰韶文化又被称为彩陶文化，它属于什么发展阶段？", "options": {"A": "旧石器时代", "B": "母系氏族社会", "C": "父系氏族社会", "D": "奴隶社会"}, "answer": "B", "source": "中国文化考试指南-中国地理历史", "explanation": "仰韶文化以各种彩陶闻名，属于母系氏族社会阶段。龙山文化（黑陶文化）则属于父系氏族社会阶段。"}, {"id": 9, "subject": "中国文化", "chapter": "中国地理历史", "type": "填空", "question": "中国历史上的太平盛世“文景之治”出现在______初期。", "options": null, "answer": "西汉", "source": "中国文化考试指南-中国地理历史", "explanation": "文景之治是西汉初期的汉文帝、汉景帝在位年间（约40年）出现的太平盛世。"}, {"id": 10, "subject": "中国文化", "chapter": "中国地理历史", "type": "单选", "question": "郑和下西洋最远到达了哪里？", "options": {"A": "东南亚各国", "B": "印度", "C": "红海和非洲东海岸", "D": "欧洲"}, "answer": "C", "source": "中国文化考试指南-中国地理历史", "explanation": "郑和先后七次远航印度洋，最远到达红海、非洲东海岸的索马里和肯尼亚。"}, {"id": 11, "subject": "中国文化", "chapter": "中国地理历史", "type": "多选", "question": "下列属于“三皇”的有哪些？", "options": {"A": "伏羲", "B": "神农", "C": "黄帝", "D": "尧"}, "answer": "ABC", "source": "中国文化考试指南-中国地理历史", "explanation": "三皇是指伏羲、神农、黄帝。五帝是指少昊、颛顼、帝喾、尧、舜。"}, {"id": 12, "subject": "中国文化", "chapter": "中国地理历史", "type": "填空", "question": "中国历史上年号的始创者是______，他把自己即位的这一年称为建元元年。", "options": null, "answer": "汉武帝", "source": "中国文化考试指南-中国地理历史", "explanation": "年号始于汉武帝，他把自己即位的这一年称为建元元年，自此到清宣统三年两千多年间，每个皇帝都有自己的年号。"}, {"id": 13, "subject": "中国文化", "chapter": "中国文物", "type": "填空", "question": "司母戊鼎是中国目前发现最重的青铜器，现藏于______。", "options": null, "answer": "中国国家博物馆", "source": "中国文化考试指南-中国文物", "explanation": "司母戊鼎是中国目前发现最重的青铜器，代表商代青铜器的最高水平，是中国国家博物馆的“镇馆之宝”。"}, {"id": 14, "subject": "中国文化", "chapter": "中国文物", "type": "单选", "question": "迄今发现铭文最多的古代青铜器是哪一件？", "options": {"A": "司母戊鼎", "B": "毛公鼎", "C": "四羊方尊", "D": "大盂鼎"}, "answer": "B", "source": "中国文化考试指南-中国文物", "explanation": "毛公鼎是西周晚期铸造的，其内壁铭文共32行，499字，是迄今发现最长的铭文，与翡翠玉白菜、东坡肉形石并称台北故宫博物院“镇馆三宝”。"}, {"id": 15, "subject": "中国文化", "chapter": "中国文物", "type": "单选", "question": "唐三彩主要使用的三种颜色是什么？", "options": {"A": "红、绿、蓝", "B": "黄、绿、褐", "C": "青、白、黑", "D": "红、黄、蓝"}, "answer": "B", "source": "中国文化考试指南-中国文物", "explanation": "唐三彩是施挂彩釉的低温铅釉陶器，采用高岭土胎，多用黄、绿、褐等色彩，故称三彩。"}, {"id": 16, "subject": "中国文化", "chapter": "中国文物", "type": "单选", "question": "中国瓷都是指哪个城市？", "options": {"A": "宜兴", "B": "景德镇", "C": "德化", "D": "龙泉"}, "answer": "B", "source": "中国文化考试指南-中国文物", "explanation": "明朝时期，景德镇成为中国瓷都，成化年间出现了斗彩，嘉靖、万历年间出现了五彩。"}, {"id": 17, "subject": "中国文化", "chapter": "中国地理历史", "type": "填空", "question": "红山文化的代表性遗址是辽西的______遗址，以陶质裸女神像和玉猪龙而闻名。", "options": null, "answer": "牛河梁", "source": "中国文化考试指南-中国地理历史", "explanation": "红山文化1935年于内蒙古赤峰市首次发现，代表性遗址是辽西的牛河梁遗址，以陶质裸女神像和玉猪龙而闻名。"}, {"id": 18, "subject": "中国文化", "chapter": "中国哲学", "type": "单选", "question": "儒家学说的核心思想是什么？", "options": {"A": "兼爱", "B": "仁和礼", "C": "无为而治", "D": "道法自然"}, "answer": "B", "source": "中国文化考试指南-中国哲学", "explanation": "孔子提出了以“仁”“礼”为核心的治世思想。孟子主张性善论，荀子主张性恶论。"}, {"id": 19, "subject": "中国文化", "chapter": "中国哲学", "type": "单选", "question": "下列哪位思想家提出了“性善论”？", "options": {"A": "孔子", "B": "孟子", "C": "荀子", "D": "老子"}, "answer": "B", "source": "中国文化考试指南-中国哲学", "explanation": "孟子主张性善论，提出了“四心说”（恻隐之心、羞恶之心、辞让之心、是非之心）；荀子则主张性恶论。"}, {"id": 20, "subject": "中国文化", "chapter": "中国哲学", "type": "单选", "question": "老子思想的核心主张是什么？", "options": {"A": "仁政", "B": "兼爱", "C": "道法自然、无为", "D": "法、术、势"}, "answer": "C", "source": "中国文化考试指南-中国哲学", "explanation": "老子是道家学派的创始人，主张“道法自然”“无为而治”，被道教奉为开山鼻祖。"}, {"id": 21, "subject": "中国文化", "chapter": "中国哲学", "type": "名词解释", "question": "请解释“天人合一”的含义。", "options": null, "answer": "天人合一是中国哲学的核心观念之一，强调人与自然、天地之间的统一与和谐。中国文化注重精神和谐，世界观注重天地人之间的统一，强调人顺应天，而非西方文化中强调人征服和改造世界的观念。", "source": "中国文化考试指南-中国哲学", "explanation": "中国文化的主体是道德和哲学，是天人合一、心物是一体的。中国文化注重精神和谐，强调人顺应天。"}, {"id": 22, "subject": "中国文化", "chapter": "中国哲学", "type": "多选", "question": "下列属于宋明理学代表人物的是？", "options": {"A": "程颐", "B": "朱熹", "C": "陆象山", "D": "王阳明"}, "answer": "ABCD", "source": "中国文化考试指南-中国哲学", "explanation": "宋明理学包括程朱理学（程颐、朱熹）和陆王心学（陆象山、王阳明）。陆象山提出“宇宙便是吾心，吾心便是宇宙”。"}, {"id": 23, "subject": "中国文化", "chapter": "中国哲学", "type": "名词解释", "question": "请解释“诸子百家”。", "options": null, "answer": "诸子百家是先秦至汉初各个学派的总称。“诸子”指先秦至汉初建立独立思想、树立专门学说的代表人物；“百家”指各个学派。据《汉书》所谓“百家”，实际上指有代表性的十家，即儒、道、墨、法、阴阳、农、名、兵、纵横和杂家。", "source": "中国文化考试指南-中国哲学", "explanation": "据《汉书》记载，“百家”实际上指有代表性的十家，即儒、道、墨、法、阴阳、农、名、兵、纵横和杂家。"}, {"id": 24, "subject": "中国文化", "chapter": "中国宗教信仰", "type": "单选", "question": "中国佛教的四大名山不包括下列哪座山？", "options": {"A": "五台山", "B": "峨眉山", "C": "泰山", "D": "普陀山"}, "answer": "C", "source": "中国文化考试指南-中国宗教信仰", "explanation": "中国四大佛教圣地是九华山、普陀山、峨眉山和五台山。泰山是五岳之一。"}, {"id": 25, "subject": "中国文化", "chapter": "中国宗教信仰", "type": "单选", "question": "禅宗的开山祖师是谁？", "options": {"A": "慧能", "B": "神秀", "C": "达摩", "D": "玄奘"}, "answer": "C", "source": "中国文化考试指南-中国宗教信仰", "explanation": "佛教禅宗的开山祖师是（菩提）达摩，他在少林寺开创了这一宗派。慧能是禅宗南宗的代表人物，主张顿悟。"}, {"id": 26, "subject": "中国文化", "chapter": "中国宗教信仰", "type": "填空", "question": "中国道教历史上，第一位天师是______，天师道采取父子承袭制。", "options": null, "answer": "张陵（张道陵）", "source": "中国文化考试指南-中国宗教信仰", "explanation": "中国道教历史上，天师道始终占有重要地位，这一派别中的天师采取父子承袭制，而第一位天师就是张陵（张道陵）。"}, {"id": 27, "subject": "中国文化", "chapter": "中国宗教信仰", "type": "填空", "question": "中国佛教的第一个寺庙是______，道教的第一个道观是______。", "options": null, "answer": "白马寺；楼观台", "source": "中国文化考试指南-中国宗教信仰", "explanation": "一般认为，中国佛教的第一个寺庙是白马寺，而道教的第一个道观是楼观台。"}, {"id": 28, "subject": "中国文化", "chapter": "中国书画艺术", "type": "单选", "question": "书法界所说的“天下第二行书”指的是哪部作品？", "options": {"A": "《伯远帖》", "B": "《祭侄文稿》", "C": "《韭花帖》", "D": "《寒食帖》"}, "answer": "B", "source": "中国文化考试指南-中国书画艺术", "explanation": "“天下第二行书”指的是颜真卿的《祭侄文稿》。第一行书是王羲之的《兰亭序》。"}, {"id": 29, "subject": "中国文化", "chapter": "中国书画艺术", "type": "单选", "question": "文房四宝狭义上指的是宣纸、徽墨、湖笔和什么？", "options": {"A": "端砚", "B": "歙砚", "C": "洮砚", "D": "澄泥砚"}, "answer": "A", "source": "中国文化考试指南-中国书画艺术", "explanation": "文房四宝，狭义上指宣纸、徽墨、端砚和湖笔。端砚产于广东端州（今肇庆），是四大名砚之首。"}, {"id": 30, "subject": "中国文化", "chapter": "中国书画艺术", "type": "多选", "question": "下列属于宋代书法四大家的有哪些？", "options": {"A": "苏轼", "B": "黄庭坚", "C": "米芾", "D": "蔡襄"}, "answer": "ABCD", "source": "中国文化考试指南-中国书画艺术", "explanation": "宋代书法四大家是苏轼、黄庭坚、米芾和蔡襄。"}, {"id": 31, "subject": "中国文化", "chapter": "中国书画艺术", "type": "填空", "question": "被公认为水准最高的山水画作是元代画作《______图》。", "options": null, "answer": "富春山居", "source": "中国文化考试指南-中国书画艺术", "explanation": "中国画史上，被公认为水准最高的山水画作是元代画作《富春山居图》。"}, {"id": 32, "subject": "中国文化", "chapter": "中国书画艺术", "type": "单选", "question": "《步辇图》是中华绘画史上的名作，其作者是唐代哪位著名画家？", "options": {"A": "王维", "B": "韩滉", "C": "阎立本", "D": "周昉"}, "answer": "C", "source": "中国文化考试指南-中国书画艺术", "explanation": "《步辇图》的作者是唐代著名画家阎立本。"}, {"id": 33, "subject": "中国文化", "chapter": "中国建筑艺术", "type": "单选", "question": "“江南三大名楼”指的是哪三座楼？", "options": {"A": "黄鹤楼、岳阳楼、滕王阁", "B": "黄鹤楼、鹳雀楼、岳阳楼", "C": "滕王阁、黄鹤楼、烟雨楼", "D": "岳阳楼、滕王阁、蓬莱阁"}, "answer": "A", "source": "中国文化考试指南-中国建筑艺术", "explanation": "中国三大名楼（又称江南三大名楼）指的是滕王阁、岳阳楼和黄鹤楼。"}, {"id": 34, "subject": "中国文化", "chapter": "中国建筑艺术", "type": "单选", "question": "故宫太和殿殿顶的吻兽数量是多少个？", "options": {"A": "7个", "B": "8个", "C": "9个", "D": "10个"}, "answer": "D", "source": "中国文化考试指南-中国建筑艺术", "explanation": "古代以殿顶的吻兽数量显示宫殿的级别，吻兽一般是单数，最多的是九个，但北京故宫的太和殿破例为10个。"}, {"id": 35, "subject": "中国文化", "chapter": "中国建筑艺术", "type": "填空", "question": "我国古代的皇宫素有“左庙右社”的布局传统，“庙”指的是______庙。", "options": null, "answer": "宗", "source": "中国文化考试指南-中国建筑艺术", "explanation": "我国古代的皇宫素有“左庙右社”的布局传统，这里的“庙”指的是宗庙，即祭祀祖先的场所。"}, {"id": 36, "subject": "中国文化", "chapter": "音乐戏曲雕塑与民间工艺", "type": "单选", "question": "京剧的角色行当分为几种？", "options": {"A": "3种", "B": "4种", "C": "5种", "D": "6种"}, "answer": "B", "source": "中国文化考试指南-音乐戏曲雕塑与民间工艺", "explanation": "京剧的角色类型称为“行当”，一共有4种：生、旦、净、丑。"}, {"id": 37, "subject": "中国文化", "chapter": "音乐戏曲雕塑与民间工艺", "type": "名词解释", "question": "请解释“梨园”的含义。", "options": null, "answer": "梨园是我国古代音乐舞蹈艺术的雅称。唐玄宗李隆基通晓音律，选择宫廷中的梨园作为音乐、舞蹈和戏剧活动的场所，使梨园成为我国历史上第一所皇家舞蹈戏剧综合艺术学校。后世将戏曲界称为梨园行，将演员称为梨园子弟。", "source": "中国文化考试指南-音乐戏曲雕塑与民间工艺", "explanation": "唐玄宗李隆基选择宫廷中的梨园作为音乐、舞蹈和戏剧活动的场所，后世将戏曲界称为梨园行。"}, {"id": 38, "subject": "中国文化", "chapter": "音乐戏曲雕塑与民间工艺", "type": "多选", "question": "中国戏曲表演的“四功”包括哪些？", "options": {"A": "唱", "B": "念", "C": "做", "D": "打"}, "answer": "ABCD", "source": "中国文化考试指南-音乐戏曲雕塑与民间工艺", "explanation": "中国戏曲表演的基本功叫“四功”，即唱、念、做、打。而表演手段“五法”是指手、眼、身、法、步。"}, {"id": 39, "subject": "中国文化", "chapter": "音乐戏曲雕塑与民间工艺", "type": "填空", "question": "最早入选世界非物质文化遗产的中国戏曲项目是______。", "options": null, "answer": "昆曲（昆腔）", "source": "中国文化考试指南-音乐戏曲雕塑与民间工艺", "explanation": "京剧和针灸入选世界非物质文化遗产，最早入选的是昆曲和古琴。"}, {"id": 40, "subject": "中国文化", "chapter": "中国古代科技", "type": "单选", "question": "世界上最早的针灸学专著是哪一部？", "options": {"A": "《针灸大全》", "B": "《针灸甲乙经》", "C": "《针灸聚英》", "D": "《灵枢》"}, "answer": "B", "source": "中国文化考试指南-中国古代科技", "explanation": "世界上最早的针灸学专著是《针灸甲乙经》，作者是皇甫谧。"}, {"id": 41, "subject": "中国文化", "chapter": "中国古代科技", "type": "单选", "question": "毕升发明的活字印刷实际上使用的是哪种活字？", "options": {"A": "铅活字", "B": "泥活字", "C": "木活字", "D": "锡活字"}, "answer": "B", "source": "中国文化考试指南-中国古代科技", "explanation": "北宋毕升发明了泥活字印刷术。泥活字是用胶泥刻字、火烧使坚，这是世界上最早的活字印刷技术。"}, {"id": 42, "subject": "中国文化", "chapter": "中国古代科技", "type": "填空", "question": "东汉时期，______改进了造纸术，使纸张得以大规模生产和使用。", "options": null, "answer": "蔡伦", "source": "中国文化考试指南-中国古代科技", "explanation": "东汉时期，蔡伦改进了造纸术，使纸张得以大规模生产和使用，这是中国古代四大发明之一。"}, {"id": 43, "subject": "中国文化", "chapter": "中国古代科技", "type": "填空", "question": "中医的“四诊”法包括望、闻、问、______。", "options": null, "answer": "切", "source": "中国文化考试指南-中国古代科技", "explanation": "中医的看病方法合称“四诊”，包括望、闻、问、切。"}, {"id": 44, "subject": "中国文化", "chapter": "典籍教育与科举", "type": "单选", "question": "明清时期科举考试中，在各省城举行的考试称为什么？", "options": {"A": "县试", "B": "乡试", "C": "会试", "D": "殿试"}, "answer": "B", "source": "中国文化考试指南-典籍教育与科举", "explanation": "明清科考有三级考试：乡试（在各省城举行）、会试（在京城举行）、殿试（在保和殿举行）。乡试考中者称为举人，第一名称为解元。"}, {"id": 45, "subject": "中国文化", "chapter": "典籍教育与科举", "type": "名词解释", "question": "请解释“四书五经”。", "options": null, "answer": "四书五经是中国古代儒家重要经典的合称。“五经”始于汉代，包括《周易》《尚书》《诗经》《礼记》《春秋》。南宋时朱熹自注《论语》，又从《礼记》中摘出《大学》《中庸》两篇，加上《孟子》，合称《四书章句集注》，始有“四书”之称。四书五经合在一起，成为封建社会知识分子的必读教材。", "source": "中国文化考试指南-典籍教育与科举", "explanation": "南宋时朱熹从《礼记》中摘出《大学》《中庸》，加上《论语》《孟子》，合称《四书章句集注》。"}, {"id": 46, "subject": "中国文化", "chapter": "典籍教育与科举", "type": "填空", "question": "中国最早的官办学府是______，由汉武帝在公元前124年设立。", "options": null, "answer": "太学", "source": "中国文化考试指南-典籍教育与科举", "explanation": "汉武帝根据董仲舒提出的“兴太学，置明师”的建议在京师设立太学，立五经博士，置弟子50人，这是中国最早的国立学府。"}, {"id": 47, "subject": "中国文化", "chapter": "典籍教育与科举", "type": "单选", "question": "历史上最后一次科举考试发生在哪一年？", "options": {"A": "1911年", "B": "1910年", "C": "1905年", "D": "1904年"}, "answer": "D", "source": "中国文化考试指南-典籍教育与科举", "explanation": "历史上最后一次科举考试发生在1904年。1905年，清政府废除了科举制度。"}, {"id": 48, "subject": "中国文化", "chapter": "中国民俗", "type": "单选", "question": "古代中国人在端午节喝的是什么酒？", "options": {"A": "菊花酒", "B": "雄黄酒", "C": "菖蒲酒", "D": "屠苏酒"}, "answer": "B", "source": "中国文化考试指南-中国民俗", "explanation": "古代中国人在节日里都有相应的饮酒活动，在端午节人们喝的是雄黄酒。"}, {"id": 49, "subject": "中国文化", "chapter": "中国民俗", "type": "填空", "question": "中国的传统祥瑞动物中，“四灵”指的是麟、龙、凤、龟，再加上______则称为“五灵”。", "options": null, "answer": "虎", "source": "中国文化考试指南-中国民俗", "explanation": "传统的祥瑞动物中，“四灵”指的是麟、龙、凤、龟，再加上虎则称为“五灵”。"}, {"id": 50, "subject": "中国文化", "chapter": "中国民俗", "type": "填空", "question": "甲乙为母女，母亲甲属兔，28周岁时生下乙，那么乙的属相应当是______。", "options": null, "answer": "羊", "source": "中国文化考试指南-中国民俗", "explanation": "根据十二生肖纪年，母亲属兔，28岁时生女，通过生肖推算，女儿的属相应为羊。"}, {"id": 51, "subject": "中国文化", "chapter": "世界文化遗产", "type": "单选", "question": "中国目前拥有几种世界遗产类别？", "options": {"A": "3种", "B": "4种", "C": "5种", "D": "6种"}, "answer": "C", "source": "中国文化考试指南-世界文化遗产", "explanation": "迄今为止，中国是全世界唯一拥有五种“世界遗产”类别的国家，分别是自然遗产、文化遗产、自然文化双重遗产、文化景观遗产和非物质文化遗产。"}, {"id": 52, "subject": "中国文化", "chapter": "世界文化遗产", "type": "多选", "question": "下列名胜中属于世界文化景观遗产的有哪些？", "options": {"A": "黄山", "B": "庐山", "C": "武夷山", "D": "五台山"}, "answer": "BD", "source": "中国文化考试指南-世界文化遗产", "explanation": "庐山和五台山属于文化景观类世界遗产。黄山和武夷山属于自然文化双重遗产。"}, {"id": 53, "subject": "中国文化", "chapter": "中国文物", "type": "多选", "question": "下列青铜器物属于汉代文物的有？", "options": {"A": "长信宫灯", "B": "马踏飞燕", "C": "四羊方尊", "D": "曾侯乙编钟"}, "answer": "AB", "source": "中国文化考试指南-中国文物", "explanation": "长信宫灯和马踏飞燕（铜奔马）是汉代文物。四羊方尊是商代文物，曾侯乙编钟是战国时期文物。"}, {"id": 54, "subject": "中国文化", "chapter": "中国地理历史", "type": "多选", "question": "下列人物中曾经赴印度取经的有哪些？", "options": {"A": "玄奘", "B": "义净", "C": "法显", "D": "鉴真"}, "answer": "ABC", "source": "中国文化考试指南-中国地理历史", "explanation": "玄奘（唐太宗时期去印度取经）、义净（唐高宗到武则天时期赴印度求法）、法显（东晋时赴印度寻求戒律）都曾赴印度取经。鉴真是东渡日本传法，未去印度。"}, {"id": 55, "subject": "中国文化", "chapter": "中国哲学", "type": "填空", "question": "儒家人物中，孔子提出了“杀身成______”，孟子提出了“舍身取______”，彰显了儒家道德的最高准则。", "options": null, "answer": "仁；义", "source": "中国文化考试指南-中国哲学", "explanation": "孔子提出“杀身成仁”，孟子提出“舍身取义”，彰显了儒家道德的最高准则。"}];
+const questions_ll = [{"id": 1, "subject": "对外汉语教学理论", "chapter": "对外汉语教学总论", "type": "单选", "question": "对外汉语教学事业产生于20世纪什么年代？", "options": {"A": "40年代", "B": "50年代", "C": "60年代", "D": "70年代"}, "answer": "B", "source": "对外汉语教学理论考试指南-对外汉语教学总论", "explanation": "对外汉语教学事业产生于20世纪50年代。1950年，清华大学成立东欧交换生中国语文专修班，这是中国第一个从事对外汉语教学的专门机构。"}, {"id": 2, "subject": "对外汉语教学理论", "chapter": "对外汉语教学总论", "type": "单选", "question": "对外汉语教学的根本目的是什么？", "options": {"A": "培养学习者的汉语语法知识", "B": "培养学习者运用汉语进行交际的能力", "C": "培养学习者的汉字书写能力", "D": "培养学习者了解中国文化"}, "answer": "B", "source": "对外汉语教学理论考试指南-对外汉语教学总论", "explanation": "对外汉语教学的目的是培养外国汉语学习者运用汉语进行交际的能力。因为语言是最有效的交际工具，学习者学习第二语言的目的是为了进行交际，且社会发展需要跨文化交流。"}, {"id": 3, "subject": "对外汉语教学理论", "chapter": "对外汉语教学总论", "type": "单选", "question": "中国正式出版的第一部对外汉语教材是什么？", "options": {"A": "《基础汉语课本》", "B": "《实用汉语课本》", "C": "《汉语教科书》", "D": "《初级汉语课本》"}, "answer": "C", "source": "对外汉语教学理论考试指南-对外汉语教学总论", "explanation": "1958年正式出版对外汉语教材《汉语教科书》，这是中国第一部正式出版的对外汉语教材。"}, {"id": 4, "subject": "对外汉语教学理论", "chapter": "对外汉语教学总论", "type": "单选", "question": "对外汉语教学学科理论基础主要包括哪些？", "options": {"A": "语言学、心理学、教育学", "B": "文学、历史学、哲学", "C": "社会学、人类学、政治学", "D": "数学、物理学、化学"}, "answer": "A", "source": "对外汉语教学理论考试指南-对外汉语教学总论", "explanation": "对外汉语教学规律由语言学规律、心理学规律、一般教育学规律等共同决定，因此学科理论基础主要包括语言学、心理学和教育学。"}, {"id": 5, "subject": "对外汉语教学理论", "chapter": "对外汉语教学总论", "type": "单选", "question": "1950年，中国第一个从事对外汉语教学的专门机构是？", "options": {"A": "北京语言学院", "B": "清华大学东欧交换生中国语文专修班", "C": "北京大学外国留学生中国语文专修班", "D": "北京外国语学院非洲留学生办公室"}, "answer": "B", "source": "对外汉语教学理论考试指南-对外汉语教学总论", "explanation": "1950年，清华大学成立东欧交换生中国语文专修班，这是中国第一个从事对外汉语教学的专门机构。周培元、吕叔湘负责业务工作。"}, {"id": 6, "subject": "对外汉语教学理论", "chapter": "对外汉语教学总论", "type": "填空", "question": "社会语言学家海姆斯所提出的\"交际能力\"的概念，除了语法性（合乎语法）外，还包括________。", "options": {}, "answer": "可接受性", "source": "对外汉语教学理论考试指南-对外汉语教学总论", "explanation": "社会语言学家海姆斯提出了交际能力的概念，具体包括语法性和可接受性两个方面。"}, {"id": 7, "subject": "对外汉语教学理论", "chapter": "对外汉语教学总论", "type": "单选", "question": "\"以学生为中心\"的教育观点是由哪位心理学家和教育学家提出的？", "options": {"A": "斯金纳", "B": "布鲁纳", "C": "皮亚杰", "D": "华生"}, "answer": "B", "source": "对外汉语教学理论考试指南-对外汉语教学总论", "explanation": "20世纪50年代末60年代初，美国心理学家、教育学家布鲁纳提出\"以学生为中心\"的教育观点，强调学生是学习的主体，要发挥学生的积极性、主动性。"}, {"id": 8, "subject": "对外汉语教学理论", "chapter": "语言习得理论", "type": "单选", "question": "中介语理论的代表人物是谁？", "options": {"A": "科德", "B": "拉多", "C": "塞林克", "D": "乔姆斯基"}, "answer": "C", "source": "对外汉语教学理论考试指南-语言习得理论", "explanation": "中介语理论的代表人物是美国语言学家塞林克（Selinker）。他提出中介语是介于本族语和目的语之间的独立的语言系统。"}, {"id": 9, "subject": "对外汉语教学理论", "chapter": "语言习得理论", "type": "单选", "question": "偏误分析的代表人物是谁？", "options": {"A": "塞林克", "B": "科德", "C": "乔姆斯基", "D": "拉多"}, "answer": "B", "source": "对外汉语教学理论考试指南-语言习得理论", "explanation": "偏误分析的代表人物是英国应用语言学家科德（Corder）。偏误分析是对学习者在第二语言学习过程中所产生的偏误进行系统的分析，研究其来源。"}, {"id": 10, "subject": "对外汉语教学理论", "chapter": "语言习得理论", "type": "单选", "question": "先天论（内在论）的代表人物是谁？", "options": {"A": "华生", "B": "皮亚杰", "C": "韩礼德", "D": "乔姆斯基"}, "answer": "D", "source": "对外汉语教学理论考试指南-语言习得理论", "explanation": "先天论又称\"内在论\"，代表人物是美国语言学家乔姆斯基。他认为人类具有先天的\"语言习得机制\"（LAD）。"}, {"id": 11, "subject": "对外汉语教学理论", "chapter": "语言习得理论", "type": "单选", "question": "偶然产生的口误或笔误属于什么？", "options": {"A": "偏误", "B": "失误", "C": "错误", "D": "语误"}, "answer": "B", "source": "对外汉语教学理论考试指南-语言习得理论", "explanation": "失误是指由于疏忽或水平不高而造成的差错，是偶然现象，学生可以自行纠正。偏误则是指由于目的语掌握不好而产生的一种规律性错误。"}, {"id": 12, "subject": "对外汉语教学理论", "chapter": "语言习得理论", "type": "填空", "question": "瑞士著名心理学家________对儿童认知发展理论和儿童语言发展理论做出了重要贡献。", "options": {}, "answer": "皮亚杰", "source": "对外汉语教学理论考试指南-语言习得理论", "explanation": "皮亚杰是认知论的代表人物，他认为儿童语言的发展是天生的心理认知能力与客观经验相互作用的产物。"}, {"id": 13, "subject": "对外汉语教学理论", "chapter": "语言习得理论", "type": "单选", "question": "典型的对比分析包括以下哪个步骤？", "options": {"A": "描写、选择、对比、预测", "B": "描写、分析、对比、总结", "C": "观察、选择、对比、预测", "D": "描写、选择、对比、归纳"}, "answer": "A", "source": "对外汉语教学理论考试指南-语言习得理论", "explanation": "对比分析的四个步骤是：描写、选择、对比、预测。对比分析是将两种语言的系统进行共时比较，以揭示其相同点和不同点。"}, {"id": 14, "subject": "对外汉语教学理论", "chapter": "语言习得理论", "type": "填空", "question": "行为主义刺激—反应论认为语言是后天形成的________。", "options": {}, "answer": "一套习惯", "source": "对外汉语教学理论考试指南-语言习得理论", "explanation": "行为主义刺激—反应论认为语言不是先天所有的，是后天通过刺激—反应—强化的模式而获得的，是后天形成的一套习惯。"}, {"id": 15, "subject": "对外汉语教学理论", "chapter": "第二语言教学法的主要流派", "type": "单选", "question": "最古老的语言教学法是哪一种？", "options": {"A": "直接法", "B": "听说法", "C": "语法翻译法", "D": "功能法"}, "answer": "C", "source": "对外汉语教学理论考试指南-第二语言教学法的主要流派", "explanation": "语法翻译法是最古老的语言教学法，产生于18世纪末。代表人物是奥伦多夫（德），语言学基础是机械语言学或历史比较语言学。"}, {"id": 16, "subject": "对外汉语教学理论", "chapter": "第二语言教学法的主要流派", "type": "单选", "question": "听说法产生于哪个国家？", "options": {"A": "法国", "B": "英国", "C": "德国", "D": "美国"}, "answer": "D", "source": "对外汉语教学理论考试指南-第二语言教学法的主要流派", "explanation": "听说法产生于20世纪四五十年代的美国，是二战时美国训练士兵所采用的方法。语言学基础是结构主义语言学，心理学基础是行为主义心理学。"}, {"id": 17, "subject": "对外汉语教学理论", "chapter": "第二语言教学法的主要流派", "type": "单选", "question": "听说法的心理学理论依据是什么？这种心理学理论的创始人是谁？", "options": {"A": "认知心理学—皮亚杰", "B": "行为主义心理学—华生", "C": "人本主义心理学—马斯洛", "D": "构造主义心理学—冯特"}, "answer": "B", "source": "对外汉语教学理论考试指南-第二语言教学法的主要流派", "explanation": "听说法的心理学基础是行为主义心理学（刺激—反应—强化），这种心理学理论的创始人是华生。"}, {"id": 18, "subject": "对外汉语教学理论", "chapter": "第二语言教学法的主要流派", "type": "单选", "question": "直接法主张在外语教学中如何处理母语？", "options": {"A": "尽量利用学生的母语", "B": "完全不使用学生的母语", "C": "有限度地使用学生的母语", "D": "以母语为教学语言"}, "answer": "B", "source": "对外汉语教学理论考试指南-第二语言教学法的主要流派", "explanation": "直接法主张在外语教学中完全不使用学生的母语，直接采用目的语来教授目的语，所以又称\"自然法\"。代表人物是贝立兹。"}, {"id": 19, "subject": "对外汉语教学理论", "chapter": "第二语言教学法的主要流派", "type": "单选", "question": "功能法的心理学基础是什么？", "options": {"A": "行为主义心理学", "B": "官能心理学", "C": "人本主义心理学", "D": "认知心理学"}, "answer": "C", "source": "对外汉语教学理论考试指南-第二语言教学法的主要流派", "explanation": "功能法产生于20世纪70年代西欧，语言学基础是社会语言学和功能语言学，心理学基础是人本主义心理学。"}, {"id": 20, "subject": "对外汉语教学理论", "chapter": "第二语言教学法的主要流派", "type": "单选", "question": "以下不属于任务教学法的主要特点的是哪项？", "options": {"A": "强调学习活动和学习材料的真实性", "B": "强调以学生为中心而不是以教师为中心", "C": "学习活动以表达意义为主", "D": "注重书面语的教学，轻视口语"}, "answer": "D", "source": "对外汉语教学理论考试指南-第二语言教学法的主要流派", "explanation": "任务教学法的特点包括：通过完成任务来学习语言、强调学习活动和材料的真实性、以表达意义为主、以学生为中心等。\"注重书面语，轻视口语\"是语法翻译法的特点。"}, {"id": 21, "subject": "对外汉语教学理论", "chapter": "第二语言教学法的主要流派", "type": "单选", "question": "强调以句型为中心反复进行操练的教学法是哪种？", "options": {"A": "听说法", "B": "直接法", "C": "语法翻译法", "D": "功能法"}, "answer": "A", "source": "对外汉语教学理论考试指南-第二语言教学法的主要流派", "explanation": "听说法又称为结构法或句型法，以句型为中心进行训练是其重要特点之一。"}, {"id": 22, "subject": "对外汉语教学理论", "chapter": "第二语言教学法的主要流派", "type": "填空", "question": "直接法是作为________的对立物在西欧出现的。", "options": {}, "answer": "语法翻译法", "source": "对外汉语教学理论考试指南-第二语言教学法的主要流派", "explanation": "直接法针对语法翻译法的弊端而产生，直接采用目的语来教授目的语，是作为语法翻译法的对立物在西欧出现的。"}, {"id": 23, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言教学的理论与应用", "type": "单选", "question": "汉语作为第二语言教学四大环节的中心环节是什么？", "options": {"A": "总体设计", "B": "教材编写", "C": "课堂教学", "D": "语言测试"}, "answer": "C", "source": "对外汉语教学理论考试指南-汉语作为第二语言教学的理论与应用", "explanation": "课堂教学是全部教学活动的中心环节，是第二语言教学的中心环节和基本方式，是语言教师的根本任务。"}, {"id": 24, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言教学的理论与应用", "type": "单选", "question": "一般来说，在留学生课程中，哪门课是主干课程？", "options": {"A": "综合课", "B": "听力课", "C": "阅读课", "D": "口语课"}, "answer": "A", "source": "对外汉语教学理论考试指南-汉语作为第二语言教学的理论与应用", "explanation": "综合课是把语言要素、文化知识、语用规则的教学和言语技能、言语交际技能的训练等综合起来培养学生综合运用语言能力的课程，目前是主干课程。"}, {"id": 25, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言教学的理论与应用", "type": "单选", "question": "总体设计的根本任务是什么？", "options": {"A": "全面分析语言教学规律", "B": "选择最佳教学方案", "C": "协调各教学环节", "D": "对具体的课堂教学做出规定"}, "answer": "B", "source": "对外汉语教学理论考试指南-汉语作为第二语言教学的理论与应用", "explanation": "总体设计是选择最佳教学方案。其根本任务是要取得语言教学的最佳效果，在综合分析的基础上设计出适应解决各种矛盾的最佳教学方案。"}, {"id": 26, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言教学的理论与应用", "type": "填空", "question": "对外汉语语言要素的教学包括语音、词汇、语法和________四个方面。", "options": {}, "answer": "汉字", "source": "对外汉语教学理论考试指南-汉语作为第二语言教学的理论与应用", "explanation": "对外汉语语言要素的教学包括语音、词汇、语法、汉字教学四个方面，这四方面是汉语作为第二语言教学的基础内容。"}, {"id": 27, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言教学的理论与应用", "type": "填空", "question": "对外汉语教学的全部教学活动可概括为总体设计、教材编写、________和成绩测试四大环节。", "options": {}, "answer": "课堂教学", "source": "对外汉语教学理论考试指南-汉语作为第二语言教学的理论与应用", "explanation": "对外汉语教学的全部教学活动四大环节是指总体设计、教材编写、课堂教学、成绩测试。"}, {"id": 28, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的课堂教学", "type": "单选", "question": "对母语是英语的学生来说，他们学习汉语语音时遇到的最大困难是什么？", "options": {"A": "声母", "B": "韵母", "C": "声调", "D": "拼音"}, "answer": "C", "source": "对外汉语教学理论考试指南-汉语作为第二语言的课堂教学", "explanation": "对母语是英语的学生来说，声调是他们学习汉语语音时遇到的最大困难，因为英语不是声调语言。"}, {"id": 29, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的课堂教学", "type": "单选", "question": "外国人说汉语难学，主要指的是什么？", "options": {"A": "语音", "B": "语法", "C": "汉字", "D": "词汇"}, "answer": "C", "source": "对外汉语教学理论考试指南-汉语作为第二语言的课堂教学", "explanation": "外国人说汉语难学，主要指的是汉字。汉字是对外汉语教学的难点。"}, {"id": 30, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的课堂教学", "type": "单选", "question": "对外汉语教学中最重要的选词标准是什么？", "options": {"A": "口语中常用的", "B": "意义单一的", "C": "常用的、构词能力强的", "D": "适用范围广的"}, "answer": "C", "source": "对外汉语教学理论考试指南-汉语作为第二语言的课堂教学", "explanation": "选词标准是常用、构词能力强。这能帮助学习者在有限时间内掌握最有用的词汇。"}, {"id": 31, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的课堂教学", "type": "单选", "question": "在口语训练中，对待学生错误的态度应该是怎样的？", "options": {"A": "不要纠正", "B": "立刻纠正", "C": "见错就纠", "D": "有计划有重点地纠正"}, "answer": "D", "source": "对外汉语教学理论考试指南-汉语作为第二语言的课堂教学", "explanation": "不能见错就纠，要有计划、有重点地纠正学生的错误。建议在学生表达时不要轻易打断学生的表达过程。"}, {"id": 32, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的课堂教学", "type": "单选", "question": "快速查找所需的信息属于哪种阅读方法？", "options": {"A": "略读", "B": "跳读（掠读）", "C": "精读", "D": "泛读"}, "answer": "B", "source": "对外汉语教学理论考试指南-汉语作为第二语言的课堂教学", "explanation": "跳读（掠读）的目的是快速查找所需的信息。略读是快速阅读以了解文章宗旨或掌握大意。"}, {"id": 33, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的课堂教学", "type": "单选", "question": "用\"能飞的机器\"解释\"飞机\"属于哪种词汇教学方法？", "options": {"A": "语素法", "B": "直接法", "C": "语境法", "D": "搭配法"}, "answer": "A", "source": "对外汉语教学理论考试指南-汉语作为第二语言的课堂教学", "explanation": "语素法是通过分析单个语素来理解词义的方法，如\"飞机—能飞的机器\"。"}, {"id": 34, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的课堂教学", "type": "填空", "question": "先举例后总结说明的语法教学方法是________法。", "options": {}, "answer": "归纳", "source": "对外汉语教学理论考试指南-汉语作为第二语言的课堂教学", "explanation": "归纳法是先举例子，后总结规则。演绎法则是先给语法规则，再举例说明。"}, {"id": 35, "subject": "对外汉语教学理论", "chapter": "对外汉语教材的编写、选择与使用", "type": "单选", "question": "教材编写和评估需遵循的基本原则中不包括以下哪项？", "options": {"A": "实用性原则", "B": "趣味性原则", "C": "政治性原则", "D": "科学性原则"}, "answer": "C", "source": "对外汉语教学理论考试指南-对外汉语教材的编写、选择与使用", "explanation": "教材评估的四原则是实用性原则、知识性原则、趣味性原则和科学性原则。另外还应遵循交际性原则、针对性原则和系统性原则。"}, {"id": 36, "subject": "对外汉语教学理论", "chapter": "对外汉语教材的编写、选择与使用", "type": "单选", "question": "《报刊阅读》《新闻听力》是按什么划分出来的？", "options": {"A": "教学方法", "B": "教学对象", "C": "教学手段", "D": "课程类型"}, "answer": "D", "source": "对外汉语教学理论考试指南-对外汉语教材的编写、选择与使用", "explanation": "教材可从不同角度进行分类，《报刊阅读》《新闻听力》是按课程类型划分出来的。"}, {"id": 37, "subject": "对外汉语教学理论", "chapter": "对外汉语教材的编写、选择与使用", "type": "单选", "question": "教材编写的直接理论依据是什么？", "options": {"A": "语言学、心理学、教育学", "B": "语言教学理论和学习理论", "C": "目的语语言学和目的语文化", "D": "教学计划与教学大纲"}, "answer": "B", "source": "对外汉语教学理论考试指南-对外汉语教材的编写、选择与使用", "explanation": "教材编写的依据中，语言学、心理学、教育学是主要的、基础的理论依据；语言教学理论和学习理论是直接理论依据。"}, {"id": 38, "subject": "对外汉语教学理论", "chapter": "对外汉语教材的编写、选择与使用", "type": "填空", "question": "评估________是指评估是否公正而客观地反映了被评估教材的实际表现，也就是评估的结论或分值对被评估教材而言的可靠程度。", "options": {}, "answer": "信度", "source": "对外汉语教学理论考试指南-对外汉语教材的编写、选择与使用", "explanation": "评估信度是指评估的结论或分值对被评估教材而言的可靠程度。评估效度则是指评估的内容是否符合评估目的。"}, {"id": 39, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的测试与评估", "type": "单选", "question": "HSK属于哪种类型的考试？", "options": {"A": "成绩测试", "B": "水平测试", "C": "诊断测试", "D": "潜能测试"}, "answer": "B", "source": "对外汉语教学理论考试指南-汉语作为第二语言的测试与评估", "explanation": "HSK属于水平测试。水平测试的目的是测量测试对象的第二语言水平，如HSK、TOEFL、WSK等。"}, {"id": 40, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的测试与评估", "type": "单选", "question": "语言教学过程中进行的期中考试和期末考试属于哪种类型？", "options": {"A": "水平测试", "B": "诊断测试", "C": "成绩测试", "D": "潜能测试"}, "answer": "C", "source": "对外汉语教学理论考试指南-汉语作为第二语言的测试与评估", "explanation": "成绩测试也叫学业成就测试，包括期中考试、期末考试、结业考试、毕业考试等，用以检查测试对象在学习的一定阶段掌握所学课程的情况。"}, {"id": 41, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的测试与评估", "type": "单选", "question": "一份试题对学生重复测试，是验证试题什么的方法之一？", "options": {"A": "效度", "B": "信度", "C": "区分度", "D": "难易清晰度"}, "answer": "B", "source": "对外汉语教学理论考试指南-汉语作为第二语言的测试与评估", "explanation": "信度即可靠性，一份试题对学生重复测试是验证试题信度的方法之一。效度指测试的内容应符合测试的意图。"}, {"id": 42, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的测试与评估", "type": "填空", "question": "按评分的客观化程度区分，作文属于________试题。", "options": {}, "answer": "主观性", "source": "对外汉语教学理论考试指南-汉语作为第二语言的测试与评估", "explanation": "主观性试题指测试结果的评判在很大程度上取决于阅卷者的主观判断，如作文、口试、翻译等。客观性试题有统一的阅卷标准，答案固定。"}, {"id": 43, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言的测试与评估", "type": "单选", "question": "下列不属于分立式试题的是哪项？", "options": {"A": "填空", "B": "改错", "C": "多选", "D": "写作"}, "answer": "D", "source": "对外汉语教学理论考试指南-汉语作为第二语言的测试与评估", "explanation": "分立式试题是对受试者各项单项能力进行分项测试，如填空、改错、多选等。写作属于综合性试题，全面考察受试者语言能力。"}, {"id": 44, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言教学中的文化因素", "type": "填空", "question": "在目的语国家学习时，文化接受过程一般分为四个阶段：观光期（蜜月阶段）、________、逐渐适应期（调整阶段）和接受或完全复原期（适应阶段）。", "options": {}, "answer": "挫折阶段", "source": "对外汉语教学理论考试指南-汉语作为第二语言教学中的文化因素", "explanation": "文化接受过程的四个阶段是：蜜月阶段、挫折阶段、调整阶段、适应阶段。挫折阶段又称\"文化休克\"。"}, {"id": 45, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言教学中的文化因素", "type": "单选", "question": "关于语言与文化的关系，表述错误的一项是？", "options": {"A": "语言是文化的载体", "B": "语言是文化不可分割的一部分", "C": "文化是语言的重要载体之一", "D": "文化与语言不可分割"}, "answer": "C", "source": "对外汉语教学理论考试指南-汉语作为第二语言教学中的文化因素", "explanation": "语言是文化的载体，而不是文化是语言的载体。语言既是人类文化的一部分，同时也是文化的载体。"}, {"id": 46, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言教学中的文化因素", "type": "单选", "question": "文化休克是指什么？", "options": {"A": "对异文化的新鲜感", "B": "对异文化的了解", "C": "对文化不适应而产生的深度焦虑感", "D": "对异文化的欣赏"}, "answer": "C", "source": "对外汉语教学理论考试指南-汉语作为第二语言教学中的文化因素", "explanation": "文化休克也称\"文化震荡症\"，是一种由于对文化不适应而产生的心理上的深度焦虑感，表现为感到孤独、气恼、悲伤、思乡、浑身不适乃至生病。"}, {"id": 47, "subject": "对外汉语教学理论", "chapter": "汉语作为第二语言教学中的文化因素", "type": "填空", "question": "文化的属性有民族性、社会性、________和阶段性。", "options": {}, "answer": "系统性", "source": "对外汉语教学理论考试指南-汉语作为第二语言教学中的文化因素", "explanation": "文化的属性包括民族性、社会性、系统性和阶段性。"}, {"id": 48, "subject": "对外汉语教学理论", "chapter": "现代教育技术在对外汉语教学中的应用", "type": "单选", "question": "多媒体课件的特点中，区别于其他教学软件的最重要特点是什么？", "options": {"A": "集成性", "B": "交互性", "C": "教育性", "D": "技术性"}, "answer": "B", "source": "对外汉语教学理论考试指南-现代教育技术在对外汉语教学中的应用", "explanation": "多媒体课件的特点包括集成性、交互性、个别性、教育性等。其中交互性是区别于其他教学软件的特点之一，结构是非线性的。"}, {"id": 49, "subject": "对外汉语教学理论", "chapter": "现代教育技术在对外汉语教学中的应用", "type": "单选", "question": "CAI是指什么？", "options": {"A": "汉语计算机辅助教学", "B": "智能汉语辅助教学", "C": "计算机辅助教学", "D": "多媒体辅助教学"}, "answer": "C", "source": "对外汉语教学理论考试指南-现代教育技术在对外汉语教学中的应用", "explanation": "CAI是计算机辅助教学（Computer Assisted Instruction），是利用计算机辅助教师教学，以对话方式与学生讨论教学内容，安排教学进程，进行教学训练的方式与技术。"}, {"id": 50, "subject": "对外汉语教学理论", "chapter": "现代教育技术在对外汉语教学中的应用", "type": "填空", "question": "强调个别化教学、增强________是汉语远程教学的基本特点。", "options": {}, "answer": "交互性", "source": "对外汉语教学理论考试指南-现代教育技术在对外汉语教学中的应用", "explanation": "汉语远程教学的目标是通过远程的方式培养汉语听说读写等技能，强调个别化教学、增强交互性是汉语远程教学的基本特点。"}, {"id": 51, "subject": "对外汉语教学理论", "chapter": "现代教育技术在对外汉语教学中的应用", "type": "填空", "question": "ICCAI指的是________汉语辅助教学。", "options": {}, "answer": "智能", "source": "对外汉语教学理论考试指南-现代教育技术在对外汉语教学中的应用", "explanation": "ICCAI是Intelligence Chinese-Computer-Assisted Instruction（智能汉语辅助教学）的缩写。"}, {"id": 52, "subject": "对外汉语教学理论", "chapter": "教案设计", "type": "填空", "question": "教案板书设计中，板面的________应板书教学内容。", "options": {}, "answer": "3/5", "source": "对外汉语教学理论考试指南-教案设计", "explanation": "教案板书设计中，板面的3/5板书教学内容，1/5纠错，1/5活用。"}, {"id": 53, "subject": "对外汉语教学理论", "chapter": "对外汉语教学总论", "type": "名词解释", "question": "请解释\"第二语言\"的概念。", "options": {}, "answer": "第二语言是指人们在获得第一语言之后再学习和使用的其他语言。在习得第一语言以后学习和使用的本民族语言、本国其他民族的语言和外国语言都可以叫做第二语言。", "source": "对外汉语教学理论考试指南-对外汉语教学总论", "explanation": "第二语言是在第一语言之后学习和使用的其他语言。与外语不同，第二语言是从语言获得的顺序角度来定义的。"}, {"id": 54, "subject": "对外汉语教学理论", "chapter": "语言习得理论", "type": "名词解释", "question": "请解释\"中介语\"的概念。", "options": {}, "answer": "中介语是第二语言学习者特有的一种目的语的语言系统。这种语言系统在语音、词汇、语法、文化和交际等方面既不同于自己的第一语言，也不同于目的语，而是一种随着语言学习的进展向目的语的正确形式不断靠拢的动态语言系统。", "source": "对外汉语教学理论考试指南-语言习得理论", "explanation": "中介语由塞林克提出。其特点包括：是一种语言系统；不是固定不变的；偏误有反复性和顽固性。"}, {"id": 55, "subject": "对外汉语教学理论", "chapter": "第二语言教学法的主要流派", "type": "名词解释", "question": "请解释\"任务教学法\"的概念。", "options": {}, "answer": "任务教学法是交际法在20世纪80年代的新发展，即以学生为中心，教师设计具体的、带有明确目标的活动，让学生用目的语通过协商、讨论，解决这一具体问题。所谓\"任务\"指有目标的语言交际活动。", "source": "对外汉语教学理论考试指南-第二语言教学法的主要流派", "explanation": "任务教学法代表人物是伯拉胡（英）和纽南（澳）。语言学基础是社会语言学和功能语言学，心理学基础是人本主义心理学和心理语言学。"}];
 
-// Normalize question objects (在数据加载后执行)
-try {
-  if (typeof questions_xh !== 'undefined') {
-    [questions_xh, questions_wh, questions_ll].forEach(arr => {
-      arr.forEach(q => {
-        if (!q.question && q.content) q.question = q.content;
-      });
-    });
-  }
-} catch(e) {}
+// Normalize question objects
+[questions_xh, questions_wh, questions_ll].forEach(arr => {
+  arr.forEach(q => {
+    if (!q.question && q.content) q.question = q.content;
+  });
+});
 
 const subjects = [
-  { id: 'xh', name: '现代汉语', icon: '📖', count: 0, color: '#2563eb' },
-  { id: 'wh', name: '中国文化', icon: '🏯', count: 0, color: '#7c3aed' },
-  { id: 'll', name: '对外汉语教学理论', icon: '🎓', count: 0, color: '#0891b2' }
+  { id: 'xh', name: '现代汉语', icon: '📖', count: questions_xh.length, color: '#2563eb' },
+  { id: 'wh', name: '中国文化', icon: '🏯', count: questions_wh.length, color: '#7c3aed' },
+  { id: 'll', name: '对外汉语教学理论', icon: '🎓', count: questions_ll.length, color: '#0891b2' }
 ];
-// 非阻塞加载三科题库数据
-if (typeof questions_xh === 'undefined') { setTimeout(loadSubjectData, 100); }
-
 
 let currentUser = '';
 let currentSubject = null;
@@ -268,78 +214,7 @@ let selectedOptions = [];
 
 function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function shuffle(a) { const r=[...a]; for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];} return r; }
-
-// ===== 中文数字转换 =====
-var CNUM = ['〇','一','二','三','四','五','六','七','八','九','十'];
-function toChineseNum(n) {
-  if (n < 0 || n > 999) return String(n);
-  if (n <= 10) return CNUM[n];
-  if (n < 20) return '十' + (n > 10 ? CNUM[n % 10] : '');
-  var s = '';
-  if (n >= 100) { s += CNUM[Math.floor(n / 100)] + '百'; n %= 100; if (n < 10 && n > 0) s += '零'; }
-  if (n >= 10) { s += CNUM[Math.floor(n / 10)] + '十'; n %= 10; }
-  if (n > 0) { s += CNUM[n]; } else if (s.length > 0 && s.slice(-1) === '十' && n === 0) { /* keep */ }
-  return s;
-}
-
-// ===== 进度存取 =====
-function savePracticeProgress(username, subjectId, index, total) {
-  if (!username) return;
-  var completed = index >= total;
-  localStorage.setItem('quiz_progress_' + username + '_' + subjectId, JSON.stringify({
-    index: completed ? 0 : index,
-    completed: completed,
-    total: total
-  }));
-}
-function loadPracticeProgress(username, subjectId) {
-  if (!username) return null;
-  try { return JSON.parse(localStorage.getItem('quiz_progress_' + username + '_' + subjectId)); } catch(e) {}
-  return null;
-}
-function clearPracticeProgress(username, subjectId) {
-  if (!username) return;
-  localStorage.removeItem('quiz_progress_' + username + '_' + subjectId);
-}
-
-// ===== 错题存取 =====
-function getWrongQuestions(username, subjectId) {
-  if (!username) return [];
-  try { return JSON.parse(localStorage.getItem('quiz_wrong_' + username + '_' + subjectId) || '[]'); } catch(e) {}
-  return [];
-}
-function saveWrongQuestions(username, subjectId, questions) {
-  if (!username) return;
-  localStorage.setItem('quiz_wrong_' + username + '_' + subjectId, JSON.stringify(questions));
-}
-function addWrongQuestion(username, subjectId, q) {
-  var wrongs = getWrongQuestions(username, subjectId);
-  if (!wrongs.some(function(w) { return w.id === q.id && w.subject === q.subject; })) {
-    wrongs.push(JSON.parse(JSON.stringify(q)));
-    saveWrongQuestions(username, subjectId, wrongs);
-  }
-}
-function getWrongProgress(username, subjectId) {
-  if (!username) return null;
-  try { return JSON.parse(localStorage.getItem('quiz_wrong_progress_' + username + '_' + subjectId)); } catch(e) {}
-  return null;
-}
-function saveWrongProgress(username, subjectId, index, total) {
-  if (!username) return;
-  localStorage.setItem('quiz_wrong_progress_' + username + '_' + subjectId, JSON.stringify({ index: index, total: total }));
-}
-
-// ===== 题干乱码过滤 =====
-function filterErrorText(str) {
-  if (!str) return '';
-  // 剔除无意义碎片字符
-  var errorWords = ["一一六","一二一","零散错字"];
-  errorWords.forEach(function(word) {
-    // Only clean if the word appears as a fragment in an otherwise valid sentence
-    str = str.replace(word, '');
-  });
-  return str;
-}
+function toChineseNum(n) { const u = ['〇','一','二','三','四','五','六','七','八','九']; if (n < 10) return u[n]; if (n < 100) { var s = ''; if (n >= 10) { s += (n >= 20 ? u[Math.floor(n/10)] : '') + '十'; n %= 10; } if (n > 0) s += u[n]; return s; } return String(n); }
 
 // ===== 预设账号 =====
 const PRESET_USERS = {
@@ -443,31 +318,17 @@ function showHome() {
     '<main class="home-main">' +
     '<div class="welcome-section"><h2>欢迎回来，<span class="welcome-name">' + esc(currentUser) + '</span></h2><p>选择科目开始刷题练习</p></div>' +
     '<div class="subject-grid">' +
-    subjects.map(function(s) { return '<div class="subject-card" style="--card-color:' + s.color + '">' +
+    subjects.map(function(s) { return '<div class="subject-card" style="--card-color:' + s.color + '" onclick="startPractice(\'' + s.id + '\')">' +
       '<div class="card-icon">' + s.icon + '</div>' +
-      '<div class="card-info"><div class="card-name">' + s.name + '</div><div class="card-count">' + s.count + ' 题</div>' +
-      '<div style="display:flex;gap:8px;margin-top:8px">' +
-      '<button onclick="event.stopPropagation();startPractice(\'' + s.id + '\')" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:var(--primary-light);color:var(--primary);cursor:pointer">开始刷题</button>' +
-      '<button onclick="event.stopPropagation();showWrongBook(\'' + s.id + '\',\'' + s.name + '\')" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:#fef2f2;color:#dc2626;cursor:pointer">❌ 错题本</button>' +
-      '</div></div>' +
-      '</div></div>'; }).join('') +
-    '<div class="subject-card" style="--card-color:#94a3b8;border-left-color:#f59e0b"><div class="card-icon">📝</div><div class="card-info"><div class="card-name">历年真题</div><div class="card-count">452 题</div>' +
-    '<div style="display:flex;gap:8px;margin-top:8px">' +
-    '<button onclick="event.stopPropagation();showExamList()" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:var(--primary-light);color:var(--primary);cursor:pointer">开始答题</button>' +
-    '<button onclick="event.stopPropagation();showExamWrongBook()" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:#fef2f2;color:#dc2626;cursor:pointer">❌ 错题本</button>' +
-    '</div></div></div>' +
+      '<div class="card-info"><div class="card-name">' + s.name + '</div><div class="card-count">' + s.count + ' 题</div></div>' +
+      '<div class="card-arrow">→</div></div>'; }).join('') +
+    '<div class="subject-card" style="--card-color:#94a3b8;border-left-color:#f59e0b"><div class="card-icon">📝</div><div class="card-info"><div class="card-name">历年真题</div><div class="card-count">452 题</div></div><div style="display:flex;gap:8px;margin-top:8px"><button onclick="event.stopPropagation();showExamList()" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:var(--primary-light);color:var(--primary);cursor:pointer">开始答题</button><button onclick="event.stopPropagation();showExamWrongBook()" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:#fef2f2;color:#dc2626;cursor:pointer">❌ 错题本</button></div></div>' +
     '<div class="subject-card card-coming" style="--card-color:#94a3b8"><div class="card-icon">🎯</div><div class="card-info"><div class="card-name">模拟考试</div><div class="card-count">即将上线</div></div></div>' +
     '</div></main></div>';
 }
 
 // ===== 刷题 =====
 function startPractice(subjectId) {
-  // 确保题库数据已加载
-  if (typeof questions_xh === 'undefined') {
-    loadSubjectData();
-    setTimeout(function() { startPractice(subjectId); }, 200);
-    return;
-  }
   currentSubject = subjectId;
   var questions, name;
   var sub = subjects.find(function(s) { return s.id === subjectId; });
@@ -476,20 +337,8 @@ function startPractice(subjectId) {
   else if (subjectId === 'wh') questions = questions_wh;
   else if (subjectId === 'll') questions = questions_ll;
   if (!questions) return;
-  // Check if user completed this subject before - reshuffle
-  var prog = loadPracticeProgress(currentUser, subjectId);
-  if (prog && prog.completed) {
-    practiceQuestions = shuffle(questions);
-    currentIndex = 0;
-    clearPracticeProgress(currentUser, subjectId);
-  } else if (prog && prog.index > 0) {
-    practiceQuestions = shuffle(questions);
-    currentIndex = Math.min(prog.index, questions.length - 1);
-  } else {
-    practiceQuestions = shuffle(questions);
-    currentIndex = 0;
-  }
-  correctCount = 0; wrongCount = 0; answered = false;
+  practiceQuestions = shuffle(questions);
+  currentIndex = 0; correctCount = 0; wrongCount = 0; answered = false;
   showPracticePage(name);
   showQuestion();
 }
@@ -540,10 +389,10 @@ function showQuestion() {
   document.getElementById('nextBtn').style.display = 'block';
   document.getElementById('nextBtn').textContent = '下一题 →';
 
-  document.getElementById('qMeta').textContent = '第' + toChineseNum(currentIndex+1) + '题 | ' + (q.chapter || '');
+  document.getElementById('qMeta').textContent = '第 ' + (currentIndex+1) + ' 题 | ' + (q.chapter || '');
   var typeMap = {'单选':'单选题','多选':'多选题','填空':'填空题','名词解释':'名词解释','改错':'改错题'};
   document.getElementById('qTypeBadge').textContent = typeMap[q.type] || q.type;
-  document.getElementById('qText').textContent = filterErrorText(q.question || q.content || '');
+  document.getElementById('qText').textContent = q.question || q.content || '';
 
   var optsDiv = document.getElementById('qOptions');
   optsDiv.innerHTML = '';
@@ -575,7 +424,6 @@ function selectOption(el, key) {
   if (key === q.answer) { el.classList.add('correct'); correctCount++; }
   else {
     el.classList.add('wrong'); wrongCount++;
-    addWrongQuestion(currentUser, currentSubject, q);
     all.forEach(function(o) {
       if (o.textContent.trim().startsWith(q.answer)) o.classList.add('correct');
     });
@@ -604,7 +452,7 @@ function submitMulti() {
   answered = true;
   document.getElementById('showAnsBtn').style.display = 'none';
   if (userAns === correctAns) { correctCount++; showAnswerResult(true, q.answer); }
-  else { wrongCount++; showAnswerResult(false, q.answer); addWrongQuestion(currentUser, currentSubject, q); }
+  else { wrongCount++; showAnswerResult(false, q.answer); }
   document.getElementById('correctCount').textContent = correctCount;
   document.getElementById('wrongCount').textContent = wrongCount;
   showExplanation();
@@ -625,7 +473,7 @@ function submitFreeAnswer() {
 
 function selfEval(isCorrect) {
   if (isCorrect) correctCount++;
-  else { wrongCount++; addWrongQuestion(currentUser, currentSubject, practiceQuestions[currentIndex]); }
+  else wrongCount++;
   document.getElementById('correctCount').textContent = correctCount;
   document.getElementById('wrongCount').textContent = wrongCount;
   showExplanation();
@@ -649,30 +497,21 @@ function showAnswer() {
   if (answered) return;
   document.getElementById('showAnsBtn').style.display = 'none';
   var q = practiceQuestions[currentIndex];
-  wrongCount++;
-  addWrongQuestion(currentUser, currentSubject, q);
-  document.getElementById('wrongCount').textContent = wrongCount;
   showAnswerResult(null, q.answer);
   showExplanation();
 }
 
 function nextQuestion() {
   if (!answered) { wrongCount++; }
-  currentIndex++; 
-  savePracticeProgress(currentUser, currentSubject, currentIndex, practiceQuestions.length);
-  showQuestion();
+  currentIndex++; showQuestion();
 }
 
 function prevQuestion() {
-  if (currentIndex > 0) { currentIndex--; answered = false; 
-    savePracticeProgress(currentUser, currentSubject, currentIndex, practiceQuestions.length);
-    showQuestion(); 
-  }
+  if (currentIndex > 0) { currentIndex--; answered = false; showQuestion(); }
 }
 
 function finishPractice() {
   var total = practiceQuestions.length;
-  savePracticeProgress(currentUser, currentSubject, total, total);
   document.getElementById('progressText').textContent = total + '/' + total;
   document.getElementById('progressBar').style.width = '100%';
   document.getElementById('nextBtn').style.display = 'none';
@@ -688,13 +527,40 @@ function finishPractice() {
 
 function restartPractice() { if (currentSubject) startPractice(currentSubject); }
 
-// ===== 历年真题 =====
-var examQuestions = [];
-var examCurrentIndex = 0;
+function logout() {
+  sessionStorage.removeItem('quiz_session');
+  localStorage.removeItem('quiz_user');
+  document.getElementById('loginPage').style.display = 'flex';
+  document.getElementById('appPage').style.display = 'none';
+}
+
+
+// ===== 历年真题（动态加载 paperData.js）=====
 var examCurrentPaper = '';
+var examCurrentIndex = 0;
+var examQuestions = [];
+var examAnswered = false;
 var examCorrectCount = 0;
 var examWrongCount = 0;
-var examAnswered = false;
+
+var questions_papers = null;
+var papers_list = null;
+
+function loadPaperData(callback) {
+  if (questions_papers && papers_list) {
+    if (callback) callback();
+    return;
+  }
+  var s = document.createElement('script');
+  s.src = 'paperData.js';
+  s.onload = function() {
+    if (callback) callback();
+  };
+  s.onerror = function() {
+    alert('加载真题数据失败，请刷新页面重试');
+  };
+  document.body.appendChild(s);
+}
 
 function showExamList() {
   loadPaperData(function() { _showExamList(); });
@@ -712,7 +578,7 @@ function _showExamList() {
       return '<div class="subject-card" style="--card-color:#f59e0b">' +
         '<div class="card-icon">📄</div>' +
         '<div class="card-info"><div class="card-name">' + esc(p.name) + '</div><div class="card-count">' + count + ' 题</div></div>' +
-        '<button onclick="event.stopPropagation();startExam(\'' + esc(p.id) + '\')" style="padding:6px 16px;border:none;border-radius:6px;font-size:13px;font-weight:500;background:var(--primary);color:#fff;cursor:pointer;white-space:nowrap">开始答题</button>' +
+        '<button onclick="event.stopPropagation();startExam('' + esc(p.id) + '')" style="padding:6px 16px;border:none;border-radius:6px;font-size:13px;font-weight:500;background:var(--primary);color:#fff;cursor:pointer;white-space:nowrap">开始答题</button>' +
         '</div>';
     }).join('') +
     '</div></main></div>';
@@ -725,8 +591,7 @@ function _startExam(paperId) {
   var questions = questions_papers[paperId];
   if (!questions || questions.length === 0) return;
   examCurrentPaper = paperId;
-  examQuestions = questions.slice(); // copy, keep original order
-  // Check saved progress
+  examQuestions = questions.slice();
   var key = 'quiz_exam_progress_' + currentUser + '_' + paperId;
   try {
     var saved = JSON.parse(localStorage.getItem(key));
@@ -735,11 +600,8 @@ function _startExam(paperId) {
       localStorage.removeItem(key);
     } else if (saved && saved.index > 0) {
       examCurrentIndex = Math.min(saved.index, examQuestions.length - 1);
-    } else {
-      examCurrentIndex = 0;
-    }
+    } else { examCurrentIndex = 0; }
   } catch(e) { examCurrentIndex = 0; }
-  
   examCorrectCount = 0; examWrongCount = 0; examAnswered = false;
   showExamPage(paperId);
   showExamQuestion();
@@ -761,14 +623,16 @@ function showExamPage(paperId) {
     '<div class="q-text" id="examQText"></div>' +
     '<div class="q-options" id="examQOptions"></div>' +
     '<div class="q-result" id="examQResult" style="display:none"></div>' +
-    '<div class="q-explanation" id="examQExplanation" style="display:none"></div></div>' +
-    '<div class="nav-buttons">' +
-    '<button onclick="prevExamQuestion()" class="btn-nav" id="examPrevBtn">← 上一题</button>' +
-    '<button onclick="nextExamQuestion()" class="btn-nav btn-next" id="examNextBtn">下一题 →</button></div>' +
-    '<div class="end-actions" id="examEndActions" style="display:none">' +
-    '<button onclick="showExamList()" class="btn-primary2">← 返回试卷列表</button>' +
-    '<button onclick="restartExam()" class="btn-primary2 btn-restart">🔄 重新答题</button></div>' +
-    '</main></div>';
+    '<div id="examEndActions" style="display:none" class="nav-buttons">' +
+    '<button onclick="restartExam()" class="btn-primary2 btn-restart">🔄 重新答题</button>' +
+    '<button onclick="showExamList()" class="btn-primary2">← 返回试卷列表</button></div>' +
+    '<div class="nav-buttons" id="examNavBtns"><button id="examPrevBtn" onclick="prevExamQuestion()" class="btn-nav" style="display:none">← 上一题</button>' +
+    '<button id="examNextBtn" onclick="nextExamQuestion()" class="btn-nav">下一题 →</button></div></div></main></div>';
+}
+
+function saveExamProgress() {
+  var key = 'quiz_exam_progress_' + currentUser + '_' + examCurrentPaper;
+  localStorage.setItem(key, JSON.stringify({ index: examCurrentIndex, completed: false }));
 }
 
 function showExamQuestion() {
@@ -779,122 +643,100 @@ function showExamQuestion() {
   document.getElementById('examProgressBar').style.width = ((examCurrentIndex / total) * 100) + '%';
   document.getElementById('examCorrectCount').textContent = examCorrectCount;
   document.getElementById('examWrongCount').textContent = examWrongCount;
-  document.getElementById('examQResult').style.display = 'none';
-  document.getElementById('examQExplanation').style.display = 'none';
-  document.getElementById('examEndActions').style.display = 'none';
-  document.getElementById('examPrevBtn').style.display = examCurrentIndex > 0 ? 'block' : 'none';
-  document.getElementById('examNextBtn').style.display = 'block';
-  document.getElementById('examNextBtn').textContent = '下一题 →';
+  var meta = document.getElementById('examQMeta');
+  if (q.source) meta.textContent = '📚 ' + q.source; else meta.textContent = '';
+  document.getElementById('examQTypeBadge').textContent = q.type || '';
+  var text = q.question;
+  if (text && text.indexOf && text.indexOf('<') === -1) text = esc(text);
+  document.getElementById('examQText').innerHTML = '<div>' + text + '</div>';
+  var optDiv = document.getElementById('examQOptions');
+  var resultDiv = document.getElementById('examQResult');
+  resultDiv.style.display = 'none';
   examAnswered = false;
-  
-  document.getElementById('examQMeta').textContent = '第' + toChineseNum(examCurrentIndex+1) + '题';
-  var typeMap = {'单选':'单选题','多选':'多选题','填空':'填空题','名词解释':'名词解释','改错':'改错题'};
-  document.getElementById('examQTypeBadge').textContent = typeMap[q.type] || q.type || '单选题';
-  document.getElementById('examQText').textContent = filterErrorText(q.question || '');
-  
-  var optsDiv = document.getElementById('examQOptions');
-  optsDiv.innerHTML = '';
-  if (q.options) {
+  if (q.options && typeof q.options === 'object' && Object.keys(q.options).length > 0) {
     var keys = Object.keys(q.options);
-    optsDiv.innerHTML = keys.map(function(k) {
-      return '<div class="option-item" onclick="selectExamOption(this,'' + k + '')"><span class="option-key">' + k + '</span><span class="option-text">' + esc(q.options[k]) + '</span></div>';
+    optDiv.innerHTML = keys.map(function(k) {
+      return '<div class="option-item" data-key="' + k + '" onclick="examSelectOption(this, ''' + k + ''')"><span class="option-key">' + k + '.</span><span class="option-text">' + esc(q.options[k]) + '</span><span class="option-check"></span></div>';
     }).join('');
+    optDiv.style.display = 'flex';
+  } else {
+    optDiv.innerHTML = '<div class="q-input-area"><textarea id="examAnswerInput" rows="3" placeholder="请输入你的答案"></textarea><button onclick="examSubmitTextAnswer()" class="btn-submit-answer">提交答案</button></div>';
+    optDiv.style.display = 'block';
   }
+  document.getElementById('examPrevBtn').style.display = examCurrentIndex > 0 ? 'block' : 'none';
+  document.getElementById('examNavBtns').style.display = 'flex';
+  document.getElementById('examEndActions').style.display = 'none';
 }
 
-function selectExamOption(el, key) {
+function examSelectOption(el, key) {
   if (examAnswered) return;
-  var all = document.querySelectorAll('#examQOptions .option-item');
-  all.forEach(function(o) { o.classList.remove('selected'); });
+  document.querySelectorAll('#examQOptions .option-item').forEach(function(e) { e.classList.remove('selected'); });
   el.classList.add('selected');
+  var q = examQuestions[examCurrentIndex];
+  var isCorrect = key === q.answer;
+  el.classList.add(isCorrect ? 'correct' : 'wrong');
+  if (isCorrect) examCorrectCount++; else examWrongCount++;
+  examAnswered = true;
+  showExamResult(isCorrect, key);
+  saveExamProgress();
+}
+
+function examSubmitTextAnswer() {
+  if (examAnswered) return;
+  var input = document.getElementById('examAnswerInput');
+  // For text answers, mark as viewed
   examAnswered = true;
   var q = examQuestions[examCurrentIndex];
-  var isCorrect = (key === q.answer);
-  if (isCorrect) { el.classList.add('correct'); examCorrectCount++; }
-  else {
-    el.classList.add('wrong'); examWrongCount++;
-    // Save to exam wrong book
-    addExamWrongQuestion(q);
-    all.forEach(function(o) {
-      if (o.textContent.trim().startsWith(q.answer)) o.classList.add('correct');
-    });
-  }
-  document.getElementById('examCorrectCount').textContent = examCorrectCount;
-  document.getElementById('examWrongCount').textContent = examWrongCount;
-  showExamResult(isCorrect, q.answer, q.explanation);
+  document.getElementById('examQOptions').innerHTML = '<div class="q-result" style="display:block"><div class="result-header ' + 'result-correct' + '">✅ 已作答</div><div class="result-answer">你的答案: ' + esc(input.value || '(空)') + '</div></div>';
+  examCorrectCount++;
+  showExamResult(true, '');
+  saveExamProgress();
 }
 
-function showExamResult(isCorrect, answer, explanation) {
+function showExamResult(isCorrect, selectedKey) {
   var resultDiv = document.getElementById('examQResult');
+  var q = examQuestions[examCurrentIndex];
+  var answerText = q.answer || '';
+  var expText = q.explanation || '';
+  if (q.options && q.options[answerText]) answerText += '. ' + q.options[answerText];
+  var header = isCorrect ? '<div class="result-header result-correct">✅ 回答正确！</div>' : '<div class="result-header result-wrong">❌ 回答错误</div>';
+  var answerHtml = '<div class="result-answer"><strong>答案：</strong>' + esc(answerText) + '</div>';
+  var expHtml = expText ? '<div class="q-explanation"><div class="explanation-title">💡 解析</div><div class="explanation-text">' + esc(expText) + '</div></div>' : '';
+  resultDiv.innerHTML = header + answerHtml + expHtml;
   resultDiv.style.display = 'block';
-  if (isCorrect) resultDiv.innerHTML = '<div class="result-header result-correct">✅ 回答正确！</div>';
-  else resultDiv.innerHTML = '<div class="result-header result-wrong">❌ 回答错误</div><div class="result-answer">正确答案：' + esc(answer) + '</div>';
-  
-  if (explanation) {
-    var explDiv = document.getElementById('examQExplanation');
-    explDiv.style.display = 'block';
-    explDiv.innerHTML = '<div class="explanation-title">💡 解析</div><div class="explanation-text">' + esc(explanation) + '</div>';
+  // Save wrong answers
+  if (!isCorrect) {
+    var wrongs = getExamWrongQuestions();
+    wrongs.push({ id: q.id, examPaper: examCurrentPaper, question: q.question, userAnswer: selectedKey, correctAnswer: q.answer, type: q.type, options: q.options });
+    localStorage.setItem('quiz_exam_wrong_' + currentUser, JSON.stringify(wrongs));
   }
-}
-
-function saveExamProgress() {
-  if (!currentUser || !examCurrentPaper) return;
-  var key = 'quiz_exam_progress_' + currentUser + '_' + examCurrentPaper;
-  var total = examQuestions.length;
-  var completed = examCurrentIndex >= total;
-  localStorage.setItem(key, JSON.stringify({
-    index: completed ? 0 : examCurrentIndex,
-    completed: completed,
-    total: total
-  }));
 }
 
 function nextExamQuestion() {
-  if (!examAnswered) { examWrongCount++; }
+  if (!examAnswered) return;
   examCurrentIndex++;
   saveExamProgress();
   showExamQuestion();
 }
 
 function prevExamQuestion() {
-  if (examCurrentIndex > 0) { examCurrentIndex--; examAnswered = false; saveExamProgress(); showExamQuestion(); }
+  if (examCurrentIndex > 0) { examCurrentIndex--; showExamQuestion(); }
 }
 
 function finishExam() {
-  saveExamProgress();
-  var total = examQuestions.length;
-  document.getElementById('examProgressText').textContent = total + '/' + total;
+  document.getElementById('examQuestionCard').style.display = 'none';
+  document.getElementById('examProgressText').textContent = examQuestions.length + '/' + examQuestions.length;
   document.getElementById('examProgressBar').style.width = '100%';
-  document.getElementById('examNextBtn').style.display = 'none';
+  document.getElementById('examNavBtns').style.display = 'none';
   document.getElementById('examEndActions').style.display = 'flex';
-  var pct = total > 0 ? Math.round((examCorrectCount / total) * 100) : 0;
-  document.getElementById('examQuestionCard').innerHTML = '<div class="finish-card"><div class="finish-icon">🎉</div><div class="finish-title">答题完成！</div><div class="finish-stats">' +
-    '<div class="finish-stat-item"><span class="finish-num">' + total + '</span><span class="finish-label">总题数</span></div>' +
-    '<div class="finish-stat-item"><span class="finish-num" style="color:#16a34a">' + examCorrectCount + '</span><span class="finish-label">正确</span></div>' +
-    '<div class="finish-stat-item"><span class="finish-num" style="color:#dc2626">' + examWrongCount + '</span><span class="finish-label">错误</span></div>' +
-    '<div class="finish-stat-item"><span class="finish-num" style="color:' + (pct >= 70 ? '#16a34a' : '#dc2626') + '">' + pct + '%</span><span class="finish-label">正确率</span></div></div></div>';
+  var key = 'quiz_exam_progress_' + currentUser + '_' + examCurrentPaper;
+  localStorage.setItem(key, JSON.stringify({ index: 0, completed: true }));
 }
 
-function restartExam() { startExam(examCurrentPaper); }
-
-// ===== 历年真题错题本 =====
-function addExamWrongQuestion(q) {
-  if (!currentUser) return;
-  var key = 'quiz_exam_wrong_' + currentUser;
-  var wrongs = [];
-  try { wrongs = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
-  if (!wrongs.some(function(w) { return w.id === q.id && w.paper === examCurrentPaper; })) {
-    var copy = JSON.parse(JSON.stringify(q));
-    copy.examPaper = examCurrentPaper;
-    wrongs.push(copy);
-    localStorage.setItem(key, JSON.stringify(wrongs));
-  }
-}
-
-function getExamWrongQuestions() {
-  if (!currentUser) return [];
-  try { return JSON.parse(localStorage.getItem('quiz_exam_wrong_' + currentUser) || '[]'); } catch(e) {}
-  return [];
+function restartExam() {
+  var key = 'quiz_exam_progress_' + currentUser + '_' + examCurrentPaper;
+  localStorage.removeItem(key);
+  _startExam(examCurrentPaper);
 }
 
 function showExamWrongBook() {
@@ -910,6 +752,10 @@ function showExamWrongBook() {
     (wrongs.length > 0 ? '<button onclick="startExamWrongPractice()" class="btn-primary2" style="margin-bottom:12px">📖 开始复习错题</button>' : '<p style="font-size:13px;color:var(--text-light)">暂无错题记录</p>') +
     '<div style="margin-top:12px"><button onclick="showHome()" class="btn-primary2" style="background:var(--text-light)">← 返回首页</button></div></div>' +
     '</main></div>';
+}
+
+function getExamWrongQuestions() {
+  try { return JSON.parse(localStorage.getItem('quiz_exam_wrong_' + currentUser) || '[]'); } catch(e) { return []; }
 }
 
 var examWrongQuestions = [];
@@ -936,15 +782,9 @@ function showExamWrongPage() {
     '<div class="q-type-badge" id="ewQTypeBadge"></div>' +
     '<div class="q-text" id="ewQText"></div>' +
     '<div class="q-options" id="ewQOptions"></div>' +
-    '<div class="q-result" id="ewQResult"></div>' +
-    '<div class="q-explanation" id="ewQExplanation"></div></div>' +
-    '<div class="nav-buttons">' +
-    '<button onclick="prevExamWrong()" class="btn-nav" id="ewPrevBtn">← 上一题</button>' +
-    '<button onclick="nextExamWrong()" class="btn-nav btn-next" id="ewNextBtn">下一题 →</button></div>' +
-    '<div class="end-actions" id="ewEndActions" style="display:none">' +
-    '<button onclick="showExamWrongBook()" class="btn-primary2">← 返回错题本</button>' +
-    '<button onclick="restartExamWrong()" class="btn-primary2 btn-restart">🔄 重新复习</button></div>' +
-    '</main></div>';
+    '<div class="q-result" id="ewQResult" style="display:none"></div>' +
+    '<div class="nav-buttons" id="ewNavBtns"><button id="ewPrevBtn" onclick="prevExamWrong()" class="btn-nav" style="display:none">← 上一题</button>' +
+    '<button id="ewNextBtn" onclick="nextExamWrong()" class="btn-nav">下一题 →</button></div></div></main></div>';
 }
 
 function showExamWrongQuestion() {
@@ -954,27 +794,32 @@ function showExamWrongQuestion() {
   document.getElementById('ewProgressText').textContent = (examWrongIndex+1) + '/' + total;
   document.getElementById('ewProgressBar').style.width = ((examWrongIndex / total) * 100) + '%';
   document.getElementById('ewPrevBtn').style.display = examWrongIndex > 0 ? 'block' : 'none';
-  document.getElementById('ewNextBtn').style.display = 'block';
-  document.getElementById('ewNextBtn').textContent = '下一题 →';
-  document.getElementById('ewEndActions').style.display = 'none';
-  
-  document.getElementById('ewQMeta').textContent = (q.examPaper || '') + ' | 第' + toChineseNum(examWrongIndex+1) + '题';
-  var typeMap = {'单选':'单选题','多选':'多选题','填空':'填空题','名词解释':'名词解释','改错':'改错题'};
-  document.getElementById('ewQTypeBadge').textContent = typeMap[q.type] || q.type || '单选题';
-  document.getElementById('ewQText').textContent = filterErrorText(q.question || '');
-  
-  var optsDiv = document.getElementById('ewQOptions');
-  optsDiv.innerHTML = '';
-  if (q.options && typeof q.options === 'object') {
+
+  var metaEl = document.getElementById('ewQMeta');
+  metaEl.textContent = (q.examPaper || '') + ' | 第' + toChineseNum(examWrongIndex+1) + '题';
+  document.getElementById('ewQTypeBadge').textContent = q.type || '';
+  var text = q.question;
+  if (text && text.indexOf && text.indexOf('<') === -1) text = esc(text);
+  document.getElementById('ewQText').innerHTML = '<div>' + text + '</div>';
+  document.getElementById('ewQResult').style.display = 'none';
+
+  var optDiv = document.getElementById('ewQOptions');
+  if (q.options && typeof q.options === 'object' && Object.keys(q.options).length > 0) {
     var keys = Object.keys(q.options);
-    optsDiv.innerHTML = keys.map(function(k) {
-      return '<div class="option-item" style="cursor:default;background:var(--bg)"><span class="option-key">' + k + '</span><span class="option-text">' + esc(q.options[k]) + '</span></div>';
+    optDiv.innerHTML = keys.map(function(k) {
+      var isUser = k === q.userAnswer;
+      var isCorr = k === q.correctAnswer;
+      var cls = isCorr ? 'correct' : (isUser ? 'wrong' : '');
+      return '<div class="option-item ' + cls + '"><span class="option-key">' + k + '.</span><span class="option-text">' + esc(q.options[k]) + '</span><span class="option-check">' + (isCorr ? '✅' : '') + '</span></div>';
     }).join('');
-  }
-  
-  document.getElementById('ewQResult').innerHTML = '<div class="result-header" style="color:var(--primary)">✅ 正确答案：' + esc(q.answer || '') + '</div>';
-  document.getElementById('ewQExplanation').innerHTML = q.explanation ? 
-    '<div class="explanation-title">💡 解析</div><div class="explanation-text">' + esc(q.explanation) + '</div>' : '';
+    optDiv.style.display = 'flex';
+  } else { optDiv.style.display = 'none'; }
+
+  var resultDiv = document.getElementById('ewQResult');
+  var answerText = q.correctAnswer || '';
+  if (q.options && q.options[answerText]) answerText += '. ' + q.options[answerText];
+  resultDiv.innerHTML = '<div class="result-header ' + 'result-correct' + '">✅ 正确答案</div><div class="result-answer"><strong>答案：</strong>' + esc(answerText) + '</div>';
+  resultDiv.style.display = 'block';
 }
 
 function nextExamWrong() { examWrongIndex++; showExamWrongQuestion(); }
@@ -982,226 +827,17 @@ function prevExamWrong() { if (examWrongIndex > 0) { examWrongIndex--; showExamW
 
 function finishExamWrong() {
   var total = examWrongQuestions.length;
+  document.getElementById('ewQuestionCard').style.display = 'none';
   document.getElementById('ewProgressText').textContent = total + '/' + total;
   document.getElementById('ewProgressBar').style.width = '100%';
-  document.getElementById('ewNextBtn').style.display = 'none';
-  document.getElementById('ewEndActions').style.display = 'flex';
+  document.getElementById('ewNavBtns').style.display = 'none';
   document.getElementById('ewQuestionCard').innerHTML = '<div class="finish-card"><div class="finish-icon">🎉</div><div class="finish-title">错题复习完成！</div><p style="font-size:14px;color:var(--text-light);margin-top:8px">共复习 <strong>' + total + '</strong> 道错题</p></div>';
 }
 
 function restartExamWrong() {
+  localStorage.removeItem('quiz_exam_wrong_' + currentUser);
   examWrongQuestions = shuffle(getExamWrongQuestions());
   examWrongIndex = 0;
-  showExamWrongPage();
-  showExamWrongQuestion();
-}
-
-// ===== 错题本 =====
-var wrongQuestions = [];
-var wrongCurrentIndex = 0;
-var wrongSubjectId = '';
-var wrongSubjectName = '';
-
-function showWrongBook(subjectId, subjectName) {
-  wrongSubjectId = subjectId;
-  wrongSubjectName = subjectName;
-  var wrongs = getWrongQuestions(currentUser, subjectId);
-  
-  var app = document.getElementById('appPage');
-  app.innerHTML = '<div class="app-layout">' +
-    '<header class="app-header"><div class="header-left"><button onclick="showHome()" class="btn-back">← 返回</button><span class="header-title">错题本 - ' + esc(subjectName) + '</span></div>' +
-    '<div class="header-right"><span class="header-user">👤 ' + esc(currentUser) + '</span></div></header>' +
-    '<main class="practice-main">' +
-    '<div class="finish-card" style="text-align:center;padding:40px 20px"><div class="finish-icon">📕</div>' +
-    '<div class="finish-title" style="font-size:20px;margin-bottom:8px">' + esc(subjectName) + ' 错题本</div>' +
-    '<p style="font-size:14px;color:var(--text-light);margin-bottom:20px">共收录 <strong style="color:var(--danger)">' + wrongs.length + '</strong> 道错题</p>' +
-    (wrongs.length > 0 ? '<button onclick="startWrongPractice()" class="btn-primary2" style="margin-bottom:12px">📖 开始复习错题</button>' : '<p style="font-size:13px;color:var(--text-light)">暂无错题记录，继续刷题吧！</p>') +
-    '<div style="margin-top:12px"><button onclick="showHome()" class="btn-primary2" style="background:var(--text-light)">← 返回首页</button></div></div>' +
-    '</main></div>';
-}
-
-function startWrongPractice() {
-  var wrongs = getWrongQuestions(currentUser, wrongSubjectId);
-  if (!wrongs || wrongs.length === 0) { showWrongBook(wrongSubjectId, wrongSubjectName); return; }
-  
-  // Check if user previously completed reviewing all wrong questions
-  var wp = getWrongProgress(currentUser, wrongSubjectId);
-  var wc = JSON.parse(localStorage.getItem('quiz_wrong_completed_' + currentUser + '_' + wrongSubjectId) || '{}');
-  if (wc && wc.completed) {
-    wrongQuestions = shuffle(wrongs);
-    wrongCurrentIndex = 0;
-    saveWrongProgress(currentUser, wrongSubjectId, 0, wrongQuestions.length);
-  } else if (wp && wp.index > 0) {
-    wrongQuestions = shuffle(wrongs);
-    wrongCurrentIndex = Math.min(wp.index, wrongQuestions.length - 1);
-  } else {
-    wrongQuestions = shuffle(wrongs);
-    wrongCurrentIndex = 0;
-  }
-  
-  showWrongPage();
-  showWrongQuestion();
-}
-
-function showWrongPage() {
-  var app = document.getElementById('appPage');
-  app.innerHTML = '<div class="app-layout">' +
-    '<header class="app-header"><div class="header-left"><button onclick="showWrongBook(wrongSubjectId,wrongSubjectName)" class="btn-back">← 错题本</button><span class="header-title">错题复习 - ' + esc(wrongSubjectName) + '</span></div>' +
-    '<div class="header-right"><span class="progress-text" id="wrongProgressText">0/0</span></div></header>' +
-    '<main class="practice-main">' +
-    '<div class="progress-bar-container"><div class="progress-bar" id="wrongProgressBar"></div></div>' +
-    '<div class="question-card" id="wrongQuestionCard">' +
-    '<div class="q-meta" id="wrongQMeta"></div>' +
-    '<div class="q-type-badge" id="wrongQTypeBadge"></div>' +
-    '<div class="q-text" id="wrongQText"></div>' +
-    '<div class="q-options" id="wrongQOptions"></div>' +
-    '<div class="q-result" id="wrongQResult"></div>' +
-    '<div class="q-explanation" id="wrongQExplanation"></div></div>' +
-    '<div class="nav-buttons">' +
-    '<button onclick="prevWrongQuestion()" class="btn-nav" id="wrongPrevBtn">← 上一题</button>' +
-    '<button onclick="nextWrongQuestion()" class="btn-nav btn-next" id="wrongNextBtn">下一题 →</button></div>' +
-    '<div class="end-actions" id="wrongEndActions" style="display:none">' +
-    '<button onclick="showWrongBook(wrongSubjectId,wrongSubjectName)" class="btn-primary2">← 返回错题本</button>' +
-    '<button onclick="restartWrongPractice()" class="btn-primary2 btn-restart">🔄 重新复习</button></div>' +
-    '</main></div>';
-}
-
-function showWrongQuestion() {
-  if (wrongCurrentIndex >= wrongQuestions.length) { finishWrongPractice(); return; }
-  var q = wrongQuestions[wrongCurrentIndex];
-  var total = wrongQuestions.length;
-  document.getElementById('wrongProgressText').textContent = (wrongCurrentIndex+1) + '/' + total;
-  document.getElementById('wrongProgressBar').style.width = ((wrongCurrentIndex / total) * 100) + '%';
-  document.getElementById('wrongPrevBtn').style.display = wrongCurrentIndex > 0 ? 'block' : 'none';
-  document.getElementById('wrongNextBtn').style.display = 'block';
-  document.getElementById('wrongNextBtn').textContent = '下一题 →';
-  document.getElementById('wrongEndActions').style.display = 'none';
-  
-  document.getElementById('wrongQMeta').textContent = '第' + toChineseNum(wrongCurrentIndex+1) + '题 | ' + (q.chapter || '');
-  var typeMap = {'单选':'单选题','多选':'多选题','填空':'填空题','名词解释':'名词解释','改错':'改错题'};
-  document.getElementById('wrongQTypeBadge').textContent = typeMap[q.type] || q.type;
-  document.getElementById('wrongQText').textContent = filterErrorText(q.question || q.content || '');
-  
-  var optsDiv = document.getElementById('wrongQOptions');
-  optsDiv.innerHTML = '';
-  if (q.options && typeof q.options === 'object') {
-    var keys = Object.keys(q.options);
-    optsDiv.innerHTML = keys.map(function(k) {
-      return '<div class="option-item" style="cursor:default;background:var(--bg)"><span class="option-key">' + k + '</span><span class="option-text">' + esc(q.options[k]) + '</span></div>';
-    }).join('');
-  }
-  
-  document.getElementById('wrongQResult').innerHTML = '<div class="result-header" style="color:var(--primary)">✅ 正确答案：' + esc(q.answer) + '</div>';
-  
-  document.getElementById('wrongQExplanation').innerHTML = 
-    '<div class="explanation-title">💡 解析</div><div class="explanation-text">' + esc(q.explanation || '暂无解析') + '</div><div class="explanation-source">📌 出处：' + esc(q.source || '') + '</div>';
-}
-
-function nextWrongQuestion() {
-  wrongCurrentIndex++;
-  saveWrongProgress(currentUser, wrongSubjectId, wrongCurrentIndex, wrongQuestions.length);
-  showWrongQuestion();
-}
-
-function prevWrongQuestion() {
-  if (wrongCurrentIndex > 0) { 
-    wrongCurrentIndex--; 
-    saveWrongProgress(currentUser, wrongSubjectId, wrongCurrentIndex, wrongQuestions.length);
-    showWrongQuestion(); 
-  }
-}
-
-function finishWrongPractice() {
-  var total = wrongQuestions.length;
-  // Mark as completed so next time reshuffles
-  saveWrongProgress(currentUser, wrongSubjectId, 0, total);
-  // Store a separate flag for completed review
-  localStorage.setItem('quiz_wrong_completed_' + currentUser + '_' + wrongSubjectId, JSON.stringify({ completed: true }));
-  
-  document.getElementById('wrongProgressText').textContent = total + '/' + total;
-  document.getElementById('wrongProgressBar').style.width = '100%';
-  document.getElementById('wrongNextBtn').style.display = 'none';
-  document.getElementById('wrongEndActions').style.display = 'flex';
-  document.getElementById('wrongQuestionCard').innerHTML = '<div class="finish-card"><div class="finish-icon">🎉</div><div class="finish-title">错题复习完成！</div><p style="font-size:14px;color:var(--text-light);margin-top:8px">共复习 <strong>' + total + '</strong> 道错题</p></div>';
-}
-
-function restartWrongPractice() {
-  // Clear completed flag so it reshuffles
-  localStorage.removeItem('quiz_wrong_completed_' + currentUser + '_' + wrongSubjectId);
-  saveWrongProgress(currentUser, wrongSubjectId, 0, 0);
-  startWrongPractice();
-}
-
-function logout() {
-  sessionStorage.removeItem('quiz_session');
-  localStorage.removeItem('quiz_user');
-  document.getElementById('loginPage').style.display = 'flex';
-  document.getElementById('appPage').style.display = 'none';
-}
-
-
-// 历年真题数据从 paperData.js 动态加载（不阻塞首页渲染）
-var questions_papers = null;
-var papers_list = null;
-
-function loadPaperData(callback) {
-  if (questions_papers && papers_list) {
-    if (callback) callback();
-    return;
-  }
-  var s = document.createElement('script');
-  s.src = 'paperData.js';
-  s.onload = function() {
-    if (callback) callback();
-  };
-  s.onerror = function() {
-    alert('加载真题数据失败，请刷新页面重试');
-  };
-  document.body.appendChild(s);
-}
-
-
-
-
-// 三科题库数据非阻塞加载（不影响登录）
-var subjectDataLoaded = false;
-function loadSubjectData() {
-  if (subjectDataLoaded) return;
-  subjectDataLoaded = true;
-  var files = ['questions_xh.js', 'questions_wh.js', 'questions_ll.js'];
-  function loadNext(i) {
-    if (i >= files.length) {
-      try {
-        [questions_xh, questions_wh, questions_ll].forEach(function(arr) {
-          arr.forEach(function(q) {
-            if (!q.question && q.content) q.question = q.content;
-          });
-        });
-        updateSubjectCounts();
-      } catch(e) {}
-      return;
-    }
-    var s = document.createElement('script');
-    s.src = files[i];
-    s.onload = function() { loadNext(i + 1); };
-    s.onerror = function() { loadNext(i + 1); };
-    document.body.appendChild(s);
-  }
-  loadNext(0);
-}
-
-function updateSubjectCounts() {
-  if (!window.questions_xh) return;
-  var cards = document.querySelectorAll('.subject-card');
-  try {
-    var counts = [questions_xh.length, questions_wh.length, questions_ll.length];
-    var els = document.querySelectorAll('.card-count');
-    if (els.length >= 3) {
-      els[0].textContent = counts[0] + ' 题';
-      els[1].textContent = counts[1] + ' 题';
-      els[2].textContent = counts[2] + ' 题';
-    }
-  } catch(e) {}
 }
 
 </script>
