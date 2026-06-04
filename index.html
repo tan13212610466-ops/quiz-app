@@ -7,10 +7,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--primary:#2563eb;--primary-light:#eff6ff;--primary-dark:#1d4ed8;--bg:#f0f4f8;--card:#fff;--text:#1e293b;--text-light:#64748b;--border:#e2e8f0;--success:#16a34a;--danger:#dc2626;--radius:12px;--shadow:0 4px 24px rgba(0,0,0,.08)}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center}
 
 /* Login Page */
-.login-page{width:100%;max-width:400px;padding:20px;display:flex;align-items:center;justify-content:center;min-height:100vh}
+.login-page{width:100%;max-width:400px;padding:20px}
 .login-card{background:var(--card);border-radius:var(--radius);padding:40px 32px;box-shadow:var(--shadow)}
 .login-card h1{font-size:22px;text-align:center;margin-bottom:6px;color:var(--primary)}
 .login-card .subtitle{text-align:center;font-size:13px;color:var(--text-light);margin-bottom:28px}
@@ -34,7 +34,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 .register-form{display:none}
 
 /* ===== App Layout ===== */
-.app-layout{display:flex;flex-direction:column;background:var(--bg)}
+.app-layout{display:flex;flex-direction:column;min-height:100vh;background:var(--bg)}
 .app-header{background:var(--card);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
 .header-left{display:flex;align-items:center;gap:12px}
 .header-icon{font-size:22px}
@@ -45,30 +45,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 .btn-back{padding:6px 12px;font-size:13px;border:none;border-radius:6px;background:var(--primary-light);color:var(--primary);cursor:pointer}
 
 /* ===== Home Page ===== */
-.home-main{padding:12px 20px;max-width:800px;margin:0 auto;width:100%}
-.welcome-section{margin-bottom:8px}
-.welcome-section h2{font-size:20px;font-weight:700;margin-bottom:2px}
+.home-main{flex:1;padding:24px 20px;max-width:800px;margin:0 auto;width:100%}
+.welcome-section{margin-bottom:28px}
+.welcome-section h2{font-size:22px;font-weight:700;margin-bottom:4px}
 .welcome-name{color:var(--primary)}
 .welcome-section p{font-size:14px;color:var(--text-light)}
-.subject-grid{display:grid;grid-template-columns:1fr;gap:6px}
-.subject-card{background:var(--card);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,box-shadow .15s;border-left:4px solid var(--card-color)}
+.subject-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.subject-card{background:var(--card);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,box-shadow .15s;border-left:4px solid var(--card-color)}
 .subject-card:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,0,0,.12)}
-.card-icon{font-size:28px;width:40px;text-align:center}
+.card-icon{font-size:32px;width:48px;text-align:center}
 .card-info{flex:1}
-.card-name{font-size:15px;font-weight:600;margin-bottom:1px}
+.card-name{font-size:16px;font-weight:600;margin-bottom:2px}
 .card-count{font-size:13px;color:var(--text-light)}
+.card-arrow{font-size:20px;color:var(--text-light)}
 .card-coming{opacity:.7;cursor:default}
 
 /* ===== Practice Page ===== */
-.practice-main{padding:8px 20px;max-width:720px;margin:0 auto;width:100%}
-.progress-bar-container{height:4px;background:var(--border);border-radius:2px;margin-bottom:6px;overflow:hidden}
+.practice-main{flex:1;padding:16px 20px;max-width:720px;margin:0 auto;width:100%}
+.progress-bar-container{height:4px;background:var(--border);border-radius:2px;margin-bottom:12px;overflow:hidden}
 .progress-bar{height:100%;background:var(--primary);border-radius:2px;transition:width .3s}
-.stats-row{display:flex;gap:12px;margin-bottom:6px;font-size:13px}
+.stats-row{display:flex;gap:16px;margin-bottom:12px;font-size:13px}
 .stat{font-size:13px}
-.question-card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:10px}
+.question-card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
 .q-meta{font-size:12px;color:var(--text-light);margin-bottom:6px}
 .q-type-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:var(--primary-light);color:var(--primary);margin-bottom:14px}
-.q-text{font-size:16px;line-height:1.6;margin-bottom:14px;font-weight:500}
+.q-text{font-size:16px;line-height:1.7;margin-bottom:20px;font-weight:500}
 .q-options{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
 .option-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s}
 .option-item:hover{border-color:var(--primary);background:var(--primary-light)}
@@ -116,52 +117,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 
 /* ===== Mobile ===== */
 @media(max-width:600px){
-  .login-card{padding:24px 16px}
-  .login-card h1{font-size:18px}
-  .app-header{padding:8px 14px}
-  .header-title{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
-  .header-user{font-size:12px}
-  .home-main{padding:8px 14px}
-  .welcome-section{margin-bottom:6px}
-  .welcome-section h2{font-size:17px}
-  .welcome-section p{font-size:12px}
-  .practice-main{padding:6px 14px}
-  .question-card{padding:14px}
-  .q-text{font-size:15px;word-break:break-word}
-  .subject-card{padding:10px 12px;gap:8px}
-  .subject-card .card-icon{font-size:24px;width:36px}
-  .subject-card .card-name{font-size:14px}
-  .subject-card .card-count{font-size:12px}
-  .subject-card .card-info button{font-size:11px!important;padding:4px 10px!important;white-space:nowrap}
-  .finish-stats{gap:12px}
-  .finish-num{font-size:22px}
-  .finish-icon{font-size:36px}
-  .finish-title{font-size:17px}
-  .option-item{padding:8px 10px}
-  .option-text{font-size:13px}
-  .option-key{font-size:13px;min-width:20px}
-  .nav-buttons{gap:4px}
-  .btn-nav{padding:8px;font-size:12px}
-  .stats-row{font-size:12px;gap:8px}
-  .q-meta{font-size:11px}
-  .q-type-badge{font-size:10px;padding:2px 8px}
-  .q-explanation{padding:10px}
-  .explanation-text{font-size:13px}
-  .btn-primary2{padding:8px 16px;font-size:12px}
-  .end-actions{gap:6px;flex-wrap:wrap}
-  .end-actions .btn-primary2{flex:1;min-width:100px}
-}
-@media(max-width:380px){
-  .login-card{padding:16px 12px}
-  .login-card h1{font-size:16px}
-  .subject-card{padding:8px 10px;gap:6px}
-  .subject-card .card-icon{font-size:20px;width:28px}
-  .subject-card .card-info button{font-size:10px!important;padding:3px 8px!important}
-  .header-title{max-width:120px;font-size:13px}
-  .home-main{padding:6px 10px}
-  .practice-main{padding:4px 10px}
-  .q-text{font-size:14px}
-  .btn-nav{padding:6px;font-size:11px}
+  .app-header{padding:10px 14px}
+  .home-main{padding:16px 14px}
+  .practice-main{padding:12px 14px}
+  .question-card{padding:16px}
+  .q-text{font-size:15px}
+  .subject-card{padding:16px}
+  .finish-stats{gap:16px}
+  .finish-num{font-size:24px}
 }
 </style>
 </head>
@@ -432,7 +395,7 @@ function showHome() {
       '<button onclick="event.stopPropagation();startPractice(\'' + s.id + '\')" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:var(--primary-light);color:var(--primary);cursor:pointer">开始刷题</button>' +
       '<button onclick="event.stopPropagation();showWrongBook(\'' + s.id + '\',\'' + s.name + '\')" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:#fef2f2;color:#dc2626;cursor:pointer">❌ 错题本</button>' +
       '</div></div>' +
-      '</div></div>'; }).join('') +
+      '<div class="card-arrow">→</div></div>'; }).join('') +
     '<div class="subject-card card-coming" style="--card-color:#94a3b8"><div class="card-icon">📝</div><div class="card-info"><div class="card-name">历年真题</div><div class="card-count">即将上线</div></div></div>' +
     '<div class="subject-card card-coming" style="--card-color:#94a3b8"><div class="card-icon">🎯</div><div class="card-info"><div class="card-name">模拟考试</div><div class="card-count">即将上线</div></div></div>' +
     '</div></main></div>';
