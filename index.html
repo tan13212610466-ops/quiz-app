@@ -221,9 +221,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 <!-- ===== 主应用 ===== -->
 <div class="app-page" id="appPage" style="display:none"></div>
 
-<script src="questions_xh.js"></script>
-<script src="questions_wh.js"></script>
-<script src="questions_ll.js"></script>
 <script>
 // ===== 全局错误捕获（调试用）=====
 window.onerror = function(msg, url, line, col, error) {
@@ -240,18 +237,24 @@ window.onerror = function(msg, url, line, col, error) {
   return false;
 };
 
-// Normalize question objects
-[questions_xh, questions_wh, questions_ll].forEach(arr => {
-  arr.forEach(q => {
-    if (!q.question && q.content) q.question = q.content;
-  });
-});
+// Normalize question objects (在数据加载后执行)
+try {
+  if (typeof questions_xh !== 'undefined') {
+    [questions_xh, questions_wh, questions_ll].forEach(arr => {
+      arr.forEach(q => {
+        if (!q.question && q.content) q.question = q.content;
+      });
+    });
+  }
+} catch(e) {}
 
 const subjects = [
-  { id: 'xh', name: '现代汉语', icon: '📖', count: questions_xh.length, color: '#2563eb' },
-  { id: 'wh', name: '中国文化', icon: '🏯', count: questions_wh.length, color: '#7c3aed' },
-  { id: 'll', name: '对外汉语教学理论', icon: '🎓', count: questions_ll.length, color: '#0891b2' }
+  { id: 'xh', name: '现代汉语', icon: '📖', count: 0, color: '#2563eb' },
+  { id: 'wh', name: '中国文化', icon: '🏯', count: 0, color: '#7c3aed' },
+  { id: 'll', name: '对外汉语教学理论', icon: '🎓', count: 0, color: '#0891b2' }
 ];
+// 非阻塞加载三科题库数据
+if (typeof questions_xh === 'undefined') { setTimeout(loadSubjectData, 100); }
 
 
 let currentUser = '';
@@ -459,6 +462,12 @@ function showHome() {
 
 // ===== 刷题 =====
 function startPractice(subjectId) {
+  // 确保题库数据已加载
+  if (typeof questions_xh === 'undefined') {
+    loadSubjectData();
+    setTimeout(function() { startPractice(subjectId); }, 200);
+    return;
+  }
   currentSubject = subjectId;
   var questions, name;
   var sub = subjects.find(function(s) { return s.id === subjectId; });
@@ -1151,6 +1160,49 @@ function loadPaperData(callback) {
   document.body.appendChild(s);
 }
 
+
+
+
+// 三科题库数据非阻塞加载（不影响登录）
+var subjectDataLoaded = false;
+function loadSubjectData() {
+  if (subjectDataLoaded) return;
+  subjectDataLoaded = true;
+  var files = ['questions_xh.js', 'questions_wh.js', 'questions_ll.js'];
+  function loadNext(i) {
+    if (i >= files.length) {
+      try {
+        [questions_xh, questions_wh, questions_ll].forEach(function(arr) {
+          arr.forEach(function(q) {
+            if (!q.question && q.content) q.question = q.content;
+          });
+        });
+        updateSubjectCounts();
+      } catch(e) {}
+      return;
+    }
+    var s = document.createElement('script');
+    s.src = files[i];
+    s.onload = function() { loadNext(i + 1); };
+    s.onerror = function() { loadNext(i + 1); };
+    document.body.appendChild(s);
+  }
+  loadNext(0);
+}
+
+function updateSubjectCounts() {
+  if (!window.questions_xh) return;
+  var cards = document.querySelectorAll('.subject-card');
+  try {
+    var counts = [questions_xh.length, questions_wh.length, questions_ll.length];
+    var els = document.querySelectorAll('.card-count');
+    if (els.length >= 3) {
+      els[0].textContent = counts[0] + ' 题';
+      els[1].textContent = counts[1] + ' 题';
+      els[2].textContent = counts[2] + ' 题';
+    }
+  } catch(e) {}
+}
 
 </script>
 </body>
