@@ -57,7 +57,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 .card-info{flex:1}
 .card-name{font-size:16px;font-weight:600;margin-bottom:2px}
 .card-count{font-size:13px;color:var(--text-light)}
-.card-arrow{font-size:20px;color:var(--text-light)}
 .card-coming{opacity:.7;cursor:default}
 
 /* ===== Practice Page ===== */
@@ -117,14 +116,48 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 
 /* ===== Mobile ===== */
 @media(max-width:600px){
+  .login-card{padding:28px 20px}
+  .login-card h1{font-size:19px}
   .app-header{padding:10px 14px}
+  .header-title{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
+  .header-user{font-size:12px}
   .home-main{padding:16px 14px}
+  .welcome-section h2{font-size:18px}
+  .welcome-section p{font-size:13px}
   .practice-main{padding:12px 14px}
   .question-card{padding:16px}
-  .q-text{font-size:15px}
-  .subject-card{padding:16px}
+  .q-text{font-size:15px;word-break:break-word}
+  .subject-card{padding:14px;gap:12px}
+  .subject-card .card-icon{font-size:28px;width:40px}
+  .subject-card .card-name{font-size:15px}
+  .subject-card .card-count{font-size:12px}
+  .subject-card .card-info button{font-size:11px!important;padding:4px 10px!important;white-space:nowrap}
   .finish-stats{gap:16px}
   .finish-num{font-size:24px}
+  .finish-icon{font-size:40px}
+  .finish-title{font-size:18px}
+  .option-item{padding:10px 12px}
+  .option-text{font-size:13px}
+  .option-key{font-size:13px;min-width:20px}
+  .nav-buttons{gap:6px}
+  .btn-nav{padding:10px;font-size:13px}
+  .stats-row{font-size:12px;gap:10px}
+  .q-meta{font-size:11px}
+  .q-type-badge{font-size:10px;padding:2px 8px}
+  .q-explanation{padding:12px}
+  .explanation-text{font-size:13px}
+  .btn-primary2{padding:10px 20px;font-size:13px}
+  .end-actions{gap:8px;flex-wrap:wrap}
+  .end-actions .btn-primary2{flex:1;min-width:120px}
+}
+@media(max-width:380px){
+  .login-card{padding:20px 14px}
+  .login-card h1{font-size:17px}
+  .subject-card .card-info button{font-size:10px!important;padding:3px 8px!important}
+  .subject-card .card-icon{font-size:24px;width:32px}
+  .header-title{max-width:120px;font-size:13px}
+  .q-text{font-size:14px}
+  .btn-nav{padding:8px;font-size:12px}
 }
 </style>
 </head>
@@ -383,7 +416,7 @@ function showHome() {
       '<button onclick="event.stopPropagation();startPractice(\'' + s.id + '\')" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:var(--primary-light);color:var(--primary);cursor:pointer">开始刷题</button>' +
       '<button onclick="event.stopPropagation();showWrongBook(\'' + s.id + '\',\'' + s.name + '\')" style="padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;background:#fef2f2;color:#dc2626;cursor:pointer">❌ 错题本</button>' +
       '</div></div>' +
-      '<div class="card-arrow">→</div></div>'; }).join('') +
+      '</div></div>'; }).join('') +
     '<div class="subject-card card-coming" style="--card-color:#94a3b8"><div class="card-icon">📝</div><div class="card-info"><div class="card-name">历年真题</div><div class="card-count">即将上线</div></div></div>' +
     '<div class="subject-card card-coming" style="--card-color:#94a3b8"><div class="card-icon">🎯</div><div class="card-info"><div class="card-name">模拟考试</div><div class="card-count">即将上线</div></div></div>' +
     '</div></main></div>';
