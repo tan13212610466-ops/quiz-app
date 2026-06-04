@@ -342,7 +342,7 @@ function saveWrongProgress(username, subjectId, index, total) {
 function filterErrorText(str) {
   if (!str) return '';
   // 剔除无意义碎片字符
-  var errorWords = ["一一六","一二一","零散错字","一","二"];
+  var errorWords = ["一一六","一二一","零散错字"];
   errorWords.forEach(function(word) {
     // Only clean if the word appears as a fragment in an otherwise valid sentence
     str = str.replace(word, '');
