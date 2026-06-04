@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>刷题系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--primary:#4A90D9;--primary-light:#E8F0FE;--primary-dark:#357ABD;--bg:#F5F7FA;--card:#FFFFFF;--text:#2C3E50;--text-light:#7F8C8D;--success:#27AE60;--danger:#E74C3C;--warning:#F39C12;--shadow:0 2px 12px rgba(0,0,0,0.08);--radius:16px;--nav-height:64px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:calc(var(--nav-height) + 20px)}
+.app{max-width:480px;margin:0 auto;padding:16px}
+.hidden{display:none!important}
+.card{background:var(--card);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:12px;border:none;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;gap:8px}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary)}
+.btn-outline:hover{background:var(--primary-light)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-success{background:var(--success);color:#fff}
+.btn-sm{padding:8px 16px;font-size:14px}
+.btn-block{width:100%}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+input[type="text"],input[type="search"]{width:100%;padding:12px 16px;border:2px solid #E0E6ED;border-radius:12px;font-size:16px;outline:none;transition:border .2s}
+input[type="text"]:focus,input[type="search"]:focus{border-color:var(--primary)}
+/* Login Page */
+.login-page{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;text-align:center}
+.login-page .logo{width:80px;height:80px;background:var(--primary);border-radius:24px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;color:#fff;font-size:40px}
+.login-page h1{font-size:28px;margin-bottom:8px}
+.login-page p{color:var(--text-light);margin-bottom:32px}
+.login-page input{max-width:300px;margin-bottom:16px}
+/* Bottom Nav */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:var(--nav-height);background:var(--card);border-top:1px solid #E8ECF0;display:flex;align-items:center;justify-content:space-around;z-index:1000;padding:0 8px}
+.bottom-nav .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border-radius:12px;cursor:pointer;transition:all .2s;border:none;background:transparent;color:var(--text-light);font-size:12px;min-width:60px}
+.bottom-nav .nav-item.active{color:var(--primary);background:var(--primary-light)}
+.bottom-nav .nav-item .icon{font-size:22px;line-height:1}
+/* Subject Grid */
+.subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.subject-card{border-radius:var(--radius);padding:24px 16px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.subject-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.subject-card:nth-child(1){background:linear-gradient(135deg,#E8F0FE,#D4E4FC)}.subject-card:nth-child(1)::before{background:#4A90D9}
+.subject-card:nth-child(2){background:linear-gradient(135deg,#E8F8F0,#D0F0DC)}.subject-card:nth-child(2)::before{background:#27AE60}
+.subject-card:nth-child(3){background:linear-gradient(135deg,#FFF3E0,#FFE0B2)}.subject-card:nth-child(3)::before{background:#F39C12}
+.subject-card .emoji{font-size:36px;margin-bottom:8px}
+.subject-card .name{font-weight:600;font-size:16px;margin-bottom:4px}
+.subject-card .count{font-size:13px;color:var(--text-light)}
+/* Progress Bar */
+.progress-bar{height:8px;background:#E8ECF0;border-radius:4px;overflow:hidden;margin:8px 0}
+.progress-bar .fill{height:100%;background:var(--primary);border-radius:4px;transition:width .3s ease;min-width:2px}
+/* Quiz Page */
+.quiz-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.quiz-header .back-btn{width:40px;height:40px;border:none;background:var(--card);border-radius:12px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+.quiz-header .info{flex:1}
+.quiz-header .info .subject{font-weight:600;font-size:14px}
+.quiz-header .info .progress-text{font-size:12px;color:var(--text-light)}
+.question-card{padding:24px;min-height:200px}
+.question-card .q-number{font-size:13px;color:var(--primary);font-weight:600;margin-bottom:12px}
+.question-card .q-text{font-size:18px;line-height:1.6;margin-bottom:24px;font-weight:500}
+.options{display:flex;flex-direction:column;gap:10px}
+.option{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #E0E6ED;border-radius:12px;cursor:pointer;transition:all .2s;font-size:15px;line-height:1.5}
+.option:hover{border-color:var(--primary);background:var(--primary-light)}
+.option.selected{border-color:var(--primary);background:var(--primary-light)}
+.option.correct{border-color:var(--success)!important;background:#E8F8F0!important}
+.option.wrong{border-color:var(--danger)!important;background:#FDEDEC!important}
+.option .letter{width:28px;height:28px;border-radius:8px;background:#E8ECF0;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex-shrink:0;transition:all .2s}
+.option.selected .letter{background:var(--primary);color:#fff}
+.option.correct .letter{background:var(--success)!important;color:#fff!important}
+.option.wrong .letter{background:var(--danger)!important;color:#fff!important}
+.option.disabled{cursor:default;pointer-events:none}
+.explanation{margin-top:16px;padding:16px;background:#FFF8E1;border-radius:12px;border-left:4px solid var(--warning);font-size:14px;line-height:1.6;display:none}
+.explanation.show{display:block}
+.quiz-actions{display:flex;gap:12px;margin-top:20px}
+.quiz-actions .btn{flex:1}
+/* Result Page */
+.result-page{text-align:center;padding:40px 20px}
+.result-page .big-score{font-size:72px;font-weight:700;color:var(--primary);margin:16px 0}
+.result-page .detail{margin:16px 0;color:var(--text-light)}
+.stat-row{display:flex;justify-content:center;gap:24px;margin:16px 0}
+.stat-item{text-align:center}
+.stat-item .num{font-size:24px;font-weight:700;display:block}
+.stat-item .label{font-size:13px;color:var(--text-light)}
+/* Wrong Book */
+.wrong-subject{margin-bottom:12px}
+.wrong-subject .header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--card);border-radius:12px;cursor:pointer;box-shadow:var(--shadow);transition:all .2s}
+.wrong-subject .header:active{transform:scale(.98)}
+.wrong-subject .header .left{display:flex;align-items:center;gap:8px}
+.wrong-subject .header .count-badge{background:var(--danger);color:#fff;padding:2px 10px;border-radius:20px;font-size:12px}
+.wrong-list{padding:8px 0 0 0}
+.wrong-item{padding:14px 16px;border-bottom:1px solid #E8ECF0;cursor:pointer;transition:background .2s}
+.wrong-item:last-child{border-bottom:none}
+.wrong-item:active{background:var(--primary-light)}
+.wrong-item .w-q{font-size:14px;margin-bottom:4px}
+.wrong-item .w-answer{font-size:12px;color:var(--text-light)}
+.wrong-item .w-answer .right{color:var(--success)}
+.wrong-item .w-answer .wrong{color:var(--danger)}
+/* Stats Page */
+.stats-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.stat-card{text-align:center;padding:20px}
+.stat-card .num{font-size:32px;font-weight:700;color:var(--primary);display:block}
+.stat-card .label{font-size:13px;color:var(--text-light);margin-top:4px}
+.subject-stats{margin-bottom:12px}
+.subject-stat-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #E8ECF0}
+.subject-stat-item:last-child{border-bottom:none}
+.subject-stat-item .s-name{flex:1;font-weight:500}
+.subject-stat-item .s-bar{flex:2;height:8px;background:#E8ECF0;border-radius:4px;overflow:hidden}
+.subject-stat-item .s-bar .fill{height:100%;border-radius:4px;transition:width .3s}
+.subject-stat-item .s-pct{font-size:13px;color:var(--text-light);min-width:40px;text-align:right}
+/* Floating Data Button */
+.floating-btn{position:fixed;bottom:calc(var(--nav-height) + 20px);right:20px;width:56px;height:56px;border-radius:50%;background:var(--primary);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 16px rgba(74,144,217,.4);display:flex;align-items:center;justify-content:center;z-index:999;transition:all .2s}
+.floating-btn:active{transform:scale(.9)}
+.data-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px}
+.data-modal .modal-content{background:var(--card);border-radius:var(--radius);padding:24px;max-width:400px;width:100%;max-height:80vh;overflow-y:auto}
+.data-modal .modal-content h3{margin-bottom:16px}
+.data-modal .modal-content textarea{width:100%;height:120px;border:2px solid #E0E6ED;border-radius:12px;padding:12px;font-size:13px;font-family:monospace;resize:vertical;outline:none;margin-bottom:12px}
+.data-modal .modal-content textarea:focus{border-color:var(--primary)}
+.data-modal .modal-actions{display:flex;gap:12px}
+.data-modal .modal-actions .btn{flex:1}
+/* Mode Select */
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.mode-card{border-radius:var(--radius);padding:24px 16px;text-align:center;cursor:pointer;transition:all .2s;background:var(--card);box-shadow:var(--shadow)}
+.mode-card:active{transform:scale(.97)}
+.mode-card .icon{font-size:32px;margin-bottom:8px}
+.mode-card .name{font-weight:600;font-size:15px;margin-bottom:4px}
+.mode-card .desc{font-size:12px;color:var(--text-light)}
+/* Toast */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;z-index:3000;opacity:0;transition:opacity .3s;max-width:90%;text-align:center;pointer-events:none}
+.toast.show{opacity:1}
+/* Empty State */
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-light)}
+.empty-state .icon{font-size:48px;margin-bottom:12px}
+/* Search */
+.search-bar{margin-bottom:16px}
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .3s ease}
+/* Scrollable */
+.scrollable{overflow-y:auto;-webkit-overflow-scrolling:touch}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<div class="bottom-nav" id="bottomNav">
+<button class="nav-item active" data-page="home"><span class="icon">🏠</span><span>首页</span></button>
+<button class="nav-item" data-page="quiz-mode"><span class="icon">📝</span><span>刷题</span></button>
+<button class="nav-item" data-page="wrong"><span class="icon">❌</span><span>错题</span></button>
+<button class="nav-item" data-page="stats"><span class="icon">📊</span><span>统计</span></button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== QUESTION BANK ====================
+const ALL_QUESTIONS = [
+  // === 中国文化 (17题) ===
+  {id:1,subject:"中国文化",q:"被称为"书圣"的古代书法家是？",options:["颜真卿","王羲之","欧阳询","柳公权"],answer:1,explanation:"王羲之，东晋书法家，代表作《兰亭序》被誉为"天下第一行书"，被后世尊称为"书圣"。"},
+  {id:2,subject:"中国文化",q:"中国古代四大发明不包括以下哪项？",options:["造纸术","火药","地动仪","印刷术"],answer:2,explanation:"四大发明是造纸术、火药、印刷术和指南针。地动仪是张衡发明的，但不属于四大发明。"},
+  {id:3,subject:"中国文化",q:"《红楼梦》的作者是？",options:["施耐庵","吴承恩","曹雪芹","罗贯中"],answer:2,explanation:"《红楼梦》是清代作家曹雪芹创作的章回体长篇小说，是中国古典四大名著之一。"},
+  {id:4,subject:"中国文化",q:"端午节纪念的是哪位历史人物？",options:["孔子","屈原","李白","杜甫"],answer:1,explanation:"端午节起源于纪念屈原。屈原是战国时期楚国诗人，因国破投汨罗江自尽，百姓划船投粽以纪念。"},
+  {id:5,subject:"中国文化",q:"中国最大的淡水湖是？",options:["洞庭湖","鄱阳湖","太湖","洪泽湖"],answer:1,explanation:"鄱阳湖位于江西省，是中国最大的淡水湖。"},
+  {id:6,subject:"中国文化",q:""唐诗"和"宋词"并称，以下哪位是宋代词人？",options:["李白","杜甫","苏轼","白居易"],answer:2,explanation:"苏轼是北宋著名文学家，豪放派词人代表。李白、杜甫、白居易都是唐代诗人。"},
+  {id:7,subject:"中国文化",q:"中国四大名绣不包括？",options:["苏绣","湘绣","蜀绣","杭绣"],answer:3,explanation:"四大名绣为苏绣、湘绣、蜀绣、粤绣。"},
+  {id:8,subject:"中国文化",q:"《论语》记录的是谁的言行？",options:["孟子","孔子","老子","庄子"],answer:1,explanation:"《论语》是孔子及其弟子的语录结集，由孔子弟子及再传弟子编纂而成。"},
+  {id:9,subject:"中国文化",q:"中国历史上第一个统一的封建王朝是？",options:["夏朝","商朝","周朝","秦朝"],answer:3,explanation:"秦始皇于公元前221年统一六国，建立秦朝，是中国历史上第一个统一的封建王朝。"},
+  {id:10,subject:"中国文化",q:""茶"这个汉字的结构属于？",options:["象形","指事","会意","形声"],answer:3,explanation:"茶字从艸余声，属于形声字。"},
+  {id:11,subject:"中国文化",q:"京剧中的"旦"角色代表？",options:["男性","女性","花脸","丑角"],answer:1,explanation:"京剧角色分生旦净丑，旦指女性角色。"},
+  {id:12,subject:"中国文化",q:"黄河发源于哪座山脉？",options:["天山","昆仑山","巴颜喀拉山","喜马拉雅山"],answer:2,explanation:"黄河发源于青海省巴颜喀拉山脉，流经9个省区，是中华民族的母亲河。"},
+  {id:13,subject:"中国文化",q:""丝绸之路"的开辟者是？",options:["郑和","张骞","班超","玄奘"],answer:1,explanation:"张骞出使西域，开辟了连接中国与中亚、欧洲的丝绸之路。"},
+  {id:14,subject:"中国文化",q:"以下哪个不是中国传统节日？",options:["春节","中秋节","圣诞节","重阳节"],answer:2,explanation:"圣诞节是西方节日，非中国传统节日。"},
+  {id:15,subject:"中国文化",q:"故宫位于中国的哪个城市？",options:["上海","南京","西安","北京"],answer:3,explanation:"故宫位于北京中轴线的中心，是明清两代的皇家宫殿。"},
+  {id:16,subject:"中国文化",q:"中国画主要使用的颜料源自？",options:["化学合成","植物和矿物","动物提取","人工染料"],answer:1,explanation:"中国画传统颜料主要来自天然植物（如花青、藤黄）和矿物（如石青、朱砂）。"},
+  {id:17,subject:"中国文化",q:""太极"的概念最早出自哪部经典？",options:["《论语》","《道德经》","《易经》","《庄子》"],answer:2,explanation:"太极一词最早见于《周易·系辞上》，是儒家和道家共同的重要哲学概念。"},
+
+  // === 现代汉语 (17题) ===
+  {id:101,subject:"现代汉语",q:"现代汉语普通话以哪个方言为基础？",options:["北京语音","上海语音","广州语音","成都语音"],answer:0,explanation:"普通话以北京语音为标准音，以北方话为基础方言。"},
+  {id:102,subject:"现代汉语",q:"下列哪个是单纯词？",options:["人民","玻璃","国家","学习"],answer:1,explanation:"玻璃是联绵词，两个音节合起来才能表达意义，是单纯词。其他均为合成词。"},
+  {id:103,subject:"现代汉语",q:""吃食堂"中的"吃"属于什么用法？",options:["及物动词","不及物动词","使动用法","意动用法"],answer:0,explanation:"吃在现代汉语中是及物动词，"吃食堂"是动宾短语。"},
+  {id:104,subject:"现代汉语",q:"下列词语中声母都是舌尖音的是？",options:["打赌","知道","支持","思考"],answer:0,explanation:"打赌的声母d和d都是舌尖中音（舌尖音）。"},
+  {id:105,subject:"现代汉语",q:""美丽"和"漂亮"属于什么关系？",options:["同义词","反义词","同音词","多义词"],answer:0,explanation:"美丽和漂亮意思相近，属于同义词（近义词）。"},
+  {id:106,subject:"现代汉语",q:""把"字句的基本结构是？",options:["S+V+O","S+把+O+V","S+V+把+O","把+S+V+O"],answer:1,explanation:"把字句的基本结构是：主语+把+宾语+动词+其他成分。"},
+  {id:107,subject:"现代汉语",q:"汉语拼音中，ü上两点在什么情况下省略？",options:["与jqx相拼","与gkh相拼","与zcs相拼","单独成音节"],answer:0,explanation:"ü与j、q、x相拼时，ü上两点省略，写成u。"},
+  {id:108,subject:"现代汉语",q:"下列哪项是兼语句？",options:["我喜欢读书","他请我吃饭","这是书","他在看书"],answer:1,explanation:""他请我吃饭"中"我"既是"请"的宾语又是"吃饭"的主语，是兼语句。"},
+  {id:109,subject:"现代汉语",q:"汉字"休"属于哪种造字法？",options:["象形","指事","会意","形声"],answer:2,explanation:"休由人字旁和木组成，人靠在树旁休息，是会意字。"},
+  {id:110,subject:"现代汉语",q:"现代汉语中，哪类词不能单独充当句子成分？",options:["名词","动词","形容词","介词"],answer:3,explanation:"介词不能单独充当句子成分，必须与名词或代词组成介词短语后才能充当。"},
+  {id:111,subject:"现代汉语",q:""东张西望"中的"张"和"望"是什么关系？",options:["同义","反义","并列","动宾"],answer:0,explanation:"张（看）和望（看）在这里是同义关系，整个词是并列结构。"},
+  {id:112,subject:"现代汉语",q:"汉语的声调共有几个？",options:["3个","4个","5个","6个"],answer:1,explanation:"普通话有四个声调：阴平（一声）、阳平（二声）、上声（三声）、去声（四声）。"},
+  {id:113,subject:"现代汉语",q:"下列哪个是派生词？",options:["人民","老虎","国家","学习"],answer:1,explanation:"老虎是由词根"虎"加前缀"老"构成的派生词。"},
+  {id:114,subject:"现代汉语",q:""他跑得快"中"得"的作用是？",options:["表示可能","连接补语","表示程度","表示被动"],answer:1,explanation:"'得'在这里连接谓语"跑"和补语"快"，是结构助词。"},
+  {id:115,subject:"现代汉语",q:"方言分区中，吴方言的代表是？",options:["苏州话","上海话","杭州话","宁波话"],answer:1,explanation:"吴方言以上海话为代表，分布在江苏南部、上海、浙江北部等地。"},
+  {id:116,subject:"现代汉语",q:""这件事被他知道了"是被动句，其标记词是？",options:["把","被","让","给"],answer:1,explanation:"被字句是现代汉语中典型的被动句，标记词是"被"。"},
+  {id:117,subject:"现代汉语",q:""雪白"这个词语的结构是？",options:["主谓式","偏正式","动宾式","补充式"],answer:1,explanation:"雪白是偏正式合成词，前一词根"雪"修饰后一词根"白"，表示像雪一样白。"},
+
+  // === 对外汉语教学理论 (17题) ===
+  {id:201,subject:"对外汉语教学理论",q:"对外汉语教学的根本目标是培养学生的？",options:["语法知识","交际能力","读写能力","文化知识"],answer:1,explanation:"对外汉语教学的根本目标是培养学生的汉语交际能力，而不仅仅是语言知识。"},
+  {id:202,subject:"对外汉语教学理论",q:""先听说，后读写"体现了哪种教学法原则？",options:["语法翻译法","听说法","直接法","交际法"],answer:1,explanation:"听说法强调先听说后读写，注重口语训练和句型操练。"},
+  {id:203,subject:"对外汉语教学理论",q:"汉语水平考试（HSK）的满分是？",options:["200分","250分","300分","400分"],answer:2,explanation:"HSK（新）总分为300分，180分为及格线。"},
+  {id:204,subject:"对外汉语教学理论",q:"以下哪种不属于第二语言习得理论？",options:["监控理论","输入假说","普遍语法","转换生成语法"],answer:3,explanation:"转换生成语法是乔姆斯基的语言学理论，并非专门的第二语言习得理论。"},
+  {id:205,subject:"对外汉语教学理论",q:"对外汉语教学中，"i+1"输入原则的提出者是？",options:["克拉申","塞林克","拉多","科德"],answer:0,explanation:"克拉申（Krashen）提出了监控理论，其中包括"i+1"可理解输入假说。"},
+  {id:206,subject:"对外汉语教学理论",q:"中介语理论的提出者是？",options:["克拉申","塞林克","拉多","科德"],answer:1,explanation:"塞林克（Selinker）于1972年提出中介语理论，指第二语言学习者形成的独立语言系统。"},
+  {id:207,subject:"对外汉语教学理论",q:"交际法的核心是？",options:["语法教学","功能意念","句型操练","翻译练习"],answer:1,explanation:"交际法以功能意念为纲，强调在真实的交际情境中使用语言。"},
+  {id:208,subject:"对外汉语教学理论",q:"汉字教学中，哪种方法更符合认知规律？",options:["死记硬背","部件教学","整字教学","拼音先行"],answer:1,explanation:"部件教学法按照汉字的构字规律，从部件入手，有助于学生理解和记忆汉字。"},
+  {id:209,subject:"对外汉语教学理论",q:"对外汉语教学中的"语言对比分析"主要目的是？",options:["找出语言差异","提高翻译能力","预测学习难点","研究语言发展"],answer:2,explanation:"对比分析的主要目的是通过对比母语和目的语的异同，预测学习者可能遇到的难点。"},
+  {id:210,subject:"对外汉语教学理论",q:"任务型教学法中的"任务"强调的是？",options:["语言形式","交际意义","语法规则","词汇记忆"],answer:1,explanation:"任务型教学法强调通过完成有交际意义的任务来学习语言，注重意义而非形式。"},
+  {id:211,subject:"对外汉语教学理论",q:"对外汉语教材编写的首要原则是？",options:["趣味性","科学性","实用性","针对性"],answer:3,explanation:"针对性是对外汉语教材编写的首要原则，要根据学习者的年龄、水平、母语等特点编写。"},
+  {id:212,subject:"对外汉语教学理论",q:""默教法"主张教师在课堂中？",options:["多说话","尽量少说话","只说语法","只做翻译"],answer:1,explanation:"默教法主张教师尽量少说话，通过动作、图表等方式引导学生自主学习。"},
+  {id:213,subject:"对外汉语教学理论",q:"文化教学在对外汉语中的定位是？",options:["核心内容","辅助内容","独立课程","不需教学"],answer:1,explanation:"文化教学是对外汉语教学的辅助内容和重要组成部分，服务于语言教学。"},
+  {id:214,subject:"对外汉语教学理论",q:"普通话水平测试（PSC）的等级共分为？",options:["三级","四级","五级","六级"],answer:0,explanation:"普通话水平测试分为三级六等：一级甲等、一级乙等、二级甲等、二级乙等、三级甲等、三级乙等。"},
+  {id:215,subject:"对外汉语教学理论",q:"以下哪种是课堂互动的主要形式？",options:["教师独白","师生互动","学生自习","看视频"],answer:1,explanation:"师生互动是课堂互动的主要形式，包括教师提问、学生回答、小组讨论等。"},
+  {id:216,subject:"对外汉语教学理论",q:""偏误分析"与"错误分析"的区别在于？",options:["没有区别","偏误是系统的","错误是系统的","偏误是口头的"],answer:1,explanation:"偏误（error）是系统性的、规律性的，反映学习者的语言能力；错误（mistake）是偶然的、非系统性的。"},
+  {id:217,subject:"对外汉语教学理论",q:"对外汉语课堂中"沉默期"的概念来自？",options:["行为主义","认知主义","先天论","社会文化理论"],answer:2,explanation:""沉默期"是先天论（自然顺序假说）中的概念，指学习者在开始说话前有一段倾听和理解的时期。"},
+];
+
+// ==================== APP STATE ====================
+const LETTERS = ['A','B','C','D'];
+const STORAGE_KEY = 'quiz_app_progress';
+const SETTINGS_KEY = 'quiz_app_settings';
+
+let state = {
+  user: '',
+  subjects: [...new Set(ALL_QUESTIONS.map(q=>q.subject))],
+  progress: {}, // { subject: { currentIndex, answers: [selectedIndex], correctCount } }
+  wrongBook: [], // [{ question, selectedAnswer }]
+  currentSubject: '',
+  mode: 'order', // order | random | wrong
+  sessionQuestions: [],
+  sessionIndex: 0,
+  sessionAnswers: [],
+  sessionDone: false
+};
+
+// ==================== HELPERS ====================
+function saveProgress() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    progress: state.progress,
+    wrongBook: state.wrongBook
+  }));
+}
+
+function loadProgress() {
+  try {
+    const d = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (d) {
+      state.progress = d.progress || {};
+      state.wrongBook = d.wrongBook || [];
+    }
+  } catch(e) {}
+}
+
+function saveSettings() {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify({ user: state.user }));
+}
+
+function loadSettings() {
+  try {
+    const d = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+    if (d && d.user) state.user = d.user;
+  } catch(e) {}
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function getSubjectCount(subject) {
+  return ALL_QUESTIONS.filter(q=>q.subject===subject).length;
+}
+
+function getSubjectProgress(subject) {
+  const p = state.progress[subject];
+  if (!p) return { done: 0, total: getSubjectCount(subject), correct: 0 };
+  return { done: p.currentIndex, total: getSubjectCount(subject), correct: p.correctCount || 0 };
+}
+
+function getTotalStats() {
+  let total = 0, done = 0, correct = 0;
+  state.subjects.forEach(s => {
+    const p = getSubjectProgress(s);
+    total += p.total;
+    done += p.done;
+    correct += p.correct;
+  });
+  return { total, done, correct };
+}
+
+// ==================== RENDER ====================
+function render(page) {
+  const app = document.getElementById('app');
+  const nav = document.getElementById('bottomNav');
+  
+  // Update nav
+  nav.querySelectorAll('.nav-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.page === page);
+  });
+  
+  if (state.user) { nav.style.display = 'flex'; } else { nav.style.display = 'none'; }
+
+  switch(page) {
+    case 'login': renderLogin(app); break;
+    case 'home': renderHome(app); break;
+    case 'quiz-mode': renderQuizMode(app); break;
+    case 'quiz': renderQuiz(app); break;
+    case 'wrong': renderWrong(app); break;
+    case 'stats': renderStats(app); break;
+    case 'data': renderDataModal(); break;
+  }
+}
+
+function navigate(page) {
+  render(page);
+}
+
+// ==================== LOGIN ====================
+function renderLogin(app) {
+  app.innerHTML = `
+    <div class="login-page fade-in">
+      <div class="logo">📚</div>
+      <h1>刷题系统</h1>
+      <p>中国文化 · 现代汉语 · 对外汉语教学</p>
+      <input type="text" id="loginName" placeholder="请输入您的姓名" value="${state.user}" maxlength="20">
+      <button class="btn btn-primary btn-block" id="loginBtn" style="max-width:300px">进入系统</button>
+    </div>
+  `;
+  document.getElementById('loginBtn').onclick = doLogin;
+  document.getElementById('loginName').onkeydown = (e) => { if(e.key==='Enter') doLogin(); };
+}
+
+function doLogin() {
+  const name = document.getElementById('loginName').value.trim();
+  if (!name) { showToast('请输入姓名'); return; }
+  state.user = name;
+  saveSettings();
+  navigate('home');
+}
+
+// ==================== HOME ====================
+function renderHome(app) {
+  const stats = getTotalStats();
+  const pct = stats.done > 0 ? Math.round(stats.correct/stats.done*100) : 0;
+  
+  let subjectsHtml = '';
+  const emojis = ['🏛️','📖','🌍'];
+  state.subjects.forEach((s,i) => {
+    const sp = getSubjectProgress(s);
+    const pct2 = sp.done > 0 ? Math.round(sp.correct/sp.done*100) : 0;
+    subjectsHtml += `<div class="subject-card fade-in" onclick="startSubject('${s}')" style="animation-delay:${i*0.1}s">
+      <div class="emoji">${emojis[i%3]}</div>
+      <div class="name">${s}</div>
+      <div class="count">${sp.done}/${sp.total} 题 · 正确率 ${pct2}%</div>
+      <div class="progress-bar"><div class="fill" style="width:${sp.total>0?(sp.done/sp.total*100):0}%"></div></div>
+    </div>`;
+  });
+
+  // Find incomplete subject for "continue"
+  let continueHtml = '';
+  for (const s of state.subjects) {
+    const sp = state.progress[s];
+    if (sp && sp.currentIndex > 0 && sp.currentIndex < getSubjectCount(s)) {
+      continueHtml = `<div class="card" style="cursor:pointer;text-align:center" onclick="startSubject('${s}')">
+        <div style="font-size:20px;margin-bottom:8px">▶️ 继续上次刷题</div>
+        <div style="color:var(--text-light);font-size:14px">${s} · 做到第 ${sp.currentIndex}/${getSubjectCount(s)} 题</div>
+        <div class="progress-bar"><div class="fill" style="width:${sp.currentIndex/getSubjectCount(s)*100}%"></div></div>
+      </div>`;
+      break;
+    }
+  }
+
+  app.innerHTML = `
+    <div class="fade-in">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div>
+          <h2>你好，${state.user} 👋</h2>
+          <p style="color:var(--text-light);font-size:14px">加油！今天也来刷题吧</p>
+        </div>
+        <button class="btn btn-sm btn-outline" onclick="navigate('stats')">📊 统计</button>
+      </div>
+      ${continueHtml}
+      <div style="margin-bottom:12px;font-weight:600;font-size:16px">科目选择</div>
+      <div class="subject-grid">${subjectsHtml}</div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:14px;color:var(--text-light);margin-bottom:8px">总进度</div>
+        <div style="font-size:28px;font-weight:700;color:var(--primary)">${stats.done}/${stats.total}</div>
+        <div class="progress-bar" style="margin:8px 0"><div class="fill" style="width:${stats.total>0?(stats.done/stats.total*100):0}%"></div></div>
+        <div style="font-size:13px;color:var(--text-light)">正确 ${stats.correct} 题 · 正确率 ${pct}%</div>
+      </div>
+    </div>
+  `;
+
+  // Floating data button
+  addFloatingBtn();
+}
+
+// ==================== QUIZ MODE ====================
+function renderQuizMode(app) {
+  app.innerHTML = `
+    <div class="fade-in">
+      <h2 style="margin-bottom:8px">选择刷题模式</h2>
+      <p style="color:var(--text-light);font-size:14px;margin-bottom:16px">选择科目和模式开始刷题</p>
+      <div style="font-weight:600;font-size:14px;margin-bottom:8px">选择科目</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px" id="subjectSelector">
+        ${state.subjects.map((s,i) => `<button class="btn btn-sm ${i===0?'btn-primary':'btn-outline'}" data-subject="${s}" onclick="selectSubjectMode(this)">${s}</button>`).join('')}
+      </div>
+      <div style="font-weight:600;font-size:14px;margin-bottom:8px">选择模式</div>
+      <div class="mode-grid">
+        <div class="mode-card" onclick="startQuiz('order')">
+          <div class="icon">📋</div>
+          <div class="name">顺序练习</div>
+          <div class="desc">按顺序逐题学习</div>
+        </div>
+        <div class="mode-card" onclick="startQuiz('random')">
+          <div class="icon">🔀</div>
+          <div class="name">随机练习</div>
+          <div class="desc">随机抽题挑战</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function selectSubjectMode(el) {
+  document.querySelectorAll('#subjectSelector .btn').forEach(b => {
+    b.className = 'btn btn-sm btn-outline';
+  });
+  el.className = 'btn btn-sm btn-primary';
+}
+
+function startSubject(subject) {
+  state.currentSubject = subject;
+  navigate('quiz-mode');
+  // Auto-select subject
+  setTimeout(() => {
+    const btns = document.querySelectorAll('#subjectSelector .btn');
+    btns.forEach(b => { if(b.dataset.subject===subject) b.click(); });
+  }, 50);
+}
+
+// ==================== QUIZ ====================
+function startQuiz(mode) {
+  const activeBtn = document.querySelector('#subjectSelector .btn-primary');
+  const subject = activeBtn ? activeBtn.dataset.subject : state.subjects[0];
+  state.currentSubject = subject;
+  state.mode = mode;
+
+  let questions = ALL_QUESTIONS.filter(q => q.subject === subject);
+  if (mode === 'random') questions = shuffle(questions);
+  
+  state.sessionQuestions = questions;
+  state.sessionIndex = 0;
+  state.sessionAnswers = [];
+  state.sessionDone = false;
+  
+  // Initialize progress if needed
+  if (!state.progress[subject]) {
+    state.progress[subject] = { currentIndex: 0, answers: [], correctCount: 0 };
+  }
+
+  if (mode === 'order') {
+    // Resume from where left off
+    const p = state.progress[subject];
+    if (p.currentIndex > 0 && p.currentIndex < questions.length) {
+      state.sessionIndex = p.currentIndex;
+    }
+  }
+
+  navigate('quiz');
+}
+
+function renderQuiz(app) {
+  if (state.sessionDone) {
+    renderQuizResult(app);
+    return;
+  }
+
+  const q = state.sessionQuestions[state.sessionIndex];
+  if (!q) { renderQuizResult(app); return; }
+  
+  const total = state.sessionQuestions.length;
+  const current = state.sessionIndex + 1;
+  const selected = state.sessionAnswers[state.sessionIndex];
+  const answered = selected !== undefined;
+
+  app.innerHTML = `
+    <div class="fade-in">
+      <div class="quiz-header">
+        <button class="back-btn" onclick="navigate('quiz-mode')">←</button>
+        <div class="info">
+          <div class="subject">${state.currentSubject}</div>
+          <div class="progress-text">第 ${current}/${total} 题</div>
+        </div>
+        <div style="font-size:14px;color:var(--text-light)">${state.mode==='random'?'🔀':'📋'}</div>
+      </div>
+      <div class="progress-bar"><div class="fill" style="width:${(current/total*100)}%"></div></div>
+      <div class="card question-card">
+        <div class="q-number">第 ${current} 题</div>
+        <div class="q-text">${q.q}</div>
+        <div class="options" id="options">
+          ${q.options.map((opt, i) => {
+            let cls = 'option';
+            if (answered) {
+              if (i === q.answer) cls += ' correct disabled';
+              else if (i === selected && i !== q.answer) cls += ' wrong disabled';
+              else cls += ' disabled';
+            }
+            return `<div class="${cls}" data-index="${i}" onclick="selectOption(${i})">
+              <span class="letter">${LETTERS[i]}</span>
+              <span>${opt}</span>
+            </div>`;
+          }).join('')}
+        </div>
+        <div class="explanation ${answered?'show':''}" id="explanation">
+          <strong>解析：</strong>${q.explanation}
+        </div>
+        <div class="quiz-actions">
+          <button class="btn btn-outline" id="prevBtn" onclick="prevQuestion()" ${state.sessionIndex===0?'disabled':''}>上一题</button>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">${state.sessionIndex===total-1?'完成':'下一题'}</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function selectOption(index) {
+  const q = state.sessionQuestions[state.sessionIndex];
+  if (state.sessionAnswers[state.sessionIndex] !== undefined) return; // Already answered
+  
+  state.sessionAnswers[state.sessionIndex] = index;
+  
+  // Update progress
+  const p = state.progress[state.currentSubject];
+  if (state.mode === 'order') {
+    if (state.sessionIndex >= p.currentIndex) {
+      p.currentIndex = state.sessionIndex + 1;
+    }
+  }
+  
+  // Track correct
+  if (index === q.answer) {
+    p.correctCount = (p.correctCount || 0) + 1;
+  } else {
+    // Add to wrong book
+    const exists = state.wrongBook.findIndex(w => w.question.id === q.id);
+    if (exists >= 0) {
+      state.wrongBook[exists].selectedAnswer = index;
+      state.wrongBook[exists].date = Date.now();
+    } else {
+      state.wrongBook.push({ question: q, selectedAnswer: index, date: Date.now() });
+    }
+  }
+  
+  saveProgress();
+  renderQuiz(document.getElementById('app'));
+}
+
+function prevQuestion() {
+  if (state.sessionIndex > 0) {
+    state.sessionIndex--;
+    renderQuiz(document.getElementById('app'));
+  }
+}
+
+function nextQuestion() {
+  const total = state.sessionQuestions.length;
+  if (state.sessionAnswers[state.sessionIndex] === undefined) {
+    showToast('请先选择答案');
+    return;
+  }
+  if (state.sessionIndex >= total - 1) {
+    state.sessionDone = true;
+    // Save progress
+    if (state.mode === 'order') {
+      const p = state.progress[state.currentSubject];
+      if (p.currentIndex > getSubjectCount(state.currentSubject)) {
+        p.currentIndex = getSubjectCount(state.currentSubject);
+      }
+    }
+    saveProgress();
+    renderQuiz(document.getElementById('app'));
+  } else {
+    state.sessionIndex++;
+    renderQuiz(document.getElementById('app'));
+  }
+}
+
+function renderQuizResult(app) {
+  const total = state.sessionQuestions.length;
+  const answered = state.sessionAnswers.filter(a => a !== undefined).length;
+  let correct = 0;
+  state.sessionQuestions.forEach((q, i) => {
+    if (state.sessionAnswers[i] === q.answer) correct++;
+  });
+  const pct = answered > 0 ? Math.round(correct/answered*100) : 0;
+
+  app.innerHTML = `
+    <div class="result-page fade-in">
+      <div style="font-size:48px;margin-bottom:16px">${pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪'}</div>
+      <div style="font-size:18px;font-weight:600;margin-bottom:8px">${state.currentSubject} · 练习完成！</div>
+      <div class="big-score">${pct}%</div>
+      <div class="detail">共 ${answered} 题 · 正确 ${correct} 题</div>
+      <div class="stat-row">
+        <div class="stat-item"><span class="num" style="color:var(--success)">${correct}</span><span class="label">正确</span></div>
+        <div class="stat-item"><span class="num" style="color:var(--danger)">${answered-correct}</span><span class="label">错误</span></div>
+        <div class="stat-item"><span class="num" style="color:var(--text-light)">${total-answered}</span><span class="label">未答</span></div>
+      </div>
+      <div class="progress-bar"><div class="fill" style="width:${pct}%;background:${pct>=60?'var(--success)':'var(--danger)'}"></div></div>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px">
+        <button class="btn btn-primary btn-block" onclick="startQuiz('${state.mode}')">再来一次</button>
+        <button class="btn btn-outline btn-block" onclick="navigate('quiz-mode')">返回</button>
+        ${answered-correct>0?`<button class="btn btn-outline btn-block" onclick="navigate('wrong')">查看错题</button>`:''}
+      </div>
+    </div>
+  `;
+}
+
+// ==================== WRONG BOOK ====================
+function renderWrong(app) {
+  if (state.wrongBook.length === 0) {
+    app.innerHTML = `
+      <div class="fade-in">
+        <h2 style="margin-bottom:16px">错题本</h2>
+        <div class="empty-state">
+          <div class="icon">🎉</div>
+          <div style="font-size:18px;font-weight:600;margin-bottom:8px">暂无错题</div>
+          <p style="color:var(--text-light)">继续保持，你还没有做错过题目！</p>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // Group by subject
+  const grouped = {};
+  state.wrongBook.forEach(w => {
+    const s = w.question.subject;
+    if (!grouped[s]) grouped[s] = [];
+    grouped[s].push(w);
+  });
+
+  let html = `<div class="fade-in">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h2>错题本</h2>
+      <button class="btn btn-sm btn-danger" onclick="clearWrongBook()">清空全部</button>
+    </div>
+    <p style="color:var(--text-light);font-size:14px;margin-bottom:16px">共 ${state.wrongBook.length} 道错题</p>`;
+
+  Object.keys(grouped).forEach(s => {
+    const items = grouped[s];
+    html += `<div class="wrong-subject">
+      <div class="header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="left">
+          <span>${s}</span>
+        </div>
+        <span class="count-badge">${items.length}</span>
+      </div>
+      <div class="wrong-list">`;
+    items.forEach((w, i) => {
+      const letters = ['A','B','C','D'];
+      html += `<div class="wrong-item" onclick="redoWrongQuestion(${i})">
+        <div class="w-q">${w.question.q}</div>
+        <div class="w-answer">
+          你的答案: <span class="wrong">${letters[w.selectedAnswer]}</span> · 
+          正确答案: <span class="right">${letters[w.question.answer]}</span>
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  html += `<div style="margin-top:16px"><button class="btn btn-outline btn-block" onclick="redoAllWrong()">重做全部错题</button></div></div>`;
+  app.innerHTML = html;
+}
+
+function clearWrongBook() {
+  if (confirm('确定要清空所有错题吗？')) {
+    state.wrongBook = [];
+    saveProgress();
+    navigate('wrong');
+    showToast('错题已清空');
+  }
+}
+
+function redoWrongQuestion(index) {
+  const w = state.wrongBook[index];
+  state.currentSubject = w.question.subject;
+  state.mode = 'wrong';
+  state.sessionQuestions = state.wrongBook.map(w => w.question);
+  state.sessionIndex = state.sessionQuestions.findIndex(q => q.id === w.question.id);
+  state.sessionAnswers = [];
+  state.sessionDone = false;
+  navigate('quiz');
+}
+
+function redoAllWrong() {
+  if (state.wrongBook.length === 0) { showToast('没有错题'); return; }
+  state.currentSubject = '错题重做';
+  state.mode = 'wrong';
+  state.sessionQuestions = shuffle(state.wrongBook.map(w => w.question));
+  state.sessionIndex = 0;
+  state.sessionAnswers = [];
+  state.sessionDone = false;
+  navigate('quiz');
+}
+
+// ==================== STATS ====================
+function renderStats(app) {
+  const stats = getTotalStats();
+  const pct = stats.done > 0 ? Math.round(stats.correct/stats.done*100) : 0;
+
+  let subjectHtml = '';
+  const colors = ['#4A90D9','#27AE60','#F39C12'];
+  state.subjects.forEach((s, i) => {
+    const sp = getSubjectProgress(s);
+    const pct2 = sp.done > 0 ? Math.round(sp.correct/sp.done*100) : 0;
+    subjectHtml += `<div class="subject-stat-item">
+      <div class="s-name">${s}</div>
+      <div class="s-bar"><div class="fill" style="width:${pct2}%;background:${colors[i%3]}"></div></div>
+      <div class="s-pct">${pct2}%</div>
+    </div>`;
+  });
+
+  app.innerHTML = `
+    <div class="fade-in">
+      <h2 style="margin-bottom:16px">学习统计</h2>
+      <div class="stats-summary">
+        <div class="card stat-card"><span class="num">${stats.done}</span><span class="label">已完成题数</span></div>
+        <div class="card stat-card"><span class="num" style="color:var(--success)">${pct}%</span><span class="label">总正确率</span></div>
+        <div class="card stat-card"><span class="num" style="color:var(--primary)">${stats.correct}</span><span class="label">正确题数</span></div>
+        <div class="card stat-card"><span class="num" style="color:var(--danger)">${stats.done - stats.correct}</span><span class="label">错误题数</span></div>
+      </div>
+      <div class="card">
+        <div style="font-weight:600;margin-bottom:12px">各科目正确率</div>
+        ${subjectHtml}
+      </div>
+      <div class="card">
+        <div style="font-weight:600;margin-bottom:12px">刷题日历</div>
+        <div style="text-align:center">
+          <div style="font-size:14px;color:var(--text-light);margin-bottom:8px">错题总数</div>
+          <div style="font-size:36px;font-weight:700;color:var(--danger)">${state.wrongBook.length}</div>
+          <div style="margin-top:12px">
+            <button class="btn btn-sm btn-outline" onclick="navigate('wrong')">查看错题本 →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ==================== DATA MODAL ====================
+function renderDataModal() {
+  const data = JSON.stringify({
+    progress: state.progress,
+    wrongBook: state.wrongBook,
+    user: state.user,
+    exportDate: new Date().toISOString()
+  }, null, 2);
+
+  const modal = document.createElement('div');
+  modal.className = 'data-modal';
+  modal.id = 'dataModal';
+  modal.innerHTML = `
+    <div class="modal-content fade-in">
+      <h3>📦 数据管理</h3>
+      <div style="margin-bottom:12px">
+        <button class="btn btn-sm btn-primary" onclick="exportData()">📥 导出数据</button>
+        <button class="btn btn-sm btn-outline" onclick="document.getElementById('importFile').click()" style="margin-left:8px">📤 导入数据</button>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+      </div>
+      <p style="font-size:12px;color:var(--text-light);margin-bottom:8px">数据预览（可复制保存）：</p>
+      <textarea readonly id="dataPreview">${data}</textarea>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeDataModal()">关闭</button>
+        <button class="btn btn-danger" onclick="resetAllData()">重置全部数据</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function closeDataModal() {
+  const m = document.getElementById('dataModal');
+  if (m) m.remove();
+}
+
+function exportData() {
+  const data = JSON.stringify({
+    progress: state.progress,
+    wrongBook: state.wrongBook,
+    user: state.user,
+    exportDate: new Date().toISOString()
+  }, null, 2);
+  
+  const blob = new Blob([data], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `刷题数据_${state.user}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('数据已导出');
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const d = JSON.parse(e.target.result);
+      if (d.progress && d.wrongBook !== undefined) {
+        state.progress = d.progress;
+        state.wrongBook = d.wrongBook;
+        if (d.user) state.user = d.user;
+        saveProgress();
+        closeDataModal();
+        navigate('home');
+        showToast('数据导入成功');
+      } else {
+        showToast('数据格式不正确');
+      }
+    } catch(e) {
+      showToast('文件解析失败');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function resetAllData() {
+  if (confirm('确定要重置所有数据吗？此操作不可恢复！')) {
+    if (confirm('再次确认：所有学习进度和错题将被清空！')) {
+      state.progress = {};
+      state.wrongBook = [];
+      saveProgress();
+      closeDataModal();
+      navigate('home');
+      showToast('数据已重置');
+    }
+  }
+}
+
+function addFloatingBtn() {
+  // Remove old floating button
+  const old = document.querySelector('.floating-btn');
+  if (old) old.remove();
+  
+  const btn = document.createElement('button');
+  btn.className = 'floating-btn';
+  btn.innerHTML = '⚙️';
+  btn.onclick = renderDataModal;
+  document.body.appendChild(btn);
+}
+
+// ==================== INIT ====================
+function init() {
+  loadSettings();
+  loadProgress();
+  
+  // Initialize progress entries for subjects
+  state.subjects.forEach(s => {
+    if (!state.progress[s]) {
+      state.progress[s] = { currentIndex: 0, answers: [], correctCount: 0 };
+    }
+  });
+  
+  if (state.user) {
+    navigate('home');
+  } else {
+    navigate('login');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
